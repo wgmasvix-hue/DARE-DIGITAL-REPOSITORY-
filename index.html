@@ -212,6 +212,72 @@
             transform: translateY(-3px);
             box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
         }
+
+        .orcid-section {
+            background: #f8f9fa;
+            border-left: 5px solid #a6ce39;
+            padding: 25px;
+            margin: 30px;
+            border-radius: 5px;
+        }
+
+        .orcid-section h3 {
+            color: #a6ce39;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .orcid-logo {
+            font-size: 1.2em;
+        }
+
+        .orcid-description {
+            color: #555;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .orcid-login-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #a6ce39 0%, #85b638 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .orcid-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(166, 206, 57, 0.4);
+        }
+
+        .orcid-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .orcid-benefit {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-top: 3px solid #a6ce39;
+            font-size: 0.9em;
+        }
+
+        .orcid-benefit strong {
+            color: #a6ce39;
+        }
     </style>
 </head>
 <body>
@@ -240,6 +306,33 @@
             <div class="instance-url">dspace.dare.co.zw</div>
             <p>Your digital repository is now live and ready to manage, preserve, and share your institution's valuable digital collections.</p>
             <a href="https://dspace.dare.co.zw" class="access-button" target="_blank">Access DSpace Repository</a>
+        </div>
+
+        <div class="orcid-section">
+            <h3><span class="orcid-logo">🔐</span> ORCID Authentication</h3>
+            <p class="orcid-description">
+                Connect your ORCID account to DARE. ORCID (Open Researcher and Contributor ID) is a free service that provides you with a unique identifier to distinguish yourself from other researchers and researchers from similar names.
+            </p>
+            <a href="https://dspace.dare.co.zw/oauth/authorize?client=orcid" class="orcid-login-btn">Login with ORCID</a>
+
+            <div class="orcid-benefits">
+                <div class="orcid-benefit">
+                    <strong>✓ Unique Identity</strong>
+                    <p>Get a persistent digital identifier for your research</p>
+                </div>
+                <div class="orcid-benefit">
+                    <strong>✓ Global Recognition</strong>
+                    <p>Connect with researchers worldwide through ORCID network</p>
+                </div>
+                <div class="orcid-benefit">
+                    <strong>✓ Automatic Linking</strong>
+                    <p>Automatically link your publications and contributions</p>
+                </div>
+                <div class="orcid-benefit">
+                    <strong>✓ Profile Integration</strong>
+                    <p>Integrate your ORCID profile with your research outputs</p>
+                </div>
+            </div>
         </div>
 
         <div class="marketing-section">
