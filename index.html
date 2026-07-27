@@ -162,6 +162,56 @@
             font-size: 2em;
             margin-bottom: 15px;
         }
+
+        .dspace-instance-section {
+            background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
+            color: white;
+            padding: 30px;
+            margin: 20px 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+        }
+
+        .dspace-instance-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .dspace-instance-section p {
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .instance-url {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+
+        .access-button {
+            display: inline-block;
+            background: white;
+            color: #138d75;
+            padding: 12px 35px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .access-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -182,6 +232,14 @@
             <p style="font-size: 0.95em; color: #666;">
                 Leveraging innovation to make your repository smarter, faster, and more discoverable.
             </p>
+        </div>
+
+        <div class="dspace-instance-section">
+            <h2>🌍 DSpace Instance Available</h2>
+            <p>Access the DARE DSpace Repository Instance</p>
+            <div class="instance-url">dspace.dare.co.zw</div>
+            <p>Your digital repository is now live and ready to manage, preserve, and share your institution's valuable digital collections.</p>
+            <a href="https://dspace.dare.co.zw" class="access-button" target="_blank">Access DSpace Repository</a>
         </div>
 
         <div class="marketing-section">
@@ -219,6 +277,7 @@
 
         <div class="cta-section">
             <h3 style="color: #333; margin-bottom: 20px;">Get Started Today</h3>
+            <a href="https://dspace.dare.co.zw" class="cta-button" target="_blank">Access DSpace Repository</a>
             <a href="https://deploy.chengetai.com" class="cta-button">Deploy with ChengetAi</a>
             <a href="https://github.com/wgmasvix-hue/dare-digital-repository-" class="cta-button" style="background: #555;">View on GitHub</a>
         </div>
