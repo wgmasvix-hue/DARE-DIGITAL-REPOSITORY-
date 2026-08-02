@@ -101,8 +101,94 @@ detect_frontend() {
   echo ""
 }
 
+# The frontend is usually a container rather than a source checkout.
+# Prefer the production container over test/staging copies running the same image.
+detect_frontend_container() {
+  command -v docker >/dev/null 2>&1 || return 0
+  local names
+  names="$(docker ps --format '{{.Names}}\t{{.Image}}' 2>/dev/null \
+    | grep -iE 'angular|frontend|dspace-ui' | cut -f1)"
+  [[ -n "$names" ]] || return 0
+  # Anything named test/staging/dev is a copy, not the live site.
+  local prod
+  prod="$(printf '%s\n' "$names" | grep -ivE '(^|[-_])(test|staging|stage|dev|demo)([-_]|$)' | head -1)"
+  printf '%s' "${prod:-$(printf '%s\n' "$names" | head -1)}"
+}
+
+# Record how the stack is actually running. When containers were started with
+# `docker run` rather than compose, this is the only place the deployment
+# configuration exists — losing it means rebuilding from memory.
+#
+# Environment variable NAMES are recorded; values never are, because they hold
+# database and mail credentials.
+record_stack_manifest() {
+  command -v docker >/dev/null 2>&1 || return 0
+  local out="$1" c
+  {
+    echo "# Running stack"
+    echo
+    echo "Captured $(date -Is) from the live server."
+    echo
+    echo "Environment variable **names** are listed so the deployment can be"
+    echo "reconstructed. Values are deliberately omitted — they are credentials."
+    echo "Supply them from a gitignored \`.env\` (see SECRETS.md)."
+    echo
+    while IFS= read -r c; do
+      [[ -n "$c" ]] || continue
+      echo "## \`${c}\`"
+      echo
+      echo "| | |"
+      echo "|---|---|"
+      echo "| Image | \`$(docker inspect "$c" --format '{{.Config.Image}}' 2>/dev/null)\` |"
+      echo "| Restart policy | \`$(docker inspect "$c" --format '{{.HostConfig.RestartPolicy.Name}}' 2>/dev/null)\` |"
+      local ports
+      ports="$(docker inspect "$c" --format '{{json .HostConfig.PortBindings}}' 2>/dev/null)"
+      echo "| Port bindings | \`${ports:-none}\` |"
+      echo
+      local envnames
+      envnames="$(docker inspect "$c" --format '{{range .Config.Env}}{{println .}}{{end}}' 2>/dev/null \
+                  | cut -d= -f1 | sed '/^$/d' | sort -u)"
+      if [[ -n "$envnames" ]]; then
+        echo "Environment variables set (names only):"
+        echo
+        echo '```'
+        printf '%s\n' "$envnames"
+        echo '```'
+        echo
+      fi
+    done < <(docker ps -a --format '{{.Names}}' 2>/dev/null)
+  } >"$out"
+}
+
+# Compose records the file it was launched from, as a label on every container
+# it created. That is far more reliable than guessing at paths.
+discover_compose_files() {
+  command -v docker >/dev/null 2>&1 || return 0
+  local c
+  while IFS= read -r c; do
+    [[ -n "$c" ]] || continue
+    docker inspect "$c" \
+      --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}' \
+      2>/dev/null
+  done < <(docker ps -a --format '{{.Names}}' 2>/dev/null) \
+    | tr ',' '\n' | sed '/^$/d;/^<no value>$/d' | sort -u
+}
+
+# Host paths bind-mounted into the stack — themes and config often live here.
+discover_bind_mounts() {
+  command -v docker >/dev/null 2>&1 || return 0
+  local c
+  while IFS= read -r c; do
+    [[ -n "$c" ]] || continue
+    docker inspect "$c" --format \
+      '{{range .Mounts}}{{if eq .Type "bind"}}{{.Source}}	{{.Destination}}
+{{end}}{{end}}' 2>/dev/null
+  done < <(docker ps -a --format '{{.Names}}' 2>/dev/null) | sed '/^$/d' | sort -u
+}
+
 BACKEND="$(detect_backend)"
 FRONTEND="$(detect_frontend)"
+FRONTEND_CONTAINER="$(detect_frontend_container || true)"
 
 [[ -n "$BACKEND" ]] || fail "Could not find a DSpace install.
 Pass it explicitly:  $0 --dspace-home /path/to/dspace
@@ -293,7 +379,11 @@ log "${C_BOLD}DARE — DSpace deployment collection${C_RESET}"
 log "${C_DIM}$(date -Is)${C_RESET}"
 log ""
 log "  backend   : ${BACKEND_LABEL}"
-log "  frontend  : ${FRONTEND:-${C_YELLOW}not found${C_RESET}}"
+if   [[ -n "$FRONTEND" ]];           then FRONTEND_LABEL="$FRONTEND"
+elif [[ -n "$FRONTEND_CONTAINER" ]]; then FRONTEND_LABEL="docker container ${FRONTEND_CONTAINER}"
+else                                      FRONTEND_LABEL="${C_YELLOW}not found${C_RESET}"
+fi
+log "  frontend  : ${FRONTEND_LABEL}"
 log "  output    : ${OUT_DIR}"
 log "  mode      : $([[ $DRY_RUN -eq 1 ]] && echo 'DRY RUN — nothing will be written' || echo 'collect')"
 
@@ -307,19 +397,79 @@ if [[ -n "$FRONTEND" ]]; then
   copy_path "$FRONTEND/src/environments" "$OUT_DIR/frontend/src/environments" "src/environments/"
   copy_path "$FRONTEND/angular.json"     "$OUT_DIR/frontend/angular.json" "angular.json"
   copy_path "$FRONTEND/package.json"     "$OUT_DIR/frontend/package.json" "package.json"
+elif [[ -n "$FRONTEND_CONTAINER" ]]; then
+  info "frontend runs as container '${FRONTEND_CONTAINER}' (no source checkout)"
+  if [[ $DRY_RUN -eq 1 ]]; then
+    ok "would extract /app/config from ${FRONTEND_CONTAINER}"
+    COLLECTED=$((COLLECTED+1))
+  else
+    FE_STAGE="$(mktemp -d)"
+    if docker cp "${FRONTEND_CONTAINER}:/app/config" "$FE_STAGE/config" 2>/dev/null; then
+      copy_path "$FE_STAGE/config" "$OUT_DIR/frontend/config" "frontend config/ (from container)"
+    else
+      warn "could not read /app/config from ${FRONTEND_CONTAINER}"
+    fi
+    # A themed build keeps its source only if the image was built locally.
+    if docker cp "${FRONTEND_CONTAINER}:/app/src/themes" "$FE_STAGE/themes" 2>/dev/null; then
+      copy_path "$FE_STAGE/themes" "$OUT_DIR/frontend/src/themes" "src/themes/ (from container)"
+    else
+      info "${C_DIM}no theme source in image — normal for a stock image${C_RESET}"
+    fi
+    rm -rf "$FE_STAGE"
+  fi
 else
-  warn "No dspace-angular checkout found — pass --frontend /path/to/dspace-angular"
-  warn "Your custom theme is the main thing that lives there. Worth locating."
+  warn "No frontend found — pass --frontend /path/to/dspace-angular if you have a checkout"
 fi
 
 head1 "Container and web-server configuration"
-for f in docker-compose.yml docker-compose.yaml docker-compose-rest.yml \
-         docker-compose-cli.yml Dockerfile Dockerfile.dependencies; do
-  for base in "$BACKEND" "${FRONTEND:-/nonexistent}" "$PWD" "$HOME"; do
-    [[ -f "$base/$f" ]] && copy_path "$base/$f" "$OUT_DIR/docker/$f" "$f (from $base)" && break
+
+# Ask Docker where the stack was defined, rather than guessing at paths.
+COMPOSE_FOUND=0
+while IFS= read -r cf; do
+  [[ -f "$cf" ]] || continue
+  COMPOSE_FOUND=1
+  copy_path "$cf" "$OUT_DIR/docker/$(basename "$cf")" "$(basename "$cf") ${C_DIM}[$cf]${C_RESET}"
+  # Dockerfiles and .env templates sit beside the compose file.
+  cdir="$(dirname "$cf")"
+  for extra in Dockerfile Dockerfile.dependencies .env.example docker-compose.override.yml; do
+    [[ -f "$cdir/$extra" ]] && copy_path "$cdir/$extra" "$OUT_DIR/docker/$extra" "$extra ${C_DIM}[$cdir]${C_RESET}"
   done
-done
-copy_path "$BACKEND/docker" "$OUT_DIR/docker/backend-docker" "backend docker/"
+done < <(discover_compose_files)
+
+if [[ $COMPOSE_FOUND -eq 0 ]]; then
+  for f in docker-compose.yml docker-compose.yaml docker-compose-rest.yml Dockerfile; do
+    for base in "$BACKEND" "${FRONTEND:-/nonexistent}" "$PWD" "$HOME" /opt /srv; do
+      [[ -f "$base/$f" ]] && copy_path "$base/$f" "$OUT_DIR/docker/$f" "$f (from $base)" && break
+    done
+  done
+fi
+
+# Bind mounts are reported, not copied — they may point at repository content.
+if [[ $DRY_RUN -eq 0 ]]; then
+  mounts="$(discover_bind_mounts)"
+  if [[ -n "$mounts" ]]; then
+    mkdir -p "$OUT_DIR/docker"
+    { echo "# Host paths bind-mounted into the stack"; echo
+      echo "Reported for reference. Anything here holding repository content"
+      echo "(assetstore, database volumes) belongs in backups, not this repo."
+      echo; echo '| Host path | Container path |'; echo '|---|---|'
+      printf '%s\n' "$mounts" | while IFS=$'\t' read -r src dst; do
+        [[ -n "$src" ]] && echo "| \`$src\` | \`$dst\` |"
+      done
+    } >"$OUT_DIR/docker/BIND-MOUNTS.md"
+    ok "recorded bind mounts → deploy/docker/BIND-MOUNTS.md"
+  fi
+
+  if command -v docker >/dev/null 2>&1; then
+    mkdir -p "$OUT_DIR/docker"
+    record_stack_manifest "$OUT_DIR/docker/RUNNING-STACK.md"
+    ok "recorded running stack → deploy/docker/RUNNING-STACK.md"
+    if [[ $COMPOSE_FOUND -eq 0 ]]; then
+      warn "no compose file found — containers were likely started with 'docker run'"
+      warn "RUNNING-STACK.md is then your only record of how they were configured"
+    fi
+  fi
+fi
 
 # nginx / apache vhosts that reference the DSpace hostname
 for vhost_dir in /etc/nginx/sites-available /etc/nginx/conf.d /etc/apache2/sites-available; do
