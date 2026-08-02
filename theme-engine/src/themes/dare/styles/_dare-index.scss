@@ -1,0 +1,25 @@
+// ---------------------------------------------------------------------------
+// DARE theme — additive layer entry point
+//
+// Every file here is NEW and prefixed _dare-*. None shares a name with a file
+// DSpace or your existing theme already owns, so importing this cannot clobber
+// work that is already on the server.
+//
+// To adopt, add ONE line at the end of your existing styles/theme.scss:
+//
+//     @import 'dare-index';
+//
+// Last, so the accessibility rules win on equal specificity.
+//
+// The one layer that cannot be additive is the Bootstrap variable file:
+// _dare-bootstrap-overrides.scss must be merged BY HAND into your existing
+// _theme_sass_variable_overrides.scss, because Bootstrap reads those variables
+// at compile time, before this import is reached. See MERGING.md.
+// ---------------------------------------------------------------------------
+
+@import 'dare-tokens';          // :root custom properties — additive, safe
+
+@import 'dare-library';         // home, search, results, facets, item page
+@import 'dare-orcid';           // sign-in, iD badge, profile, provenance
+
+@import 'dare-accessibility';   // last: focus, contrast, motion, target size
