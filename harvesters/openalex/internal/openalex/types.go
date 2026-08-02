@@ -1,13 +1,14 @@
-package main
+package openalex
 
 import "time"
 
-// OpenAlex API Response Types
+// WorksResponse represents the OpenAlex API response
 type WorksResponse struct {
 	Results []Work `json:"results"`
 	Meta    Meta   `json:"meta"`
 }
 
+// Work represents a scholarly work from OpenAlex
 type Work struct {
 	ID                    string                 `json:"id"`
 	DOI                   string                 `json:"doi"`
@@ -29,19 +30,22 @@ type Work struct {
 	Counts                map[string]interface{} `json:"counts"`
 }
 
+// Authorship represents an author of a work
 type Authorship struct {
-	Author        Author  `json:"author"`
-	Institutions  []Inst  `json:"institutions"`
-	Position      int     `json:"author_position"`
+	Author                Author   `json:"author"`
+	Institutions          []Inst   `json:"institutions"`
+	Position              int      `json:"author_position"`
 	RawAffiliationStrings []string `json:"raw_affiliation_strings"`
 }
 
+// Author represents a researcher
 type Author struct {
-	ID   string `json:"id"`
-	Name string `json:"display_name"`
+	ID    string `json:"id"`
+	Name  string `json:"display_name"`
 	ORCID string `json:"orcid"`
 }
 
+// Inst represents an institution
 type Inst struct {
 	ID          string `json:"id"`
 	DisplayName string `json:"display_name"`
@@ -49,37 +53,41 @@ type Inst struct {
 	Type        string `json:"type"`
 }
 
+// Concept represents a research concept
 type Concept struct {
-	ID             string  `json:"id"`
-	DisplayName    string  `json:"display_name"`
-	Level          int     `json:"level"`
-	Score          float64 `json:"score"`
-	WorksCount     int     `json:"works_count"`
-	CitedByCount   int     `json:"cited_by_count"`
+	ID           string  `json:"id"`
+	DisplayName  string  `json:"display_name"`
+	Level        int     `json:"level"`
+	Score        float64 `json:"score"`
+	WorksCount   int     `json:"works_count"`
+	CitedByCount int     `json:"cited_by_count"`
 }
 
+// Venue represents a publication venue
 type Venue struct {
-	ID          string `json:"id"`
-	DisplayName string `json:"display_name"`
+	ID          string   `json:"id"`
+	DisplayName string   `json:"display_name"`
 	ISSN        []string `json:"issn_l"`
-	PublisherID string `json:"publisher"`
+	PublisherID string   `json:"publisher"`
 }
 
+// OpenAccess represents open access status
 type OpenAccess struct {
-	IsOA         bool   `json:"is_oa"`
-	OAStatus     string `json:"oa_status"`
-	OAURL        string `json:"oa_url"`
-	License      string `json:"license"`
+	IsOA     bool   `json:"is_oa"`
+	OAStatus string `json:"oa_status"`
+	OAURL    string `json:"oa_url"`
+	License  string `json:"license"`
 }
 
+// Meta represents metadata about the API response
 type Meta struct {
-	Count   int   `json:"count"`
-	DBResponseTime int   `json:"db_response_time_ms"`
-	PageNumber int `json:"page"`
-	PerPage  int   `json:"per_page"`
+	Count          int `json:"count"`
+	DBResponseTime int `json:"db_response_time_ms"`
+	PageNumber     int `json:"page"`
+	PerPage        int `json:"per_page"`
 }
 
-// Dublin Core Metadata (for DSpace import)
+// DublinCoreRecord represents Dublin Core metadata for DSpace
 type DublinCoreRecord struct {
 	Handle        string
 	Title         string
@@ -100,47 +108,8 @@ type DublinCoreRecord struct {
 	HarvestedDate time.Time
 }
 
-// Search Topic Configuration
-type SearchTopic struct {
-	Name       string   `json:"name"`
-	Query      string   `json:"query"`
-	Filters    Filters  `json:"filters"`
-	Enabled    bool     `json:"enabled"`
-	LastSync   time.Time `json:"last_sync"`
-	RecordCount int     `json:"record_count"`
-}
-
-type Filters struct {
-	MinPublicationYear int    `json:"min_publication_year,omitempty"`
-	MaxPublicationYear int    `json:"max_publication_year,omitempty"`
-	HasDOI            bool   `json:"has_doi,omitempty"`
-	OpenAccessOnly    bool   `json:"open_access_only,omitempty"`
-	CountryCode       string `json:"country_code,omitempty"`
-}
-
-// Harvester Configuration
-type HarvesterConfig struct {
-	BaseURL              string
-	PerPage              int
-	MaxRequests          int
-	RateLimitDelay       int
-	DSpaceURL            string
-	DSpaceAPIKey         string
-	EnableIncremental    bool
-	EnableDeduplication  bool
-	EnableORCIDMatching  bool
-	EnableVectorIndexing bool
-	Topics               []SearchTopic
-}
-
-// Harvester State
-type HarvesterState struct {
-	LastHarvested map[string]time.Time `json:"last_harvested"`
-	ProcessedDOIs map[string]bool      `json:"processed_dois"`
-}
-
-// Import Statistics
-type ImportStats struct {
+// HarvestStats represents harvesting statistics
+type HarvestStats struct {
 	TotalProcessed       int
 	SuccessfullyImported int
 	Duplicates           int

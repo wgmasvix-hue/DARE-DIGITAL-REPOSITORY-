@@ -1,0 +1,37 @@
+# OpenAlex Harvester Configuration
+
+openalex:
+  email: harvester@example.com
+  base_url: https://api.openalex.org
+  per_page: 100
+  max_requests: 1000
+  rate_limit_delay: 100
+  request_timeout: 30
+  min_publication_year: 2020
+  max_publication_year: 2026
+
+dspace:
+  url: https://dspace.dare.co.zw/server
+  username: 
+  password: ""
+  api_key: ""
+  enabled: false
+
+output:
+  directory: ./output
+  format: json
+  pretty: true
+
+features:
+  enable_incremental: true
+  enable_deduplication: true
+  enable_orcid_matching: true
+  enable_vector_indexing: false
+
+topics:
+  - artificial intelligence
+  - machine learning
+  - deep learning
+  - computer vision
+  - natural language processing
+

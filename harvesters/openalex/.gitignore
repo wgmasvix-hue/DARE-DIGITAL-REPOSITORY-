@@ -29,18 +29,14 @@ vendor/
 dist/
 build/
 
-# State and logs
-state.json
+# Output and logs
+output/
 *.log
 logs/
-data/
 
-# Configuration (don't commit secrets)
-config.json
-topics.json
-!config.json.example
-!topics.json.example
-!topics.json
+# Configuration (don't commit local overrides or secrets)
+configs/config.*.yaml
+!configs/config.yaml
 
 # Environment files
 .env

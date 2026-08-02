@@ -26,12 +26,12 @@ help:
 
 build:
 	@echo "Building $(BINARY_NAME)..."
-	go build $(LDFLAGS) -o $(BINARY_NAME) .
+	go build $(LDFLAGS) -o $(BINARY_NAME) ./cmd/openalex
 	@echo "✓ Build complete: $(BINARY_NAME)"
 
 build-static:
 	@echo "Building static binary..."
-	CGO_ENABLED=0 GOOS=linux go build $(LDFLAGS) -a -installsuffix cgo -o $(BINARY_NAME)-static .
+	CGO_ENABLED=0 GOOS=linux go build $(LDFLAGS) -a -installsuffix cgo -o $(BINARY_NAME)-static ./cmd/openalex
 	@echo "✓ Static build complete: $(BINARY_NAME)-static"
 
 deps:
@@ -85,8 +85,8 @@ docker-build:
 docker-run:
 	@echo "Running harvester in Docker..."
 	docker run --rm \
-		-v $(PWD)/config:/config \
-		-v $(PWD)/data:/data \
+		-v $(PWD)/configs:/app/configs \
+		-v $(PWD)/output:/app/output \
 		dare/openalex-harvester:$(VERSION)
 
 docker-push:
@@ -99,8 +99,8 @@ install: build
 	@echo "Installing harvester..."
 	mkdir -p ~/.dare/harvester
 	cp $(BINARY_NAME) ~/.dare/harvester/
-	cp config.json ~/.dare/harvester/
-	cp topics.json ~/.dare/harvester/
+	mkdir -p ~/.dare/harvester/configs
+	cp configs/config.yaml ~/.dare/harvester/configs/
 	@echo "✓ Installed to ~/.dare/harvester/"
 
 install-systemd:
