@@ -3,7 +3,7 @@
 ##############################################################################
 # rosersg Deployment Script for Live DSpace Instance
 #
-# This script deploys rosersg to a live DSpace server at dspace.dare.co.zw
+# This script deploys rosersg to a live DSpace server at repo.dare.co.zw
 # Prerequisites: Docker, Docker Compose, git
 ##############################################################################
 
@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 
 echo -e "${BLUE}╔════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${BLUE}║   rosersg Deployment to DSpace                            ║${NC}"
-echo -e "${BLUE}║   Target: dspace.dare.co.zw                               ║${NC}"
+echo -e "${BLUE}║   Target: repo.dare.co.zw                               ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -60,8 +60,8 @@ echo ""
 echo -e "${YELLOW}✓ Checking network connectivity...${NC}"
 
 # Check connectivity to DSpace
-if curl -s -m 5 https://dspace.dare.co.zw/server/api > /dev/null 2>&1; then
-    echo -e "${GREEN}✓ DSpace (https://dspace.dare.co.zw) is reachable${NC}"
+if curl -s -m 5 https://repo.dare.co.zw/server/api > /dev/null 2>&1; then
+    echo -e "${GREEN}✓ DSpace (https://repo.dare.co.zw) is reachable${NC}"
 else
     echo -e "${YELLOW}⚠ Warning: Could not reach DSpace API${NC}"
     echo "  This might be due to:"
@@ -114,13 +114,13 @@ if [ ! -f .env ]; then
     API_KEY=$(openssl rand -hex 32)
 
     # Update .env
-    sed -i.bak "s|DSPACE_ENDPOINT=.*|DSPACE_ENDPOINT=https://dspace.dare.co.zw|" .env
+    sed -i.bak "s|DSPACE_ENDPOINT=.*|DSPACE_ENDPOINT=https://repo.dare.co.zw|" .env
     sed -i.bak "s|ROSERSG_API_KEY=.*|ROSERSG_API_KEY=$API_KEY|" .env
     rm .env.bak 2>/dev/null || true
 
     echo -e "${GREEN}✓ Environment configured${NC}"
     echo "  API Key: $API_KEY"
-    echo "  DSpace: https://dspace.dare.co.zw"
+    echo "  DSpace: https://repo.dare.co.zw"
 else
     echo "  .env file already exists"
     echo "  Current DSpace endpoint:"
@@ -129,8 +129,8 @@ else
     read -p "  Update DSpace endpoint? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        read -p "  Enter DSpace URL [https://dspace.dare.co.zw]: " DSPACE_URL
-        DSPACE_URL=${DSPACE_URL:-https://dspace.dare.co.zw}
+        read -p "  Enter DSpace URL [https://repo.dare.co.zw]: " DSPACE_URL
+        DSPACE_URL=${DSPACE_URL:-https://repo.dare.co.zw}
         sed -i "s|DSPACE_ENDPOINT=.*|DSPACE_ENDPOINT=$DSPACE_URL|" .env
     fi
 fi
@@ -139,7 +139,7 @@ echo ""
 echo -e "${YELLOW}► Step 3: Update rosersg Configuration${NC}"
 
 echo "  Updating rosersg-config.json..."
-sed -i.bak 's|"endpoint": "https://dspace.dare.co.zw"|"endpoint": "https://dspace.dare.co.zw"|' \
+sed -i.bak 's|"endpoint": "https://repo.dare.co.zw"|"endpoint": "https://repo.dare.co.zw"|' \
     rosersg-config.json
 rm rosersg-config.json.bak 2>/dev/null || true
 

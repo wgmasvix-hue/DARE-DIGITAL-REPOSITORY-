@@ -199,7 +199,7 @@ docker-compose exec rosersg-api ping ollama
 
 - Full documentation: [ROSERSG.md](./ROSERSG.md)
 - GitHub: https://github.com/wgmasvix-hue/dare-digital-repository-
-- DARE Project: https://dspace.dare.co.zw
+- DARE Project: https://repo.dare.co.zw
 
 ## 🎓 Example Workflows
 

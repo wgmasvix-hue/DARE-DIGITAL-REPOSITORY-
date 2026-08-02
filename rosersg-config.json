@@ -26,7 +26,7 @@
     ]
   },
   "dspace": {
-    "endpoint": "https://dspace.dare.co.zw",
+    "endpoint": "https://repo.dare.co.zw",
     "rest_api": "/server/api",
     "search_limit": 50,
     "timeout": 30000

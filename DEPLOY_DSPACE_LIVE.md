@@ -1,6 +1,6 @@
 # 🚀 Deploy rosersg LIVE on DSpace in 5 Minutes
 
-Quick reference for getting rosersg running on your DSpace instance at `dspace.dare.co.zw`
+Quick reference for getting rosersg running on your DSpace instance at `repo.dare.co.zw`
 
 ## Option A: Automated Deployment (Recommended)
 
@@ -63,7 +63,7 @@ nano .env
 
 **Must update:**
 ```env
-DSPACE_ENDPOINT=https://dspace.dare.co.zw
+DSPACE_ENDPOINT=https://repo.dare.co.zw
 ROSERSG_API_KEY=your-secure-key-here
 ```
 
@@ -133,8 +133,8 @@ sudo systemctl restart nginx
 ```
 
 **Users access at:**
-- http://dspace.dare.co.zw/ai/ (UI)
-- http://dspace.dare.co.zw/ai-api/ (API)
+- http://repo.dare.co.zw/ai/ (UI)
+- http://repo.dare.co.zw/ai-api/ (API)
 
 ### Option 2: Direct Access (Development)
 
@@ -213,7 +213,7 @@ du -sh /var/lib/docker/volumes/ollama_data
 ### "Cannot connect to DSpace"
 ```bash
 # Test DSpace API directly
-curl https://dspace.dare.co.zw/server/api/core/collections
+curl https://repo.dare.co.zw/server/api/core/collections
 
 # Check .env has correct endpoint
 grep DSPACE_ENDPOINT .env
@@ -263,7 +263,7 @@ curl -H "X-API-Key: $KEY_IN_ENV" http://localhost:5000/api/status
 ### Enable SSL/HTTPS
 
 1. **Update Nginx config** to use existing DSpace SSL certificates
-2. **Ensure .env uses HTTPS**: `DSPACE_ENDPOINT=https://dspace.dare.co.zw`
+2. **Ensure .env uses HTTPS**: `DSPACE_ENDPOINT=https://repo.dare.co.zw`
 3. **Restart services** after changes
 
 ### Secure the Server
@@ -371,7 +371,7 @@ curl -X POST http://localhost:5000/api/metadata/optimize \
 - **Main Docs:** See `ROSERSG.md` (400+ lines)
 - **Integration Guide:** See `DSPACE_INTEGRATION.md` (600+ lines)
 - **API Reference:** Run `curl http://localhost:5000/api/status`
-- **DSpace API Docs:** https://dspace.dare.co.zw/server/docs
+- **DSpace API Docs:** https://repo.dare.co.zw/server/docs
 
 ---
 
@@ -408,7 +408,7 @@ $ curl http://localhost:3000
 2. ✅ Verify all services running
 3. ✅ Configure Nginx reverse proxy
 4. ✅ Test DSpace integration
-5. ✅ Users access via http://dspace.dare.co.zw/ai/
+5. ✅ Users access via http://repo.dare.co.zw/ai/
 6. ✅ Monitor logs and performance
 7. ✅ Keep updated: `git pull && docker-compose up -d`
 

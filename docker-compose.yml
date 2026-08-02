@@ -28,7 +28,7 @@ services:
     environment:
       - OLLAMA_ENDPOINT=http://ollama:11434
       - OLLAMA_MODEL=mistral
-      - DSPACE_ENDPOINT=https://dspace.dare.co.zw
+      - DSPACE_ENDPOINT=https://repo.dare.co.zw
       - ROSERSG_API_KEY=${ROSERSG_API_KEY:-your-secure-api-key}
       - FLASK_ENV=production
       - DEBUG=false

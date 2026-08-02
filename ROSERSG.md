@@ -205,7 +205,7 @@ OLLAMA_ENDPOINT=http://localhost:11434
 OLLAMA_MODEL=mistral
 
 # DSpace
-DSPACE_ENDPOINT=https://dspace.dare.co.zw
+DSPACE_ENDPOINT=https://repo.dare.co.zw
 
 # API Security
 ROSERSG_API_KEY=your-secure-key-here
@@ -391,7 +391,7 @@ curl -H "X-API-Key: your-key" http://localhost:5000/api/status
 ### DSpace Connection Issues
 ```bash
 # Test DSpace connectivity
-curl https://dspace.dare.co.zw/server/api/core/collections
+curl https://repo.dare.co.zw/server/api/core/collections
 ```
 
 ## Performance Tuning

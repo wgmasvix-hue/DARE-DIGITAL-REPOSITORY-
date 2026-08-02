@@ -1,18 +1,18 @@
 # rosersg × DSpace Integration Guide
 
-Complete guide to integrate rosersg AI with your live DSpace instance at `dspace.dare.co.zw`
+Complete guide to integrate rosersg AI with your live DSpace instance at `repo.dare.co.zw`
 
 ## 🔗 Integration Architecture
 
 ```
 ┌─────────────────────────────────────┐
 │     User Browsers                   │
-│  (Access via dspace.dare.co.zw)    │
+│  (Access via repo.dare.co.zw)    │
 └────────────────┬────────────────────┘
                  │
         ┌────────▼──────────┐
         │  DSpace Frontend   │  (Angular/Vue)
-        │  dspace.dare.co.zw│
+        │  repo.dare.co.zw│
         └────────┬──────────┘
                  │
     ┌────────────┼────────────┐
@@ -30,7 +30,7 @@ Complete guide to integrate rosersg AI with your live DSpace instance at `dspace
 
 ## ✅ Prerequisites
 
-- ✓ DSpace instance running at `dspace.dare.co.zw`
+- ✓ DSpace instance running at `repo.dare.co.zw`
 - ✓ DSpace REST API enabled
 - ✓ Docker & Docker Compose installed
 - ✓ Network access between rosersg and DSpace
@@ -48,8 +48,8 @@ nano .env
 
 ```env
 # DSpace Configuration - IMPORTANT!
-DSPACE_ENDPOINT=https://dspace.dare.co.zw
-DSPACE_REST_API_URL=https://dspace.dare.co.zw/server/api
+DSPACE_ENDPOINT=https://repo.dare.co.zw
+DSPACE_REST_API_URL=https://repo.dare.co.zw/server/api
 
 # If DSpace uses authentication (optional)
 DSPACE_API_TOKEN=your-token-here  # Leave empty if not needed
@@ -73,7 +73,7 @@ nano rosersg-config.json
 ```json
 {
   "dspace": {
-    "endpoint": "https://dspace.dare.co.zw",
+    "endpoint": "https://repo.dare.co.zw",
     "rest_api": "/server/api",
     "search_limit": 50,
     "timeout": 30000,
@@ -91,11 +91,11 @@ nano rosersg-config.json
 
 ```bash
 # Test basic connectivity
-curl https://dspace.dare.co.zw/server/api/core/collections
+curl https://repo.dare.co.zw/server/api/core/collections
 
 # If behind authentication
 curl -H "Authorization: Bearer YOUR_TOKEN" \
-  https://dspace.dare.co.zw/server/api/core/collections
+  https://repo.dare.co.zw/server/api/core/collections
 ```
 
 ### Test from rosersg Container
@@ -106,7 +106,7 @@ docker-compose up -d
 
 # Test from API container
 docker-compose exec rosersg-api curl \
-  https://dspace.dare.co.zw/server/api/core/collections
+  https://repo.dare.co.zw/server/api/core/collections
 
 # Check logs
 docker-compose logs -f rosersg-api
@@ -183,7 +183,7 @@ upstream rosersg_ui {
 
 server {
     listen 443 ssl http2;
-    server_name dspace.dare.co.zw;
+    server_name repo.dare.co.zw;
 
     # ... existing DSpace SSL config ...
 
@@ -217,8 +217,8 @@ sudo systemctl restart nginx
 ```
 
 **Access rosersg at:**
-- Frontend: `https://dspace.dare.co.zw/ai/`
-- API: `https://dspace.dare.co.zw/ai-api/`
+- Frontend: `https://repo.dare.co.zw/ai/`
+- API: `https://repo.dare.co.zw/ai-api/`
 
 ### Option B: Subdomain
 
@@ -357,7 +357,7 @@ public class RosersqPlugin {
 #!/bin/bash
 
 API_KEY=$(grep ROSERSG_API_KEY .env | cut -d= -f2)
-DSPACE_API="https://dspace.dare.co.zw/server/api"
+DSPACE_API="https://repo.dare.co.zw/server/api"
 
 # Get all collections
 COLLECTIONS=$(curl -s "$DSPACE_API/core/collections" | \
@@ -387,12 +387,12 @@ echo "Collection indexing complete"
 
 ```bash
 # API health
-curl https://dspace.dare.co.zw/ai-api/health
+curl https://repo.dare.co.zw/ai-api/health
 
 # Full status
 API_KEY=$(grep ROSERSG_API_KEY .env | cut -d= -f2)
 curl -H "X-API-Key: $API_KEY" \
-  https://dspace.dare.co.zw/ai-api/api/status
+  https://repo.dare.co.zw/ai-api/api/status
 ```
 
 ### View Logs
@@ -425,7 +425,7 @@ du -sh /var/lib/docker/volumes/ollama_data
 Ensure your `.env` uses HTTPS:
 
 ```env
-DSPACE_ENDPOINT=https://dspace.dare.co.zw
+DSPACE_ENDPOINT=https://repo.dare.co.zw
 ```
 
 ### Secure API Key
@@ -453,7 +453,7 @@ If DSpace requires API token:
 
 ```bash
 # Get DSpace API token
-curl -X POST "https://dspace.dare.co.zw/server/api/authn/login" \
+curl -X POST "https://repo.dare.co.zw/server/api/authn/login" \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@example.com","password":"your-password"}'
 
@@ -527,7 +527,7 @@ spec:
         - containerPort: 5000
         env:
         - name: DSPACE_ENDPOINT
-          value: "https://dspace.dare.co.zw"
+          value: "https://repo.dare.co.zw"
         - name: OLLAMA_ENDPOINT
           value: "http://ollama:11434"
         - name: ROSERSG_API_KEY
@@ -601,7 +601,7 @@ getAISummary(itemId: string) {
 ```bash
 # Check network connectivity
 docker-compose exec rosersg-api \
-  curl -v https://dspace.dare.co.zw/server/api/core/collections
+  curl -v https://repo.dare.co.zw/server/api/core/collections
 
 # Check firewall
 sudo ufw status
@@ -631,15 +631,15 @@ docker logs rosersg-ollama
 ### "DSpace search not working"
 ```bash
 # Test DSpace REST API directly
-curl "https://dspace.dare.co.zw/server/api/discover/search?query=test"
+curl "https://repo.dare.co.zw/server/api/discover/search?query=test"
 
 # Check DSpace API documentation
-# Usually at: https://dspace.dare.co.zw/server/docs
+# Usually at: https://repo.dare.co.zw/server/docs
 ```
 
 ## 📚 Additional Resources
 
-- DSpace REST API Docs: `https://dspace.dare.co.zw/server/docs`
+- DSpace REST API Docs: `https://repo.dare.co.zw/server/docs`
 - Ollama Documentation: `https://ollama.ai`
 - rosersg Backend Docs: See `ROSERSG.md`
 - rosersg Frontend Docs: See `QUICKSTART.md`
