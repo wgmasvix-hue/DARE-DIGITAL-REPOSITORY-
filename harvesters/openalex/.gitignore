@@ -1,0 +1,64 @@
+# Binaries
+openalex-harvester
+openalex-harvester-static
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binaries
+*.test
+
+# Output of test coverage
+*.out
+*.prof
+*.pprof
+
+# Go dependencies
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+dist/
+build/
+
+# State and logs
+state.json
+*.log
+logs/
+data/
+
+# Configuration (don't commit secrets)
+config.json
+topics.json
+!config.json.example
+!topics.json.example
+!topics.json
+
+# Environment files
+.env
+.env.local
+*.env.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Crash dumps
+core
+core.*
+
+# Benchmarks
+benchmark-results.txt

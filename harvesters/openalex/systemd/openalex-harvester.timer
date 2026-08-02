@@ -1,0 +1,32 @@
+[Unit]
+Description=DARE OpenAlex Harvester Timer
+Documentation=https://github.com/wgmasvix-hue/dare-digital-repository-
+Requires=openalex-harvester.service
+
+[Timer]
+# Run daily at 2:00 AM (UTC)
+OnCalendar=daily
+OnCalendar=*-*-* 02:00:00
+
+# Alternative schedules:
+# Run every 6 hours: OnCalendar=*-*-* 00,06,12,18:00:00
+# Run every hour: OnCalendar=hourly
+# Run every 30 minutes: OnCalendar=*:00/30
+
+# Accuracy (default 1min, we want 1sec accuracy)
+AccuracySec=1s
+
+# Persist the timer state across reboots
+Persistent=true
+
+# Run the service immediately if the system was powered down at timer time
+OnBootSec=5min
+
+# Run the service if it hasn't run in 24 hours
+OnUnitActiveSec=24h
+
+# Execute service if it failed last time
+Unit=openalex-harvester.service
+
+[Install]
+WantedBy=timers.target

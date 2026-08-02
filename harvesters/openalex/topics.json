@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Artificial Intelligence",
+    "query": "artificial intelligence",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Machine Learning",
+    "query": "machine learning",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Large Language Models",
+    "query": "large language models",
+    "filters": {
+      "min_publication_year": 2021
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Deep Learning",
+    "query": "deep learning",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Computer Vision",
+    "query": "computer vision",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Natural Language Processing",
+    "query": "natural language processing",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Robotics",
+    "query": "robotics",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Food Science",
+    "query": "food science",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Agriculture",
+    "query": "agriculture",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  },
+  {
+    "name": "Climate Change",
+    "query": "climate change",
+    "filters": {
+      "min_publication_year": 2020
+    },
+    "enabled": true,
+    "last_sync": "0001-01-01T00:00:00Z",
+    "record_count": 0
+  }
+]

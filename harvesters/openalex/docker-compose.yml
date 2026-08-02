@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  openalex-harvester:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dare-openalex-harvester
+
+    environment:
+      CONFIG_PATH: /config/config.json
+      TOPICS_PATH: /config/topics.json
+      STATE_PATH: /data/state.json
+      LOG_FILE: /logs/harvest.log
+
+    volumes:
+      - ./config:/config
+      - ./data:/data
+      - ./logs:/logs
+
+    # Run once daily at 2 AM
+    # For scheduled runs, use a separate scheduler
+    # Example with docker cron:
+    # restart_policy:
+    #   condition: on-failure
+    #   delay: 30s
+    #   max_attempts: 3
+    #   window: 120s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Optional: Connect to DSpace network
+    # networks:
+    #   - dspace-network
+
+    # Optional: Add resource limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 1G
+    #     reservations:
+    #       cpus: '1'
+    #       memory: 512M
+
+# For scheduling with additional services, consider:
+# - Docker Swarm with scheduled tasks
+# - Kubernetes with CronJob
+# - External scheduler (cron, systemd timer)
+
+# networks:
+#   dspace-network:
+#     driver: bridge

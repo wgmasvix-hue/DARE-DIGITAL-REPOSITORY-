@@ -1,0 +1,41 @@
+[Unit]
+Description=DARE OpenAlex Harvester Service
+Documentation=https://github.com/wgmasvix-hue/dare-digital-repository-
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=dare
+Group=dare
+WorkingDirectory=/opt/dare/harvesters/openalex
+
+# Environment variables
+EnvironmentFile=/etc/dare/openalex-harvester.env
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# The service command
+ExecStart=/opt/dare/harvesters/openalex/openalex-harvester
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=openalex-harvester
+
+# Resource limits
+MemoryLimit=2G
+CPUQuota=50%
+
+# Restart policy for failures (not for oneshot type)
+# Restart=on-failure
+# RestartSec=30s
+
+# Security
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/dare /var/lib/dare
+
+[Install]
+WantedBy=multi-user.target
