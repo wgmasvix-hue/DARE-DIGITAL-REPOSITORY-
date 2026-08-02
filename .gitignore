@@ -1,0 +1,58 @@
+# ---------------------------------------------------------------------------
+# DARE / DSpace deployment repo
+#
+# This repo holds DEPLOYMENT CONFIGURATION AND CUSTOMISATIONS ONLY.
+# Repository content (database, assetstore) and secrets must never land here.
+# ---------------------------------------------------------------------------
+
+# --- Repository content: belongs in backups / object storage, NOT in git ----
+assetstore/
+assetstore*/
+**/assetstore/
+solr/
+**/solr/data/
+*.sql
+*.sql.gz
+*.dump
+*.pgdump
+*.bak
+*.tar.gz
+*.zip
+uploads/
+bitstreams/
+
+# --- Secrets ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.keystore
+*.pfx
+id_rsa*
+id_ed25519*
+**/secrets/
+credentials.json
+service-account*.json
+
+# --- Real config (only .example templates are committed) -------------------
+deploy/backend/config/local.cfg
+!deploy/backend/config/local.cfg.example
+
+# --- Collection scratch space ----------------------------------------------
+.collect-staging/
+collect-report-*.txt
+
+# --- Build / runtime noise -------------------------------------------------
+node_modules/
+dist/
+target/
+*.log
+logs/
+.DS_Store
+*.swp
+.idea/
+.vscode/
