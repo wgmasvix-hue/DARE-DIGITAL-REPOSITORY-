@@ -1,88 +1,96 @@
 # ---------------------------------------------------------------------------
 # DARE harvest sources
 #
-# IMPORTANT: the endpoints below are CANDIDATES, not verified facts. Host names
-# and OAI paths for institutional repositories change, and several of these
-# institutions have moved or rebuilt their repositories in recent years.
+# `verified: true` means probe_sources.py issued a real OAI-PMH Identify
+# request against that endpoint and got a valid response back. Anything marked
+# false has NOT been confirmed and must not be harvested: a wrong base URL
+# usually returns an HTML 404 that a naive parser reads as zero records and
+# reports as a successful, empty run.
 #
-# Run the probe before trusting any entry:
+#     python3 probe_sources.py --config sources.yaml            # check all
+#     python3 probe_sources.py --config sources.yaml --write    # record results
+#     python3 probe_sources.py --config sources.yaml --only uz --timeout 60
 #
-#     python3 probe_sources.py --config sources.yaml
-#
-# It tries the common OAI paths against each host, issues a real Identify
-# request, and rewrites `verified:` with what it actually found. Anything still
-# marked `verified: false` should not be harvested — a wrong base URL usually
-# returns an HTML 404 page that a naive parser will happily treat as zero
-# records and report as success.
-#
-# DSpace OAI paths differ by major version:
-#     DSpace 7/8/9 : /server/oai/request
-#     DSpace 5/6   : /oai/request
-# The probe tries both, plus a few other platform conventions.
+# OAI paths differ by platform:
+#     DSpace 7/8/9   /server/oai/request
+#     DSpace 5/6     /oai/request
+#     DSpace JSPUI   /jspui/oai/request
+#     OJS            /index.php/index/oai
+#     Invenio        /oai2d
 # ---------------------------------------------------------------------------
 
 defaults:
   metadata_prefix: oai_dc
   timeout: 45
   batch_size: 100
-  # Be a good citizen: institutional repositories in the region often run on
-  # modest hardware, and an aggressive harvester is indistinguishable from an
-  # attack.
+  # Institutional repositories in the region often run on modest hardware, and
+  # an aggressive harvester is indistinguishable from an attack.
   delay_between_requests: 1.0
   user_agent: "DARE-Harvester/1.0 (+https://dare.co.zw; repository@dare.co.zw)"
 
 
 # --- Zimbabwean institutional repositories ---------------------------------
-# The highest-value set for DARE: this material is often indexed nowhere else,
-# which is precisely the gap a national repository exists to close.
+# The highest-value set for DARE: this material is frequently indexed nowhere
+# else, which is the gap a national repository exists to close.
 
 zimbabwe:
+  cut:
+    name: "Chinhoyi University of Technology"
+    host: "https://ir.cut.ac.zw"
+    oai_path: "/oai/request"
+    verified: true              # confirmed: "CUT IR", DSpace 5/6
+    collection: null            # DARE collection handle — set before importing
+
+  buse:
+    name: "Bindura University of Science Education"
+    host: "https://ir.buse.ac.zw"
+    oai_path: "/server/oai/request"
+    verified: true              # confirmed: "BUSE Research Repository", DSpace 7+
+    collection: null
+
   uz:
-    name: "University of Zimbabwe Institutional Repository"
+    name: "University of Zimbabwe Institutional Repository (eScholar)"
     host: "https://ir.uz.ac.zw"
-    verified: false
-    collection: null        # DARE collection handle, set before importing
+    # Listed in OpenDOAR 1760 and ROAR 15523. Public links use /jspui/, so the
+    # OAI endpoint is most likely under that prefix rather than at the root.
+    oai_path: "/jspui/oai/request"
+    verified: false             # probe returned ConnectionError over HTTPS
+    collection: null
 
   nust:
     name: "National University of Science and Technology"
     host: "https://ir.nust.ac.zw"
-    verified: false
+    verified: false             # probe timed out at 20s — retry with --timeout 60
     collection: null
 
   msu:
     name: "Midlands State University"
     host: "https://ir.msu.ac.zw"
-    verified: false
-    collection: null
-
-  cut:
-    name: "Chinhoyi University of Technology"
-    host: "https://ir.cut.ac.zw"
-    verified: false
-    collection: null
-
-  buse:
-    name: "Bindura University of Science Education"
-    host: "https://ir.buse.ac.zw"
-    verified: false
+    verified: false             # probe timed out at 20s — retry with --timeout 60
     collection: null
 
   gzu:
     name: "Great Zimbabwe University"
     host: "https://ir.gzu.ac.zw"
-    verified: false
+    verified: false             # probe timed out at 20s — retry with --timeout 60
     collection: null
 
   hit:
     name: "Harare Institute of Technology"
     host: "https://ir.hit.ac.zw"
-    verified: false
+    verified: false             # probe returned ConnectionError
     collection: null
 
   africau:
     name: "Africa University"
     host: "https://ir.africau.edu"
-    verified: false
+    verified: false             # probe returned ConnectionError — host may differ
+    collection: null
+
+  zou:
+    name: "Zimbabwe Open University (ZOU SPACE)"
+    host: "https://zouspace.zou.ac.zw"
+    verified: false             # not yet probed
     collection: null
 
 
@@ -92,9 +100,8 @@ africa:
   ajol:
     name: "African Journals OnLine"
     host: "https://www.ajol.info"
-    # OJS, not DSpace — different OAI path convention.
     oai_path: "/index.php/index/oai"
-    verified: false
+    verified: true              # confirmed: "African Journals Online", OJS
     collection: null
 
   zenodo_africa:
@@ -103,18 +110,18 @@ africa:
     oai_path: "/oai2d"
     # Zenodo is vast. Harvest by community or set only, never wholesale.
     require_set: true
-    verified: false
+    verified: true              # confirmed
     collection: null
 
 
 # --- International ----------------------------------------------------------
-# Already configured in harvest_config.yaml; carried over for completeness.
 
 international:
   mit:
-    name: "MIT Main Repository"
+    name: "MIT Open Scholarship"
     host: "https://dspace.mit.edu"
-    verified: false
+    oai_path: "/server/oai/request"
+    verified: true              # confirmed: "MIT Open Scholarship", DSpace 7+
     collection: null
 
 
@@ -124,7 +131,7 @@ international:
 policy:
   # Harvested records go to their own collection, never mixed with local
   # deposits. A visitor must be able to tell what DARE holds from what DARE
-  # merely indexes, and so must an aggregator harvesting DARE in turn.
+  # merely indexes — and so must any aggregator harvesting DARE in turn.
   separate_collection: true
 
   # Metadata only. Do not fetch full-text bitstreams without checking each
