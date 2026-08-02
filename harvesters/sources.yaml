@@ -1,0 +1,137 @@
+# ---------------------------------------------------------------------------
+# DARE harvest sources
+#
+# IMPORTANT: the endpoints below are CANDIDATES, not verified facts. Host names
+# and OAI paths for institutional repositories change, and several of these
+# institutions have moved or rebuilt their repositories in recent years.
+#
+# Run the probe before trusting any entry:
+#
+#     python3 probe_sources.py --config sources.yaml
+#
+# It tries the common OAI paths against each host, issues a real Identify
+# request, and rewrites `verified:` with what it actually found. Anything still
+# marked `verified: false` should not be harvested — a wrong base URL usually
+# returns an HTML 404 page that a naive parser will happily treat as zero
+# records and report as success.
+#
+# DSpace OAI paths differ by major version:
+#     DSpace 7/8/9 : /server/oai/request
+#     DSpace 5/6   : /oai/request
+# The probe tries both, plus a few other platform conventions.
+# ---------------------------------------------------------------------------
+
+defaults:
+  metadata_prefix: oai_dc
+  timeout: 45
+  batch_size: 100
+  # Be a good citizen: institutional repositories in the region often run on
+  # modest hardware, and an aggressive harvester is indistinguishable from an
+  # attack.
+  delay_between_requests: 1.0
+  user_agent: "DARE-Harvester/1.0 (+https://dare.co.zw; repository@dare.co.zw)"
+
+
+# --- Zimbabwean institutional repositories ---------------------------------
+# The highest-value set for DARE: this material is often indexed nowhere else,
+# which is precisely the gap a national repository exists to close.
+
+zimbabwe:
+  uz:
+    name: "University of Zimbabwe Institutional Repository"
+    host: "https://ir.uz.ac.zw"
+    verified: false
+    collection: null        # DARE collection handle, set before importing
+
+  nust:
+    name: "National University of Science and Technology"
+    host: "https://ir.nust.ac.zw"
+    verified: false
+    collection: null
+
+  msu:
+    name: "Midlands State University"
+    host: "https://ir.msu.ac.zw"
+    verified: false
+    collection: null
+
+  cut:
+    name: "Chinhoyi University of Technology"
+    host: "https://ir.cut.ac.zw"
+    verified: false
+    collection: null
+
+  buse:
+    name: "Bindura University of Science Education"
+    host: "https://ir.buse.ac.zw"
+    verified: false
+    collection: null
+
+  gzu:
+    name: "Great Zimbabwe University"
+    host: "https://ir.gzu.ac.zw"
+    verified: false
+    collection: null
+
+  hit:
+    name: "Harare Institute of Technology"
+    host: "https://ir.hit.ac.zw"
+    verified: false
+    collection: null
+
+  africau:
+    name: "Africa University"
+    host: "https://ir.africau.edu"
+    verified: false
+    collection: null
+
+
+# --- African and regional aggregators --------------------------------------
+
+africa:
+  ajol:
+    name: "African Journals OnLine"
+    host: "https://www.ajol.info"
+    # OJS, not DSpace — different OAI path convention.
+    oai_path: "/index.php/index/oai"
+    verified: false
+    collection: null
+
+  zenodo_africa:
+    name: "Zenodo"
+    host: "https://zenodo.org"
+    oai_path: "/oai2d"
+    # Zenodo is vast. Harvest by community or set only, never wholesale.
+    require_set: true
+    verified: false
+    collection: null
+
+
+# --- International ----------------------------------------------------------
+# Already configured in harvest_config.yaml; carried over for completeness.
+
+international:
+  mit:
+    name: "MIT Main Repository"
+    host: "https://dspace.mit.edu"
+    verified: false
+    collection: null
+
+
+# --- Policy -----------------------------------------------------------------
+# Not decoration. These constrain what the importer is allowed to do.
+
+policy:
+  # Harvested records go to their own collection, never mixed with local
+  # deposits. A visitor must be able to tell what DARE holds from what DARE
+  # merely indexes, and so must an aggregator harvesting DARE in turn.
+  separate_collection: true
+
+  # Metadata only. Do not fetch full-text bitstreams without checking each
+  # source's licence terms; OAI-PMH exposes metadata for reuse, which says
+  # nothing about the files behind it.
+  metadata_only: true
+
+  # Every imported record carries dc.source, dc.relation.uri and a provenance
+  # note naming the origin. Enforced in saf_builder.py, not optional.
+  require_provenance: true
