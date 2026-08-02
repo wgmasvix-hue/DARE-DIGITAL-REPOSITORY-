@@ -77,7 +77,7 @@ func (h *Harvester) HarvestTopic(topic SearchTopic) error {
 					continue
 				}
 
-				h.stats.Successfully Imported++
+				h.stats.SuccessfullyImported++
 				log.Printf("Successfully imported work: %s (%s)\n", work.Title, work.DOI)
 			}
 		}
@@ -118,7 +118,7 @@ func (h *Harvester) HarvestAllTopics(topics []SearchTopic) error {
 
 	log.Println("\n=== Harvest Statistics ===")
 	log.Printf("Total Processed: %d\n", h.stats.TotalProcessed)
-	log.Printf("Successfully Imported: %d\n", h.stats.Successfully Imported)
+	log.Printf("SuccessfullyImported: %d\n", h.stats.SuccessfullyImported)
 	log.Printf("Duplicates: %d\n", h.stats.Duplicates)
 	log.Printf("Errors: %d\n", h.stats.Errors)
 	log.Printf("Duration: %v\n", h.stats.Duration)

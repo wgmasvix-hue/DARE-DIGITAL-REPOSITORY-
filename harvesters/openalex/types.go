@@ -141,11 +141,11 @@ type HarvesterState struct {
 
 // Import Statistics
 type ImportStats struct {
-	TotalProcessed      int
-	Successfully Imported int
-	Duplicates          int
-	Errors              int
-	Duration            time.Duration
-	StartTime           time.Time
-	EndTime             time.Time
+	TotalProcessed       int
+	SuccessfullyImported int
+	Duplicates           int
+	Errors               int
+	Duration             time.Duration
+	StartTime            time.Time
+	EndTime              time.Time
 }

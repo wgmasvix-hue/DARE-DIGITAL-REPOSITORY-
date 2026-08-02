@@ -113,7 +113,6 @@ func main() {
 	}
 
 	// Perform harvesting
-	var err error
 	if config.EnableIncremental && !*fullHarvest {
 		log.Println("Starting incremental harvest...")
 		err = harvester.HarvestIncremental(topics)
@@ -136,7 +135,7 @@ func main() {
 	log.Printf("\n=== Final Statistics ===\n")
 	log.Printf("Duration: %v\n", stats.Duration)
 	log.Printf("Total Processed: %d\n", stats.TotalProcessed)
-	log.Printf("Successfully Imported: %d\n", stats.Successfully Imported)
+	log.Printf("SuccessfullyImported: %d\n", stats.SuccessfullyImported)
 	log.Printf("Duplicates Skipped: %d\n", stats.Duplicates)
 	log.Printf("Errors: %d\n", stats.Errors)
 }
