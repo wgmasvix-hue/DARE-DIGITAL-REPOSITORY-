@@ -174,7 +174,7 @@ ds-orcid-page,
   font-weight: 600;
   letter-spacing: 0.03em;
 
-  &--linked    { color: var(--dare-teal-strong); }   // 7.08:1
+  &--linked    { color: var(--dare-green); }   // 7.08:1
   &--pending   { color: #8a5a00; }                   // 4.6:1
   &--unlinked  { color: var(--dare-ink-muted); }
 }

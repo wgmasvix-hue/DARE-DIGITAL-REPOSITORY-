@@ -36,7 +36,7 @@ a:focus-visible {
   z-index: 2000;
   padding: var(--dare-space-2) var(--dare-space-4);
   background: #ffffff;
-  color: var(--dare-blue-strong);
+  color: var(--dare-green-ground);
   font-weight: 600;
   border-radius: var(--dare-space-1);
   box-shadow: var(--dare-shadow-md);
@@ -129,8 +129,8 @@ ds-item-page,
 // --- 1.4.6 Contrast Enhanced -----------------------------------------------
 @media (prefers-contrast: more) {
   :root {
-    --dare-blue-text:  var(--dare-blue-strong);
-    --dare-teal-text:  var(--dare-teal-strong);
+    --dare-green:  var(--dare-green-ground);
+    --dare-green-mid:  var(--dare-green);
     --dare-ink-subtle: var(--dare-ink-muted);
   }
 }

@@ -22,4 +22,6 @@
 @import 'dare-library';         // home, search, results, facets, item page
 @import 'dare-orcid';           // sign-in, iD badge, profile, provenance
 
+@import 'dare-hero-patch';      // fixes home-news.component.scss scrim + targets
+
 @import 'dare-accessibility';   // last: focus, contrast, motion, target size

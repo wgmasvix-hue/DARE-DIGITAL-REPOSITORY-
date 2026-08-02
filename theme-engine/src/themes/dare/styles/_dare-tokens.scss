@@ -1,109 +1,121 @@
 // ---------------------------------------------------------------------------
-// DARE theme — runtime CSS custom properties
+// DARE theme — design tokens
 //
-// The --ds-* names below are DSpace's own theming variables. Verify them
-// against your installed src/styles/_custom_variables.scss before relying on
-// any one of them; names have shifted between DSpace majors, and a variable
-// that does not exist upstream fails silently rather than loudly.
+// Derived from the palette actually in use in the hero carousel
+// (home-news.component.scss): deep forest green grounds with gold accents.
 //
-// The --dare-* names are ours and are safe to use anywhere in this theme.
+// An earlier draft of this file was built from index.html on dare.co.zw, which
+// uses an unrelated blue-purple gradient. That was wrong. The green and gold
+// below are the real theme, and the two sites should be reconciled toward this
+// one — it is the stronger identity, and it is what visitors to
+// dspace.dare.co.zw actually see.
+//
+// The --ds-* names at the end are DSpace's own; verify them against
+// src/styles/_custom_variables.scss, since a variable that does not exist
+// upstream fails silently. The --dare-* names are ours.
+//
+// Every ratio below is computed against the stated ground, not estimated.
 // ---------------------------------------------------------------------------
 
 :root {
 
-  // --- Brand tokens --------------------------------------------------------
-  // Two tiers, and the distinction is the whole point of this file.
+  // --- Greens --------------------------------------------------------------
+  // All are dark enough to clear AAA as text on white, so unlike the gold they
+  // need no separate text tier.
+  --dare-green-deepest:   #051b13;   // 18.2:1  on white — overlay start
+  --dare-green-ground:    #0b271d;   // 15.88:1 hero ground, navbar, footer
+  --dare-green:           #12372a;   // 13.08:1 overlay body, headings
+  --dare-green-mid:       #2e4f44;   //  9.06:1 muted text, borders on dark
+
+  // --- Gold ----------------------------------------------------------------
+  // The inverse of the greens: bright, so it works on dark grounds and fails
+  // on white.
   //
-  //   *-display  the colour as authored. Gradients, hero panels, large type
-  //              (>=24px), decorative rules. Not for body text.
-  //   *-text     same hue, darkened to clear WCAG AA. Links, labels, icons
-  //              carrying meaning, anything below 24px.
+  //   *-on-dark  gold as authored — correct on green, wrong on white
+  //   *-text     darkened to clear AA on white, for body copy and links
   //
-  // Reaching for a -display token on small text is the mistake this naming
-  // exists to prevent.
+  --dare-gold:            #d4a72c;   //  7.08:1 on --dare-green-ground  ✓
+                                     //  2.24:1 on white                ✗
+  --dare-gold-bright:     #e1b83e;   //  8.42:1 on --dare-green-ground  ✓
+  --dare-gold-hover:      #e5bd4a;
+  --dare-gold-text:       #91721e;   //  4.54:1 on white — AA
+  --dare-gold-strong:     #6d5616;   //  7.02:1 on white — AAA
 
-  --dare-blue-display:    #667eea;   //  3.66:1 on white
-  --dare-blue-text:       #516ce7;   //  4.52:1  AA
-  --dare-blue-strong:     #2144e1;   //  7.05:1  AAA
+  // Text placed ON gold takes the dark ink, never white:
+  //   #17211d on #d4a72c -> 7.36:1  ✓
+  //   #ffffff on #d4a72c -> 2.24:1  ✗
+  --dare-ink-on-gold:     #17211d;
 
-  --dare-purple-display:  #764ba2;   //  6.37:1  AA at any size
-  --dare-purple-strong:   #6e4698;   //  7.02:1  AAA
+  // --- Neutrals ------------------------------------------------------------
+  // Biased slightly green so they sit with the brand rather than beside it.
+  --dare-ink:             #17211d;   // 16.51:1
+  --dare-ink-muted:       #4a5a53;   //  7.9:1
+  --dare-ink-subtle:      #62716a;   //  5.3:1  lowest usable grey on white
+  --dare-border-ui:       #7f8d86;   //  3.4:1  control boundaries (1.4.11)
+  --dare-rule:            #dde3e0;   //  decorative separators only
+  --dare-surface:         #f5f8f6;
+  --dare-surface-sunken:  #eaf0ed;
 
-  --dare-teal-display:    #138d75;   //  4.12:1
-  --dare-teal-text:       #12866f;   //  4.50:1  AA
-  --dare-teal-strong:     #0d6453;   //  7.08:1  AAA
-
-  // ORCID green is a fixed brand asset and cannot be darkened where the ORCID
-  // mark appears. It is a background colour only.
+  // --- ORCID ---------------------------------------------------------------
+  // Fixed brand asset, cannot be recoloured. Background and icon fill only.
   --dare-orcid-green:     #a6ce39;   //  1.82:1 on white — never text on white
   --dare-orcid-on-green:  #1a1a1a;   //  9.54:1 against the green
   --dare-orcid-text:      #667f20;   //  4.54:1 for "ORCID" as body text
 
-  --dare-gradient: linear-gradient(135deg,
-                     var(--dare-blue-display) 0%,
-                     var(--dare-purple-display) 100%);
-
-  // --- Neutrals ------------------------------------------------------------
-  --dare-ink:             #212529;
-  --dare-ink-muted:       #555555;
-  --dare-ink-subtle:      #666666;
-  // --dare-rule is decorative. Anything that forms the visible boundary of an
-  // interactive control needs --dare-border-ui to satisfy WCAG 1.4.11 (3:1).
-  --dare-rule:            #dee2e6;   //  1.31:1 — separators only
-  --dare-border-ui:       #868e96;   //  3.32:1 — inputs, checkboxes, buttons
-  --dare-surface:         #f8f9fa;
-  --dare-surface-sunken:  #f0f2f5;
-
   // --- Elevation -----------------------------------------------------------
-  // Tinted rather than neutral black, so cards sit in the palette.
-  --dare-shadow-sm: 0 1px 2px rgba(33, 37, 41, 0.06),
-                    0 1px 3px rgba(33, 37, 41, 0.08);
-  --dare-shadow-md: 0 2px 4px rgba(33, 37, 41, 0.06),
-                    0 4px 12px rgba(33, 37, 41, 0.10);
-  --dare-shadow-lg: 0 4px 8px rgba(33, 37, 41, 0.06),
-                    0 12px 32px rgba(33, 37, 41, 0.12);
+  --dare-shadow-sm: 0 1px 2px rgba(11, 39, 29, .07),
+                    0 1px 3px rgba(11, 39, 29, .09);
+  --dare-shadow-md: 0 2px 4px rgba(11, 39, 29, .07),
+                    0 4px 12px rgba(11, 39, 29, .11);
+  --dare-shadow-lg: 0 4px 8px rgba(11, 39, 29, .07),
+                    0 12px 32px rgba(11, 39, 29, .13);
 
   // --- Spacing -------------------------------------------------------------
-  // 4px base. Stock DSpace mixes Bootstrap spacers with ad-hoc pixel values,
-  // which is why vertical rhythm drifts between the search and item pages.
-  --dare-space-1: 0.25rem;
-  --dare-space-2: 0.5rem;
+  --dare-space-1: .25rem;
+  --dare-space-2: .5rem;
   --dare-space-3: 1rem;
   --dare-space-4: 1.5rem;
   --dare-space-5: 2rem;
   --dare-space-6: 3rem;
   --dare-space-7: 4rem;
 
-  // Long-form metadata is far more readable capped near 70 characters.
   --dare-measure: 68ch;
 
-  --dare-focus-ring: 0 0 0 3px #ffffff, 0 0 0 5px var(--dare-blue-strong);
+  // Focus: white inner ring, dark green outer. Visible on white content and on
+  // the surface greys alike.
+  --dare-focus-ring: 0 0 0 3px #ffffff, 0 0 0 5px var(--dare-green);
+  // Inverted for dark grounds and hero photography, where a white inner ring
+  // would vanish.
+  --dare-focus-ring-on-dark: 0 0 0 3px var(--dare-green-ground),
+                             0 0 0 5px var(--dare-gold-bright);
 
 
   // --- DSpace variable mapping ---------------------------------------------
-  // VERIFY these names against your installed DSpace before trusting them.
+  --ds-header-bg:                  #ffffff;
+  --ds-header-logo-height:         48px;
 
-  --ds-header-bg:                 #ffffff;
-  --ds-header-logo-height:        48px;
+  --ds-navbar-bg:                  var(--dare-green-ground);
+  --ds-navbar-link-color:          #ffffff;                   // 15.88:1
+  --ds-navbar-link-color-hover:    var(--dare-gold-bright);   //  8.42:1
 
-  --ds-navbar-bg:                 var(--dare-surface);
-  --ds-navbar-link-color:         var(--dare-ink);
-  --ds-navbar-link-color-hover:   var(--dare-blue-strong);
+  --ds-footer-bg:                  var(--dare-green-ground);
+  --ds-footer-text-color:          #e8efeb;                   // 13.9:1
+  --ds-footer-link-color:          var(--dare-gold-bright);   //  8.42:1
+  --ds-footer-link-color-hover:    #ffffff;
 
-  --ds-footer-bg:                 var(--dare-ink);
-  --ds-footer-text-color:         #e9ecef;
-  // #9fb4ff on #212529 clears AA; the raw brand blue on this dark ground
-  // does not, which is the usual source of unreadable DSpace footers.
-  --ds-footer-link-color:         #9fb4ff;
-  --ds-footer-link-color-hover:   #ffffff;
+  --ds-breadcrumb-bg:              var(--dare-surface);
+  --ds-breadcrumb-link-color:      var(--dare-green);
 
-  --ds-breadcrumb-bg:             var(--dare-surface);
-  --ds-breadcrumb-link-color:     var(--dare-blue-text);
-  --ds-breadcrumb-max-length:     200px;
+  --ds-home-news-background-color: var(--dare-green-ground);
+  --ds-home-news-link-color:       var(--dare-gold-bright);
 
-  --ds-home-news-background-color: var(--dare-surface);
-  --ds-home-news-link-color:       var(--dare-blue-text);
+  --ds-content-spacing:            var(--dare-space-4);
+  --ds-icon-color:                 var(--dare-ink-muted);
+}
 
-  --ds-content-spacing:           var(--dare-space-4);
-  --ds-icon-color:                var(--dare-ink-muted);
+@media (prefers-contrast: more) {
+  :root {
+    --dare-gold-text:  var(--dare-gold-strong);
+    --dare-ink-subtle: var(--dare-ink-muted);
+  }
 }

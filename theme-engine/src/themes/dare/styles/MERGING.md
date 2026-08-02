@@ -14,14 +14,19 @@ Nothing in this directory shares those names. Every file here is prefixed
 
 ## Adopting it
 
-**One line**, at the end of your existing `styles/theme.scss`:
+**One line**, at the end of `styles/_global-styles.scss`:
 
 ```scss
 @import 'dare-index';
 ```
 
-Last, so the accessibility rules in `_dare-accessibility.scss` win where
-specificity ties.
+Not `theme.scss` — that file opens with *"This file combines the other scss
+files into one. You usually shouldn't edit this file directly"*, and it is the
+last import in that chain anyway, so `_global-styles.scss` gives the same
+ordering without fighting the generated file.
+
+Last in the file, so the accessibility rules in `_dare-accessibility.scss` win
+where specificity ties.
 
 Then copy these files into `styles/`:
 
@@ -30,6 +35,7 @@ _dare-index.scss
 _dare-tokens.scss
 _dare-library.scss
 _dare-orcid.scss
+_dare-hero-patch.scss
 _dare-accessibility.scss
 ```
 

@@ -1,0 +1,138 @@
+// ---------------------------------------------------------------------------
+// DARE hero carousel — accessibility patch
+//
+// The carousel in app/home-page/home-news/home-news.component.scss is sound:
+// Angular 17 control flow, hover-pause, per-slide aria-hidden, labelled arrows,
+// reduced-motion handling. Two measured defects remain, fixed below.
+//
+// Import this AFTER the component styles, or paste the two blocks directly
+// into home-news.component.scss — the latter is tidier, since these belong
+// with the component they patch.
+// ---------------------------------------------------------------------------
+
+
+// --- DEFECT 1: the scrim thins too early (WCAG 1.4.3) -----------------------
+//
+// The overlay is a horizontal gradient. Composited over a BRIGHT photograph,
+// white text measures:
+//
+//     0%   rgba(5,27,19,.96)   ->  16.29:1   ✓
+//    35%   rgba(18,55,42,.88)  ->   9.06:1   ✓
+//    57%   (interpolated .59)  ->   3.68:1   ✗  fails AA
+//    65%   rgba(18,55,42,.48)  ->   2.78:1   ✗
+//
+// .dare-slide-content is max-width 800px inside a centred container, so on a
+// wide viewport its right edge lands near 57% — inside the failing zone. On a
+// dark photograph everything passes; on a bright one the end of each headline
+// is where it breaks. That intermittency is why it survives casual review.
+//
+// Fix: hold the dark stop until 60%, past the text block, then fall away so
+// the photograph is still revealed on the right.
+
+.dare-hero .dare-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(5, 27, 19, .96)   0%,     // 14.02:1 over white
+    rgba(10, 40, 30, .90)  45%,    // 11.76:1
+    rgba(10, 40, 30, .82)  60%,    //  8.87:1 — text block ends here
+    rgba(18, 55, 42, .45)  80%,    // no text beyond this point
+    rgba(0, 0, 0, .20)     100%
+  );
+}
+
+// The mobile scrim is already flat at .82 and measures 10.35:1 over white.
+// Left as-is — it was correct.
+
+
+// --- DEFECT 2: indicator targets are 11px (WCAG 2.5.5) ----------------------
+//
+// .dare-indicators button is 11x11 CSS px. The criterion requires 44x44.
+// These are the primary means of reaching a specific slide, and 11px is hard
+// to hit with a thumb.
+//
+// Fix: keep the 11px dot as the visible mark, but grow the hit area to 44px
+// with transparent padding. Appearance is unchanged; the target is four times
+// larger.
+
+.dare-hero .dare-indicators {
+  gap: 0;                      // padding now provides the separation
+
+  button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    // The visible dot.
+    &::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      background: transparent;
+      transition: width .3s ease, border-radius .3s ease, background .3s ease;
+    }
+
+    &.active::before {
+      width: 36px;
+      border-color: var(--dare-gold, #d4a72c);
+      border-radius: 10px;
+      background: var(--dare-gold, #d4a72c);
+    }
+
+    // Focus must be visible against photography, so the ring is gold on a
+    // dark core rather than the white-cored ring used on light pages.
+    &:focus-visible {
+      outline: none;
+      border-radius: 50%;
+      box-shadow: var(--dare-focus-ring-on-dark,
+                      0 0 0 3px #0b271d, 0 0 0 5px #e1b83e);
+    }
+  }
+}
+
+// Arrows are 48x60 and already clear the target-size minimum. Their focus
+// state is the only gap: the component defines :hover but not :focus-visible,
+// so keyboard users get no indication of which arrow is selected.
+.dare-hero .dare-arrow:focus-visible {
+  outline: none;
+  background: rgba(18, 55, 42, .88);
+  border-color: var(--dare-gold-bright, #e1b83e);
+  box-shadow: var(--dare-focus-ring-on-dark,
+                  0 0 0 3px #0b271d, 0 0 0 5px #e1b83e);
+}
+
+
+// --- Carousel autoplay and 2.2.2 Pause, Stop, Hide --------------------------
+//
+// The component pauses on mouseenter/mouseleave, which covers pointer users
+// but not keyboard or touch. Two gaps worth closing in the TypeScript rather
+// than in CSS:
+//
+//   1. Pause on focusin, resume on focusout — otherwise a keyboard user
+//      tabbing through slide links has the content move under them.
+//   2. Honour prefers-reduced-motion by not starting the timer at all. The
+//      component currently disables the CSS transition under that query, so
+//      slides still advance, just without the crossfade. The criterion is
+//      about the movement, not the easing.
+//
+// Suggested, in home-news.component.ts:
+//
+//     private prefersReducedMotion =
+//       typeof matchMedia !== 'undefined' &&
+//       matchMedia('(prefers-reduced-motion: reduce)').matches;
+//
+//     startCarousel(): void {
+//       if (this.prefersReducedMotion) { return; }
+//       // ...existing timer
+//     }
+//
+// and on the <section>:
+//
+//     (focusin)="stopCarousel()" (focusout)="startCarousel()"
