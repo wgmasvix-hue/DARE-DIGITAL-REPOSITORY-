@@ -1,0 +1,73 @@
+name: Validate
+
+# This repo holds DSpace deployment configuration, not a deployable artifact.
+# The thing worth enforcing is that no credential or repository content reaches
+# the remote — see scripts/check-no-secrets.sh.
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - 'claude/**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: No secrets or repository content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan tracked files
+        run: ./scripts/check-no-secrets.sh
+
+  shell:
+    name: Shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax check
+        run: |
+          for f in scripts/*.sh; do
+            bash -n "$f" || exit 1
+            echo "ok: $f"
+          done
+
+      - name: ShellCheck
+        run: shellcheck --severity=warning scripts/*.sh
+
+  config:
+    name: Config syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate YAML
+        run: |
+          shopt -s globstar nullglob
+          files=(**/*.yml **/*.yaml)
+          [ ${#files[@]} -eq 0 ] && { echo "No YAML files."; exit 0; }
+          for f in "${files[@]}"; do
+            python3 -c "import sys,yaml; yaml.safe_load(open(sys.argv[1]))" "$f" \
+              || { echo "invalid YAML: $f"; exit 1; }
+            echo "ok: $f"
+          done
+
+      - name: Validate DSpace XML config
+        run: |
+          shopt -s globstar nullglob
+          files=(deploy/**/*.xml)
+          [ ${#files[@]} -eq 0 ] && { echo "No collected XML yet."; exit 0; }
+          for f in "${files[@]}"; do
+            python3 -c "import sys,xml.etree.ElementTree as E; E.parse(sys.argv[1])" "$f" \
+              || { echo "invalid XML: $f"; exit 1; }
+            echo "ok: $f"
+          done
