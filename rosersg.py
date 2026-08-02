@@ -75,43 +75,153 @@ class OllamaClient:
 
 
 class DSpaceClient:
-    def __init__(self, endpoint):
+    def __init__(self, endpoint, api_token=None):
         self.endpoint = endpoint
         self.api_url = f"{endpoint}/server/api"
+        self.api_token = api_token or os.getenv('DSPACE_API_TOKEN')
+        self.headers = self._build_headers()
 
-    def search(self, query, limit=50):
-        """Search DSpace items"""
+    def _build_headers(self):
+        """Build headers with optional authentication"""
+        headers = {"Accept": "application/json"}
+        if self.api_token:
+            headers["Authorization"] = f"Bearer {self.api_token}"
+        return headers
+
+    def search(self, query, limit=50, dso_type=None):
+        """Search DSpace items with optional type filter"""
         try:
             url = f"{self.api_url}/discover/search"
-            params = {"query": query, "limit": limit}
-            response = requests.get(url, params=params, timeout=30)
+            params = {
+                "query": query,
+                "limit": limit,
+                "offset": 0
+            }
+            if dso_type:
+                params["dsoType"] = dso_type
+
+            response = requests.get(
+                url,
+                params=params,
+                headers=self.headers,
+                timeout=30,
+                verify=True
+            )
             response.raise_for_status()
             return response.json()
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             logger.error(f"DSpace search error: {str(e)}")
-            return {"error": str(e)}
+            return {"error": f"DSpace search failed: {str(e)}", "status": "error"}
 
     def get_item(self, item_id):
-        """Get specific DSpace item"""
+        """Get specific DSpace item with all metadata"""
         try:
             url = f"{self.api_url}/core/items/{item_id}"
-            response = requests.get(url, timeout=30)
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=30,
+                verify=True
+            )
+            response.raise_for_status()
+            item = response.json()
+
+            # Get bitstreams if needed
+            if "uuid" in item:
+                item["bitstreams"] = self._get_bitstreams(item["uuid"])
+
+            return item
+        except requests.exceptions.RequestException as e:
+            logger.error(f"DSpace get item error: {str(e)}")
+            return {"error": f"Item not found: {str(e)}", "status": "error"}
+
+    def _get_bitstreams(self, item_uuid):
+        """Get bitstreams for an item"""
+        try:
+            url = f"{self.api_url}/core/items/{item_uuid}/bitstreams"
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=30,
+                verify=True
+            )
             response.raise_for_status()
             return response.json()
-        except Exception as e:
-            logger.error(f"DSpace get item error: {str(e)}")
-            return {"error": str(e)}
+        except:
+            return {"error": "Could not retrieve bitstreams"}
 
-    def get_collections(self):
+    def get_collections(self, limit=50):
         """Get all DSpace collections"""
         try:
             url = f"{self.api_url}/core/collections"
-            response = requests.get(url, timeout=30)
+            params = {"limit": limit}
+            response = requests.get(
+                url,
+                params=params,
+                headers=self.headers,
+                timeout=30,
+                verify=True
+            )
             response.raise_for_status()
             return response.json()
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             logger.error(f"DSpace collections error: {str(e)}")
-            return {"error": str(e)}
+            return {"error": str(e), "status": "error"}
+
+    def get_collection_items(self, collection_id, limit=50):
+        """Get items in a specific collection"""
+        try:
+            url = f"{self.api_url}/core/collections/{collection_id}/items"
+            params = {"limit": limit}
+            response = requests.get(
+                url,
+                params=params,
+                headers=self.headers,
+                timeout=30,
+                verify=True
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"DSpace get collection items error: {str(e)}")
+            return {"error": str(e), "status": "error"}
+
+    def get_metadata_fields(self):
+        """Get available metadata fields in DSpace"""
+        try:
+            url = f"{self.api_url}/core/metadatafields"
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=30,
+                verify=True
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"DSpace metadata fields error: {str(e)}")
+            return {"error": str(e), "status": "error"}
+
+    def health_check(self):
+        """Check if DSpace is accessible"""
+        try:
+            response = requests.get(
+                f"{self.api_url}/discover/search",
+                headers=self.headers,
+                timeout=10,
+                verify=True
+            )
+            return {
+                "status": "online" if response.status_code == 200 else "error",
+                "endpoint": self.endpoint,
+                "authenticated": bool(self.api_token)
+            }
+        except requests.exceptions.RequestException:
+            return {
+                "status": "offline",
+                "endpoint": self.endpoint,
+                "authenticated": bool(self.api_token)
+            }
 
 
 def require_api_key(f):
@@ -351,14 +461,76 @@ def status():
     except:
         ollama_status = "offline"
 
+    dspace_status = dspace.health_check()
+
     return jsonify({
         "service": "rosersg",
         "version": "1.0.0",
         "features": CONFIG['rosersg_features'],
         "ollama_status": ollama_status,
+        "dspace": dspace_status,
         "dspace_endpoint": DSPACE_ENDPOINT,
         "timestamp": datetime.utcnow().isoformat()
     })
+
+
+@app.route('/api/dspace/health', methods=['GET'])
+@require_api_key
+def dspace_health():
+    """Check DSpace connection and status"""
+    status = dspace.health_check()
+    http_status = 200 if status["status"] == "online" else 503
+
+    return jsonify({
+        "dspace_status": status,
+        "timestamp": datetime.utcnow().isoformat()
+    }), http_status
+
+
+@app.route('/api/dspace/collections', methods=['GET'])
+@require_api_key
+def dspace_collections_list():
+    """Get list of DSpace collections"""
+    try:
+        collections = dspace.get_collections()
+        return jsonify({
+            "collections": collections,
+            "timestamp": datetime.utcnow().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Collections list error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/dspace/collection/<collection_id>/items', methods=['GET'])
+@require_api_key
+def dspace_collection_items(collection_id):
+    """Get items in a specific collection"""
+    try:
+        limit = request.args.get('limit', 50, type=int)
+        items = dspace.get_collection_items(collection_id, limit)
+        return jsonify({
+            "items": items,
+            "timestamp": datetime.utcnow().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Collection items error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/dspace/metadata-fields', methods=['GET'])
+@require_api_key
+def dspace_metadata_fields():
+    """Get available DSpace metadata fields"""
+    try:
+        fields = dspace.get_metadata_fields()
+        return jsonify({
+            "metadata_fields": fields,
+            "timestamp": datetime.utcnow().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Metadata fields error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 
 @app.errorhandler(404)
