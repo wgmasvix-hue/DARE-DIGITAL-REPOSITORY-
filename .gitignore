@@ -46,6 +46,24 @@ deploy/backend/config/local.cfg
 .collect-staging/
 collect-report-*.txt
 
+# --- Python virtualenvs (harvesters, tooling) ------------------------------
+venv/
+.venv/
+env/
+*_env/
+harvest_env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# --- Editor and manual-edit backups ----------------------------------------
+# The server has many of these: config.yml.before-*, *.bad-dir, *.xml~
+*~
+*.orig
+*.rej
+*.before-*
+*.bad-dir/
+
 # --- Build / runtime noise -------------------------------------------------
 node_modules/
 dist/
