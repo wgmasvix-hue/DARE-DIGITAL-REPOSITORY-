@@ -25,6 +25,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT_DIR="${REPO_ROOT}/deploy"
 DSPACE_HOME="${DSPACE_HOME:-}"
 FRONTEND_DIR="${DSPACE_FRONTEND:-}"
+BUILD_CONTEXT="${DSPACE_BUILD_CONTEXT:-}"
 DRY_RUN=0
 REPORT="${REPO_ROOT}/collect-report-$(date +%Y%m%d-%H%M%S).txt"
 
@@ -46,6 +47,7 @@ while [[ $# -gt 0 ]]; do
     --dry-run)      DRY_RUN=1; shift ;;
     --dspace-home)  DSPACE_HOME="${2:?--dspace-home needs a path}"; shift 2 ;;
     --frontend)     FRONTEND_DIR="${2:?--frontend needs a path}"; shift 2 ;;
+    --build-context) BUILD_CONTEXT="${2:?--build-context needs a path}"; shift 2 ;;
     --out)          OUT_DIR="${2:?--out needs a path}"; shift 2 ;;
     -h|--help)      usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 2 ;;
@@ -158,6 +160,19 @@ record_stack_manifest() {
       fi
     done < <(docker ps -a --format '{{.Names}}' 2>/dev/null)
   } >"$out"
+}
+
+# A locally built frontend image ships compiled dist/ only, so the theme source
+# exists nowhere but the build context on disk. Find it.
+detect_build_contexts() {
+  local f d
+  while IFS= read -r f; do
+    d="$(dirname "$f")"
+    # angular.json usually sits in a theme-engine/ subdirectory of the context.
+    if [[ "$(basename "$d")" == "theme-engine" ]]; then dirname "$d"; else echo "$d"; fi
+  done < <(find /opt /root /srv /home /usr/local /data /var/www -maxdepth 4 \
+             -name 'angular.json' -not -path '*/node_modules/*' 2>/dev/null) \
+    | sort -u
 }
 
 # Compose records the file it was launched from, as a label on every container
@@ -419,6 +434,51 @@ elif [[ -n "$FRONTEND_CONTAINER" ]]; then
   fi
 else
   warn "No frontend found — pass --frontend /path/to/dspace-angular if you have a checkout"
+fi
+
+head1 "Frontend build context"
+# The custom image is built from pre-compiled dist/, so this source tree is the
+# only copy of the theme. dist/ and node_modules are excluded as build output.
+if [[ -z "$BUILD_CONTEXT" ]]; then
+  mapfile -t BC_CANDIDATES < <(detect_build_contexts)
+  if [[ ${#BC_CANDIDATES[@]} -gt 1 ]]; then
+    warn "multiple build contexts found:"
+    for c in "${BC_CANDIDATES[@]}"; do
+      info "${C_DIM}  $c  (modified $(date -r "$c" '+%Y-%m-%d %H:%M' 2>/dev/null || echo '?'))${C_RESET}"
+    done
+    warn "using the most recently modified; override with --build-context PATH"
+    BUILD_CONTEXT="$(printf '%s\n' "${BC_CANDIDATES[@]}" \
+      | while IFS= read -r c; do printf '%s\t%s\n' "$(stat -c %Y "$c" 2>/dev/null || echo 0)" "$c"; done \
+      | sort -rn | head -1 | cut -f2)"
+  elif [[ ${#BC_CANDIDATES[@]} -eq 1 ]]; then
+    BUILD_CONTEXT="${BC_CANDIDATES[0]}"
+  fi
+fi
+
+if [[ -n "$BUILD_CONTEXT" ]]; then
+  info "build context: ${BUILD_CONTEXT}"
+  copy_path "$BUILD_CONTEXT/assets"              "$OUT_DIR/frontend-build/assets"        "assets/ (logo, favicon — your branding)"
+  copy_path "$BUILD_CONTEXT/config"              "$OUT_DIR/frontend-build/config"        "build-context config/"
+  copy_path "$BUILD_CONTEXT/docker"              "$OUT_DIR/frontend-build/docker"        "docker/ (dspace-ui.json)"
+  copy_path "$BUILD_CONTEXT/docker-entrypoint.sh" "$OUT_DIR/frontend-build/docker-entrypoint.sh" "docker-entrypoint.sh"
+  for df in "$BUILD_CONTEXT"/Dockerfile*; do
+    [[ -f "$df" ]] && copy_path "$df" "$OUT_DIR/frontend-build/$(basename "$df")" "$(basename "$df")"
+  done
+  # theme-engine: source only, never dist/ or node_modules
+  TE="$BUILD_CONTEXT/theme-engine"
+  if [[ -d "$TE" ]]; then
+    copy_path "$TE/src"      "$OUT_DIR/frontend-build/theme-engine/src"      "theme-engine/src/ (theme source)"
+    for meta in angular.json package.json yarn.lock package-lock.json \
+                tsconfig.json tsconfig.app.json server.ts; do
+      [[ -f "$TE/$meta" ]] && copy_path "$TE/$meta" "$OUT_DIR/frontend-build/theme-engine/$meta" "theme-engine/$meta"
+    done
+    [[ -d "$TE/dist" ]] && info "${C_DIM}skipping theme-engine/dist — build output, regenerable from src${C_RESET}"
+  fi
+else
+  warn "No frontend build context found."
+  warn "Your image copies pre-built dist/, so the theme source is NOT in the image."
+  warn "Locate it and pass --build-context PATH, or the branding exists only as"
+  warn "compiled bundles inside ${FRONTEND_CONTAINER:-the container}."
 fi
 
 head1 "Container and web-server configuration"
