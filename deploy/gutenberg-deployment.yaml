@@ -14,7 +14,7 @@ metadata:
   namespace: dare-data
 data:
   harvest_schedule: "0 2 * * *"  # Daily at 2 AM UTC
-  api_url: "https://dspace.dare.co.zw"
+  api_url: "https://repo.dare.co.zw"
   data_path: "/data/gutenberg"
 
 ---
@@ -267,10 +267,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dspace.dare.co.zw
+    - repo.dare.co.zw
     secretName: gutenberg-tls
   rules:
-  - host: dspace.dare.co.zw
+  - host: repo.dare.co.zw
     http:
       paths:
       - path: /data/gutenberg

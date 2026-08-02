@@ -93,7 +93,7 @@ See: https://www.gutenberg.org/about/background/
 
 - Project Gutenberg: https://www.gutenberg.org/
 - Gutendex API: https://gutendex.com/
-- DARE Repository: https://dspace.dare.co.zw/
+- DARE Repository: https://repo.dare.co.zw/
 
 ---
 

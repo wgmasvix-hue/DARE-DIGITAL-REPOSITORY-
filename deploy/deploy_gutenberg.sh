@@ -19,10 +19,10 @@ echo ""
 # Configuration
 case $ENVIRONMENT in
     production)
-        SERVER="dspace.dare.co.zw"
+        SERVER="repo.dare.co.zw"
         DEPLOY_USER="dspace"
         DEPLOY_PATH="/opt/dspace/data/gutenberg"
-        API_URL="https://dspace.dare.co.zw"
+        API_URL="https://repo.dare.co.zw"
         ;;
     staging)
         SERVER="staging.dare.co.zw"

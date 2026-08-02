@@ -193,7 +193,7 @@ The theme includes ORCID authentication styling. Configure in your DSpace:
 
 Visit https://orcid.org/developers and create an application:
 - Name: DARE Digital Repository
-- Redirect URIs: `https://dspace.dare.co.zw/orcid-callback`
+- Redirect URIs: `https://repo.dare.co.zw/orcid-callback`
 
 ### 2. Configure DSpace REST API
 
@@ -204,7 +204,7 @@ In DSpace configuration:
 orcid.enabled = true
 orcid.clientId = YOUR_ORCID_CLIENT_ID
 orcid.clientSecret = YOUR_ORCID_CLIENT_SECRET
-orcid.redirectUrl = https://dspace.dare.co.zw/orcid-callback
+orcid.redirectUrl = https://repo.dare.co.zw/orcid-callback
 ```
 
 ### 3. Enable ORCID Login in Theme
@@ -310,7 +310,7 @@ spec:
         - name: THEME
           value: dare
         - name: DSPACE_REST_URL
-          value: https://dspace.dare.co.zw/server/api
+          value: https://repo.dare.co.zw/server/api
 ```
 
 ## Testing

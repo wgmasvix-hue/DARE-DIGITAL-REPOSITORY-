@@ -180,10 +180,10 @@ python harvest_gutenberg.py
 ### Direct Download
 ```bash
 # Download latest JSON
-curl -O https://dspace.dare.co.zw/data/gutenberg_books_latest.json
+curl -O https://repo.dare.co.zw/data/gutenberg_books_latest.json
 
 # Download latest CSV
-curl -O https://dspace.dare.co.zw/data/gutenberg_books_latest.csv
+curl -O https://repo.dare.co.zw/data/gutenberg_books_latest.csv
 ```
 
 ### DSpace Integration
@@ -370,7 +370,7 @@ A: Gutendex is an unofficial but reliable API built by volunteers. Official: htt
 
 - **Project Gutenberg**: https://www.gutenberg.org/
 - **Gutendex API**: https://gutendex.com/
-- **DARE Repository**: https://dspace.dare.co.zw/
+- **DARE Repository**: https://repo.dare.co.zw/
 - **GitHub**: https://github.com/wgmasvix-hue/dare-digital-repository-
 
 ## Version History

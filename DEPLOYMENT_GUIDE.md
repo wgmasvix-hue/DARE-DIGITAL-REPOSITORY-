@@ -51,13 +51,13 @@ deploy/deploy_gutenberg.sh staging
 ##### 3. Verify Deployment
 ```bash
 # Check files are in place
-ssh dspace@dspace.dare.co.zw ls -lah /opt/dspace/data/gutenberg
+ssh dspace@repo.dare.co.zw ls -lah /opt/dspace/data/gutenberg
 
 # Check API endpoint
-curl https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
+curl https://repo.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
 
 # Check cron job
-ssh dspace@dspace.dare.co.zw crontab -l | grep gutenberg
+ssh dspace@repo.dare.co.zw crontab -l | grep gutenberg
 ```
 
 #### Deployment Locations
@@ -75,23 +75,23 @@ ssh dspace@dspace.dare.co.zw crontab -l | grep gutenberg
 
 **Trigger harvest immediately:**
 ```bash
-ssh dspace@dspace.dare.co.zw /opt/dspace/scripts/harvest_gutenberg_daily.sh
+ssh dspace@repo.dare.co.zw /opt/dspace/scripts/harvest_gutenberg_daily.sh
 ```
 
 **View harvest logs:**
 ```bash
-ssh dspace@dspace.dare.co.zw tail -f /var/log/dspace/gutenberg_harvest.log
+ssh dspace@repo.dare.co.zw tail -f /var/log/dspace/gutenberg_harvest.log
 ```
 
 **Stop cron job:**
 ```bash
-ssh dspace@dspace.dare.co.zw crontab -e
+ssh dspace@repo.dare.co.zw crontab -e
 # Remove the gutenberg_harvest line
 ```
 
 **Restart cron job:**
 ```bash
-ssh dspace@dspace.dare.co.zw
+ssh dspace@repo.dare.co.zw
 (crontab -l 2>/dev/null | grep -v "harvest_gutenberg"; echo "0 2 * * * /opt/dspace/scripts/harvest_gutenberg_daily.sh") | crontab -
 ```
 
@@ -194,7 +194,7 @@ kubectl logs -n dare-data job/gutenberg-harvest-manual-*
 │                          ↓                         │
 │ ┌──────────────────────────────────────────────┐  │
 │ │ Ingress: gutenberg-ingress                   │  │
-│ │ Host: dspace.dare.co.zw                      │  │
+│ │ Host: repo.dare.co.zw                      │  │
 │ │ TLS: Enabled (cert-manager)                  │  │
 │ │ Paths:                                       │  │
 │ │   /data/gutenberg → API Service              │  │
@@ -209,7 +209,7 @@ kubectl logs -n dare-data job/gutenberg-harvest-manual-*
 **gutenberg-config**: Environment and scheduling settings
 ```yaml
 harvest_schedule: "0 2 * * *"
-api_url: "https://dspace.dare.co.zw"
+api_url: "https://repo.dare.co.zw"
 data_path: "/data/gutenberg"
 ```
 
@@ -248,41 +248,41 @@ kubectl patch cronjob gutenberg-harvest -p '{"spec":{"schedule":"0 0 * * *"}}' -
 ### Data Files
 ```bash
 # Full JSON dataset
-https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_latest.json
+https://repo.dare.co.zw/data/gutenberg/gutenberg_books_latest.json
 
 # Full CSV dataset
-https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_latest.csv
+https://repo.dare.co.zw/data/gutenberg/gutenberg_books_latest.csv
 
 # Sample data
-https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
-https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_sample.csv
+https://repo.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
+https://repo.dare.co.zw/data/gutenberg/gutenberg_books_sample.csv
 
 # Documentation
-https://dspace.dare.co.zw/data/gutenberg/GUTENBERG_DATASET.md
+https://repo.dare.co.zw/data/gutenberg/GUTENBERG_DATASET.md
 
 # Directory listing
-https://dspace.dare.co.zw/data/gutenberg/
+https://repo.dare.co.zw/data/gutenberg/
 ```
 
 ### API Endpoints
 ```bash
 # Latest books (redirects to JSON)
-https://dspace.dare.co.zw/api/gutenberg/books
+https://repo.dare.co.zw/api/gutenberg/books
 
 # Sample books
-https://dspace.dare.co.zw/api/gutenberg/sample
+https://repo.dare.co.zw/api/gutenberg/sample
 ```
 
 ### Example Usage
 ```bash
 # Get all books
-curl https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_latest.json | jq length
+curl https://repo.dare.co.zw/data/gutenberg/gutenberg_books_latest.json | jq length
 
 # Get CSV
-curl https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_latest.csv | head -10
+curl https://repo.dare.co.zw/data/gutenberg/gutenberg_books_latest.csv | head -10
 
 # Stream and process
-curl https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_latest.json \
+curl https://repo.dare.co.zw/data/gutenberg/gutenberg_books_latest.json \
   | jq '.[] | select(.languages[] == "en") | .title' | head -20
 ```
 
@@ -302,7 +302,7 @@ curl https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_latest.json \
 **Check harvest status:**
 ```bash
 # Bash method
-ssh dspace@dspace.dare.co.zw ls -lah /opt/dspace/data/gutenberg/
+ssh dspace@repo.dare.co.zw ls -lah /opt/dspace/data/gutenberg/
 
 # Kubernetes method
 kubectl get pvc -n dare-data
@@ -312,7 +312,7 @@ kubectl get pod -n dare-data -l batch.kubernetes.io/controller-uid
 **Monitor harvest logs:**
 ```bash
 # Bash method
-ssh dspace@dspace.dare.co.zw tail -f /var/log/dspace/gutenberg_harvest.log
+ssh dspace@repo.dare.co.zw tail -f /var/log/dspace/gutenberg_harvest.log
 
 # Kubernetes method
 kubectl logs -n dare-data -l app=dare,component=gutenberg -f
@@ -320,7 +320,7 @@ kubectl logs -n dare-data -l app=dare,component=gutenberg -f
 
 **Check API availability:**
 ```bash
-curl -I https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
+curl -I https://repo.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
 ```
 
 ### Maintenance Tasks
@@ -328,7 +328,7 @@ curl -I https://dspace.dare.co.zw/data/gutenberg/gutenberg_books_sample.json
 #### Backup Data
 ```bash
 # Bash
-ssh dspace@dspace.dare.co.zw \
+ssh dspace@repo.dare.co.zw \
   tar -czf /backup/gutenberg_$(date +%Y%m%d).tar.gz \
   /opt/dspace/data/gutenberg/
 
@@ -344,13 +344,13 @@ curl https://raw.githubusercontent.com/wgmasvix-hue/dare-digital-repository-/mai
   > /tmp/harvest_gutenberg.py
 
 # Backup old version
-ssh dspace@dspace.dare.co.zw \
+ssh dspace@repo.dare.co.zw \
   cp /opt/dspace/data/gutenberg/harvest_gutenberg.py \
   /opt/dspace/data/gutenberg/harvest_gutenberg.py.bak
 
 # Deploy new version
-scp /tmp/harvest_gutenberg.py dspace@dspace.dare.co.zw:/opt/dspace/data/gutenberg/
-ssh dspace@dspace.dare.co.zw chmod 755 /opt/dspace/data/gutenberg/harvest_gutenberg.py
+scp /tmp/harvest_gutenberg.py dspace@repo.dare.co.zw:/opt/dspace/data/gutenberg/
+ssh dspace@repo.dare.co.zw chmod 755 /opt/dspace/data/gutenberg/harvest_gutenberg.py
 ```
 
 #### Clean Old Backups
@@ -369,7 +369,7 @@ find /opt/dspace/data/gutenberg/checkpoint_books_*.json -mtime +30 -delete
 **Solution**:
 ```bash
 # Bash: Check if web server is running
-ssh dspace@dspace.dare.co.zw sudo systemctl status nginx
+ssh dspace@repo.dare.co.zw sudo systemctl status nginx
 
 # Kubernetes: Check if pod is running
 kubectl get pod -n dare-data -l app=dare,component=gutenberg-api
@@ -420,10 +420,10 @@ kubectl patch pvc gutenberg-data-pvc -n dare-data \
 ### Bash Deployment
 ```bash
 # Remove deployed files
-ssh dspace@dspace.dare.co.zw rm -rf /opt/dspace/data/gutenberg
+ssh dspace@repo.dare.co.zw rm -rf /opt/dspace/data/gutenberg
 
 # Remove cron job
-ssh dspace@dspace.dare.co.zw crontab -e
+ssh dspace@repo.dare.co.zw crontab -e
 # Remove gutenberg line
 
 # Restore from backup
