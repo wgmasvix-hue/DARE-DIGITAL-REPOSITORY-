@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rosersg-ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - rosersg-network
+    restart: unless-stopped
+
+  rosersg-api:
+    build: .
+    container_name: rosersg-api
+    ports:
+      - "5000:5000"
+    environment:
+      - OLLAMA_ENDPOINT=http://ollama:11434
+      - OLLAMA_MODEL=mistral
+      - DSPACE_ENDPOINT=https://dspace.dare.co.zw
+      - ROSERSG_API_KEY=${ROSERSG_API_KEY:-your-secure-api-key}
+      - FLASK_ENV=production
+      - DEBUG=false
+    depends_on:
+      ollama:
+        condition: service_healthy
+    volumes:
+      - ./rosersg.py:/app/rosersg.py
+      - ./rosersg-config.json:/app/rosersg-config.json
+    networks:
+      - rosersg-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  rosersg-ui:
+    image: node:18-alpine
+    container_name: rosersg-ui
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ui:/app
+    command: sh -c "npm install && npm start"
+    networks:
+      - rosersg-network
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+      - REACT_APP_API_KEY=${ROSERSG_API_KEY:-your-secure-api-key}
+    depends_on:
+      - rosersg-api
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+    driver: local
+
+networks:
+  rosersg-network:
+    driver: bridge

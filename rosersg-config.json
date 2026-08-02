@@ -1,0 +1,79 @@
+{
+  "name": "rosersg",
+  "version": "1.0.0",
+  "description": "Ollama-powered AI assistant for DSpace digital repository",
+  "ollama": {
+    "endpoint": "http://localhost:11434",
+    "model": "mistral",
+    "temperature": 0.7,
+    "context_length": 4096,
+    "models": [
+      {
+        "name": "mistral",
+        "purpose": "general-purpose reasoning and recommendations",
+        "embeddings": false
+      },
+      {
+        "name": "neural-chat",
+        "purpose": "conversational AI and user interactions",
+        "embeddings": false
+      },
+      {
+        "name": "nomic-embed-text",
+        "purpose": "semantic embeddings for search",
+        "embeddings": true
+      }
+    ]
+  },
+  "dspace": {
+    "endpoint": "https://dspace.dare.co.zw",
+    "rest_api": "/server/api",
+    "search_limit": 50,
+    "timeout": 30000
+  },
+  "rosersg_features": {
+    "intelligent_search": {
+      "enabled": true,
+      "description": "AI-enhanced semantic search across DSpace collections"
+    },
+    "metadata_optimization": {
+      "enabled": true,
+      "description": "Automatic metadata suggestion and improvement using LLMs"
+    },
+    "content_summarization": {
+      "enabled": true,
+      "description": "Generate summaries of repository items"
+    },
+    "recommendation_engine": {
+      "enabled": true,
+      "description": "Suggest related items based on semantic similarity"
+    },
+    "collection_insights": {
+      "enabled": true,
+      "description": "Generate insights about collection content and usage patterns"
+    },
+    "interactive_assistant": {
+      "enabled": true,
+      "description": "Chat interface for exploring and understanding repository"
+    }
+  },
+  "security": {
+    "api_key_required": true,
+    "rate_limiting": {
+      "enabled": true,
+      "requests_per_minute": 60
+    },
+    "cors": {
+      "enabled": true,
+      "allowed_origins": [
+        "https://dspace.dare.co.zw",
+        "http://localhost:3000",
+        "http://localhost:5000"
+      ]
+    }
+  },
+  "logging": {
+    "level": "info",
+    "format": "json"
+  }
+}
