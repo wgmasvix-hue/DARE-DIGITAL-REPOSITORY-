@@ -1,0 +1,944 @@
+/* ===========================================================================
+   DARE theme — standalone stylesheet
+   Compiled from theme-engine/src/themes/dare/styles/_dare-index.scss
+
+   Injected into index.html by Dockerfile.dare, so it loads AFTER the Angular
+   bundle and wins on equal specificity. No Angular rebuild required.
+
+   NOT included: _dare-bootstrap-overrides.scss. Those are compile-time SCSS
+   variables that Bootstrap reads while building the bundle; they cannot be
+   applied from an injected stylesheet and must be merged into
+   _theme_sass_variable_overrides.scss before the next real build.
+   =========================================================================== */
+
+:root {
+  --dare-green-deepest:   #051b13;
+  --dare-green-ground:    #0b271d;
+  --dare-green:           #12372a;
+  --dare-green-mid:       #2e4f44;
+  --dare-gold:            #d4a72c;
+  --dare-gold-bright:     #e1b83e;
+  --dare-gold-hover:      #e5bd4a;
+  --dare-gold-text:       #91721e;
+  --dare-gold-strong:     #6d5616;
+  --dare-ink-on-gold:     #17211d;
+  --dare-ink:             #17211d;
+  --dare-ink-muted:       #4a5a53;
+  --dare-ink-subtle:      #62716a;
+  --dare-border-ui:       #7f8d86;
+  --dare-rule:            #dde3e0;
+  --dare-surface:         #f5f8f6;
+  --dare-surface-sunken:  #eaf0ed;
+  --dare-orcid-green:     #a6ce39;
+  --dare-orcid-on-green:  #1a1a1a;
+  --dare-orcid-text:      #667f20;
+  --dare-shadow-sm: 0 1px 2px rgba(11, 39, 29, .07),
+                    0 1px 3px rgba(11, 39, 29, .09);
+  --dare-shadow-md: 0 2px 4px rgba(11, 39, 29, .07),
+                    0 4px 12px rgba(11, 39, 29, .11);
+  --dare-shadow-lg: 0 4px 8px rgba(11, 39, 29, .07),
+                    0 12px 32px rgba(11, 39, 29, .13);
+  --dare-space-1: .25rem;
+  --dare-space-2: .5rem;
+  --dare-space-3: 1rem;
+  --dare-space-4: 1.5rem;
+  --dare-space-5: 2rem;
+  --dare-space-6: 3rem;
+  --dare-space-7: 4rem;
+  --dare-measure: 68ch;
+  --dare-focus-ring: 0 0 0 3px #ffffff, 0 0 0 5px var(--dare-green);
+  --dare-focus-ring-on-dark: 0 0 0 3px var(--dare-green-ground),
+                             0 0 0 5px var(--dare-gold-bright);
+  --ds-header-bg:                  #ffffff;
+  --ds-header-logo-height:         48px;
+  --ds-navbar-bg:                  var(--dare-green-ground);
+  --ds-navbar-link-color:          #ffffff;
+  --ds-navbar-link-color-hover:    var(--dare-gold-bright);
+  --ds-footer-bg:                  var(--dare-green-ground);
+  --ds-footer-text-color:          #e8efeb;
+  --ds-footer-link-color:          var(--dare-gold-bright);
+  --ds-footer-link-color-hover:    #ffffff;
+  --ds-breadcrumb-bg:              var(--dare-surface);
+  --ds-breadcrumb-link-color:      var(--dare-green);
+  --ds-home-news-background-color: var(--dare-green-ground);
+  --ds-home-news-link-color:       var(--dare-gold-bright);
+  --ds-content-spacing:            var(--dare-space-4);
+  --ds-icon-color:                 var(--dare-ink-muted);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --dare-gold-text:  var(--dare-gold-strong);
+    --dare-ink-subtle: var(--dare-ink-muted);
+  }
+}
+
+.dare-searchband {
+  position: relative;
+  padding: var(--dare-space-6) var(--dare-space-4);
+  background: var(--dare-surface);
+  border-bottom: 1px solid var(--dare-rule);
+}
+
+.dare-searchband__inner {
+  max-width: 56rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dare-searchband__title {
+  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+  font-weight: 650;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
+  color: var(--dare-ink);
+  margin: 0 0 var(--dare-space-2);
+  text-wrap: balance;
+}
+
+.dare-searchband__standfirst {
+  font-size: 1rem;
+  color: var(--dare-ink-muted);
+  max-width: 42rem;
+  margin: 0 auto var(--dare-space-4);
+  text-wrap: pretty;
+}
+
+.dare-searchband__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--dare-space-4) var(--dare-space-6);
+  margin-top: var(--dare-space-5);
+}
+
+.dare-stat {
+  text-align: center;
+}
+
+.dare-stat__figure {
+  display: block;
+  font-size: 1.65rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--dare-green);
+}
+
+.dare-stat__label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dare-ink-muted);
+  margin-top: 0.2em;
+}
+
+.dare-search {
+  display: flex;
+  max-width: 44rem;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid var(--dare-border-ui);
+  border-radius: var(--dare-space-2);
+  box-shadow: var(--dare-shadow-md);
+  overflow: hidden;
+}
+
+.dare-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  padding: var(--dare-space-4);
+  font-size: 1.05rem;
+  color: var(--dare-ink);
+  background: transparent;
+}
+
+.dare-search__input::placeholder {
+  color: var(--dare-ink-subtle);
+  opacity: 1;
+}
+
+.dare-search__input:focus {
+  outline: none;
+}
+
+.dare-search:focus-within {
+  box-shadow: var(--dare-shadow-lg), var(--dare-focus-ring);
+}
+
+.dare-search__submit {
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--dare-space-5);
+  border: 0;
+  background: var(--dare-green);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 140ms ease;
+}
+
+.dare-search__submit:hover {
+  background: var(--dare-green-ground);
+}
+
+.dare-search__submit:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.dare-scopes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--dare-space-2);
+  margin-top: var(--dare-space-4);
+}
+
+.dare-scopes__pill {
+  padding: 0.3em 0.85em;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--dare-border-ui);
+  background: #ffffff;
+  color: var(--dare-green);
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.dare-scopes__pill:hover {
+  background: var(--dare-surface-sunken);
+  color: var(--dare-green-ground);
+  text-decoration: none;
+}
+
+.dare-scopes__pill[aria-current="true"] {
+  background: var(--dare-green-ground);
+  border-color: var(--dare-green-ground);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.dare-scopes__pill:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+}
+
+.dare-collections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--dare-space-4);
+}
+
+.dare-collection-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--dare-space-4);
+  border: 1px solid var(--dare-rule);
+  border-radius: var(--dare-space-2);
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+.dare-collection-card:hover {
+  border-color: var(--dare-green);
+  box-shadow: var(--dare-shadow-md);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.dare-collection-card:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+}
+
+.dare-collection-card__kind {
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dare-ink-muted);
+  margin-bottom: var(--dare-space-2);
+}
+
+.dare-collection-card__title {
+  font-size: 1.02rem;
+  font-weight: 620;
+  line-height: 1.3;
+  margin: 0 0 var(--dare-space-2);
+  color: var(--dare-ink);
+  text-wrap: balance;
+}
+
+.dare-collection-card__desc {
+  font-size: 0.88rem;
+  color: var(--dare-ink-muted);
+  margin: 0 0 var(--dare-space-3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dare-collection-card__count {
+  margin-top: auto;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--dare-ink-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dare-collection-card:hover {
+    transform: none;
+  }
+}
+
+.dare-result {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: var(--dare-space-4);
+  padding: var(--dare-space-4) 0;
+  border-bottom: 1px solid var(--dare-rule);
+}
+
+.dare-result:last-child {
+  border-bottom: 0;
+}
+
+.dare-result__thumb {
+  width: 84px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--dare-rule);
+  border-radius: var(--dare-space-1);
+  background: var(--dare-surface-sunken);
+}
+
+.dare-result__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dare-space-2);
+  margin-bottom: var(--dare-space-2);
+}
+
+.dare-result__title {
+  font-size: 1.06rem;
+  font-weight: 620;
+  line-height: 1.35;
+  margin: 0 0 var(--dare-space-2);
+  text-wrap: balance;
+}
+
+.dare-result__title a {
+  color: var(--dare-ink);
+  text-decoration: none;
+}
+
+.dare-result__title a:hover {
+  color: var(--dare-green-ground);
+  text-decoration: underline;
+}
+
+.dare-result__title a:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+  border-radius: 3px;
+}
+
+.dare-result__authors {
+  font-size: 0.9rem;
+  color: var(--dare-ink-muted);
+  margin: 0 0 var(--dare-space-2);
+}
+
+.dare-result__abstract {
+  font-size: 0.9rem;
+  color: var(--dare-ink-muted);
+  max-width: var(--dare-measure);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 34rem) {
+  .dare-result {
+    grid-template-columns: 1fr;
+  }
+  .dare-result__thumb {
+    width: 64px;
+  }
+}
+
+.dare-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.18em 0.6em;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dare-chip--type {
+  color: var(--dare-gold-strong);
+}
+
+.dare-chip--open {
+  color: var(--dare-green);
+}
+
+.dare-chip--closed {
+  color: var(--dare-ink-muted);
+}
+
+.dare-chip--date {
+  color: var(--dare-ink-muted);
+  border-color: var(--dare-rule);
+}
+
+.dare-chip--peer {
+  color: var(--dare-green-ground);
+}
+
+.dare-facet {
+  padding-bottom: var(--dare-space-4);
+  margin-bottom: var(--dare-space-4);
+  border-bottom: 1px solid var(--dare-rule);
+}
+
+.dare-facet:last-child {
+  border-bottom: 0;
+}
+
+.dare-facet__title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--dare-ink-muted);
+  margin: 0 0 var(--dare-space-3);
+}
+
+.dare-facet__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dare-space-3);
+  padding: 0.3em 0;
+  font-size: 0.9rem;
+  color: var(--dare-green);
+  text-decoration: none;
+}
+
+.dare-facet__item:hover {
+  color: var(--dare-green-ground);
+  text-decoration: underline;
+}
+
+.dare-facet__item:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+  border-radius: 3px;
+}
+
+.dare-facet__count {
+  flex: 0 0 auto;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--dare-ink-subtle);
+}
+
+.dare-item__title {
+  font-size: clamp(1.5rem, 3vw, 2.05rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  margin: 0 0 var(--dare-space-3);
+  text-wrap: balance;
+  max-width: 54ch;
+}
+
+.dare-item__authors {
+  font-size: 1rem;
+  margin: 0 0 var(--dare-space-4);
+  line-height: 1.9;
+}
+
+.dare-item__abstract {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  max-width: var(--dare-measure);
+  color: var(--dare-ink);
+}
+
+.dare-metadata {
+  display: grid;
+  grid-template-columns: minmax(8rem, 13rem) 1fr;
+  gap: var(--dare-space-2) var(--dare-space-5);
+  margin: var(--dare-space-5) 0;
+  padding-top: var(--dare-space-4);
+  border-top: 1px solid var(--dare-rule);
+}
+
+.dare-metadata__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dare-ink-muted);
+  padding-top: 0.2em;
+}
+
+.dare-metadata__value {
+  font-size: 0.94rem;
+  color: var(--dare-ink);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 40rem) {
+  .dare-metadata {
+    grid-template-columns: 1fr;
+    gap: var(--dare-space-1) 0;
+  }
+  .dare-metadata__value {
+    margin-bottom: var(--dare-space-3);
+  }
+}
+
+.dare-download {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dare-space-2);
+  min-height: 44px;
+  padding: 0.7em 1.35em;
+  border-radius: var(--dare-space-1);
+  background: var(--dare-green);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.dare-download:hover {
+  background: var(--dare-green-ground);
+  color: #ffffff;
+  box-shadow: var(--dare-shadow-md);
+}
+
+.dare-download:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+}
+
+.dare-download__size {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.dare-usage {
+  display: flex;
+  gap: var(--dare-space-5);
+  padding: var(--dare-space-4);
+  background: var(--dare-surface);
+  border-radius: var(--dare-space-2);
+}
+
+.dare-usage__figure {
+  font-size: 1.4rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--dare-ink);
+}
+
+.dare-usage__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--dare-ink-muted);
+}
+
+:root {
+  --dare-orcid-green:      #a6ce39;
+  --dare-orcid-green-dark: #7fa32c;
+  --dare-orcid-on-green:   #1a1a1a;
+  --dare-orcid-text:       #667f20;
+}
+
+.dare-orcid-signin,
+ds-log-in-orcid .btn,
+ds-orcid-auth .btn {
+  --_bg: var(--dare-orcid-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dare-space-2);
+  padding: 0.7em 1.25em;
+  min-height: 44px;
+  background: var(--_bg);
+  color: var(--dare-orcid-on-green);
+  border: 1px solid var(--dare-orcid-green-dark);
+  border-radius: var(--dare-space-1);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.dare-orcid-signin:hover,
+ds-log-in-orcid .btn:hover,
+ds-orcid-auth .btn:hover {
+  --_bg: #97bd2f;
+  color: var(--dare-orcid-on-green);
+  text-decoration: none;
+  box-shadow: var(--dare-shadow-sm);
+}
+
+.dare-orcid-signin:focus-visible,
+ds-log-in-orcid .btn:focus-visible,
+ds-orcid-auth .btn:focus-visible {
+  box-shadow: var(--dare-focus-ring);
+  outline: none;
+}
+
+.dare-orcid-signin .dare-orcid-mark,
+ds-log-in-orcid .btn .dare-orcid-mark,
+ds-orcid-auth .btn .dare-orcid-mark {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.dare-orcid-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.82em;
+  font-variant-numeric: tabular-nums;
+  color: var(--dare-orcid-text);
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.dare-orcid-id .dare-orcid-mark {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.dare-orcid-id:hover {
+  color: #4c6018;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.dare-orcid-id:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+  border-radius: 3px;
+}
+
+.dare-orcid-id--compact {
+  gap: 0;
+}
+
+.dare-orcid-id--compact .dare-orcid-id__uri {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.dare-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-right: 0.75em;
+}
+
+.dare-author__name {
+  font-weight: 500;
+}
+
+.dare-author--verified .dare-author__name {
+  box-shadow: inset 0 -2px 0 0 rgba(166, 206, 57, 0.55);
+}
+
+ds-orcid-page,
+.dare-orcid-panel {
+  border: 1px solid var(--dare-rule);
+  border-radius: var(--dare-space-2);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+ds-orcid-page .dare-orcid-panel__header,
+.dare-orcid-panel .dare-orcid-panel__header {
+  display: flex;
+  align-items: center;
+  gap: var(--dare-space-3);
+  padding: var(--dare-space-4);
+  background: linear-gradient(100deg, rgba(166, 206, 57, 0.18) 0%, rgba(166, 206, 57, 0.04) 100%);
+  border-bottom: 1px solid var(--dare-rule);
+}
+
+ds-orcid-page .dare-orcid-panel__title,
+.dare-orcid-panel .dare-orcid-panel__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 620;
+  color: var(--dare-ink);
+}
+
+ds-orcid-page .dare-orcid-panel__body,
+.dare-orcid-panel .dare-orcid-panel__body {
+  padding: var(--dare-space-4);
+}
+
+.dare-orcid-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.dare-orcid-status--linked {
+  color: var(--dare-green);
+}
+
+.dare-orcid-status--pending {
+  color: #8a5a00;
+}
+
+.dare-orcid-status--unlinked {
+  color: var(--dare-ink-muted);
+}
+
+.dare-orcid-sourced {
+  border-left: 3px solid var(--dare-orcid-green);
+  padding-left: var(--dare-space-3);
+}
+
+.dare-orcid-sourced .dare-orcid-sourced__label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dare-ink-muted);
+  margin-bottom: 0.15em;
+}
+
+@media (prefers-contrast: more) {
+  .dare-orcid-id {
+    color: #4c6018;
+  }
+  .dare-author--verified .dare-author__name {
+    box-shadow: inset 0 -2px 0 0 var(--dare-orcid-green-dark);
+  }
+}
+
+.dare-hero .dare-overlay {
+  background: linear-gradient(90deg, rgba(5, 27, 19, 0.96) 0%, rgba(10, 40, 30, 0.9) 45%, rgba(10, 40, 30, 0.82) 60%, rgba(18, 55, 42, 0.45) 80%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.dare-hero .dare-indicators {
+  gap: 0;
+}
+
+.dare-hero .dare-indicators button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dare-hero .dare-indicators button::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: transparent;
+  transition: width .3s ease, border-radius .3s ease, background .3s ease;
+}
+
+.dare-hero .dare-indicators button.active::before {
+  width: 36px;
+  border-color: var(--dare-gold, #d4a72c);
+  border-radius: 10px;
+  background: var(--dare-gold, #d4a72c);
+}
+
+.dare-hero .dare-indicators button:focus-visible {
+  outline: none;
+  border-radius: 50%;
+  box-shadow: var(--dare-focus-ring-on-dark, 0 0 0 3px #0b271d, 0 0 0 5px #e1b83e);
+}
+
+.dare-hero .dare-arrow:focus-visible {
+  outline: none;
+  background: rgba(18, 55, 42, 0.88);
+  border-color: var(--dare-gold-bright, #e1b83e);
+  box-shadow: var(--dare-focus-ring-on-dark, 0 0 0 3px #0b271d, 0 0 0 5px #e1b83e);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+  border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn:focus-visible,
+.form-control:focus-visible,
+.nav-link:focus-visible,
+a:focus-visible {
+  box-shadow: var(--dare-focus-ring);
+  position: relative;
+  z-index: 1;
+}
+
+.dare-skip-link {
+  position: absolute;
+  left: var(--dare-space-3);
+  top: -100%;
+  z-index: 2000;
+  padding: var(--dare-space-2) var(--dare-space-4);
+  background: #ffffff;
+  color: var(--dare-green-ground);
+  font-weight: 600;
+  border-radius: var(--dare-space-1);
+  box-shadow: var(--dare-shadow-md);
+  transition: top 120ms ease-in;
+}
+
+.dare-skip-link:focus {
+  top: var(--dare-space-3);
+}
+
+.item-page a:not(.btn):not(.nav-link),
+.comcol-page a:not(.btn):not(.nav-link),
+ds-item-page a:not(.btn):not(.nav-link),
+.dare-prose a:not(.btn):not(.nav-link) {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 0.08em;
+}
+
+.item-page a:not(.btn):not(.nav-link):hover,
+.comcol-page a:not(.btn):not(.nav-link):hover,
+ds-item-page a:not(.btn):not(.nav-link):hover,
+.dare-prose a:not(.btn):not(.nav-link):hover {
+  text-decoration-thickness: 0.14em;
+}
+
+.form-control,
+.form-select,
+.custom-select {
+  border-color: var(--dare-border-ui);
+}
+
+.form-control::placeholder,
+.form-select::placeholder,
+.custom-select::placeholder {
+  color: var(--dare-ink-subtle);
+  opacity: 1;
+}
+
+.page-link,
+.pagination .page-item > *,
+.dare-icon-button {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dare-orcid-button {
+  background-color: var(--dare-orcid-green);
+  color: var(--dare-orcid-on-green);
+  border: 1px solid #7fa32c;
+  font-weight: 600;
+}
+
+.dare-orcid-button:hover, .dare-orcid-button:focus-visible {
+  background-color: #97bd2f;
+  color: var(--dare-orcid-on-green);
+}
+
+.dare-orcid-text {
+  color: var(--dare-orcid-text);
+}
+
+.item-page-field .simple-view-element-body,
+.dare-measure {
+  max-width: var(--dare-measure);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+*::before,
+*::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --dare-green:  var(--dare-green-ground);
+    --dare-green-mid:  var(--dare-green);
+    --dare-ink-subtle: var(--dare-ink-muted);
+  }
+}
+
+.dare-visually-hidden:not(:focus):not(:active) {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
