@@ -1,0 +1,203 @@
+// ---------------------------------------------------------------------------
+// DARE theme — ORCID
+//
+// Covers every ORCID touchpoint in DSpace 9: sign-in, the iD badge beside an
+// author name, the researcher profile panel, and ORCID-sourced works.
+//
+// ORCID brand rules that constrain what follows:
+//   * The iD icon green is fixed at #A6CE39. It cannot be recoloured.
+//   * The icon must render at 16px or larger.
+//   * An iD is always shown as the full https://orcid.org/0000-... URI, never
+//     the bare digits — that URI is the identifier.
+//   * The icon must accompany the iD wherever it appears.
+//
+// The accessibility constraint that ORCID's own guidance ignores: #A6CE39 is
+// 1.82:1 on white. It is a background and an icon fill, never a text colour.
+// Text placed on it must be dark (#1a1a1a → 9.54:1).
+//
+// Component selectors below are DSpace 9 element names — verify against your
+// installed version before relying on any single one.
+// ---------------------------------------------------------------------------
+
+:root {
+  --dare-orcid-green:      #a6ce39;   // fixed brand asset
+  --dare-orcid-green-dark: #7fa32c;   // borders and hover only
+  --dare-orcid-on-green:   #1a1a1a;   // 9.54:1 on the green
+  --dare-orcid-text:       #667f20;   // 4.54:1 — "ORCID" as body text on white
+}
+
+// --- Sign in with ORCID ----------------------------------------------------
+// The primary authentication route for depositing researchers, so it is styled
+// as a first-class action rather than a secondary link.
+
+.dare-orcid-signin,
+ds-log-in-orcid .btn,
+ds-orcid-auth .btn {
+  --_bg: var(--dare-orcid-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dare-space-2);
+  padding: 0.7em 1.25em;
+  min-height: 44px;                        // WCAG 2.5.5 target size
+  background: var(--_bg);
+  color: var(--dare-orcid-on-green);
+  border: 1px solid var(--dare-orcid-green-dark);
+  border-radius: var(--dare-space-1);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+
+  &:hover {
+    --_bg: #97bd2f;
+    color: var(--dare-orcid-on-green);
+    text-decoration: none;
+    box-shadow: var(--dare-shadow-sm);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--dare-focus-ring);
+    outline: none;
+  }
+
+  .dare-orcid-mark { width: 20px; height: 20px; flex: 0 0 20px; }
+}
+
+// --- The iD badge ----------------------------------------------------------
+// Sits beside an author name on item pages and in search results. Inline-flex
+// so it never breaks the baseline of the name it qualifies.
+
+.dare-orcid-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.82em;
+  font-variant-numeric: tabular-nums;       // iDs are digit groups; align them
+  color: var(--dare-orcid-text);            // 4.54:1
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: baseline;
+
+  .dare-orcid-mark {
+    width: 16px;                            // ORCID minimum
+    height: 16px;
+    flex: 0 0 16px;
+  }
+
+  &:hover {
+    color: #4c6018;                         // 7.01:1
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--dare-focus-ring);
+    border-radius: 3px;
+  }
+}
+
+// Compact form for dense result lists — icon only, with the iD available to
+// assistive technology and on hover.
+.dare-orcid-id--compact {
+  gap: 0;
+  .dare-orcid-id__uri {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+}
+
+// --- Author line -----------------------------------------------------------
+// An authenticated author reads differently from an unverified name string.
+
+.dare-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-right: 0.75em;
+
+  &__name { font-weight: 500; }
+
+  &--verified .dare-author__name {
+    // A subtle rule in ORCID green under a verified name: present, but not
+    // competing with the name itself.
+    box-shadow: inset 0 -2px 0 0 rgba(166, 206, 57, 0.55);
+  }
+}
+
+// --- Researcher profile panel ----------------------------------------------
+ds-orcid-page,
+.dare-orcid-panel {
+  border: 1px solid var(--dare-rule);
+  border-radius: var(--dare-space-2);
+  background: #ffffff;
+  overflow: hidden;
+
+  .dare-orcid-panel__header {
+    display: flex;
+    align-items: center;
+    gap: var(--dare-space-3);
+    padding: var(--dare-space-4);
+    // The green reads as a broad wash rather than a solid block, keeping the
+    // header text on a near-white ground where contrast is unambiguous.
+    background: linear-gradient(
+      100deg,
+      rgba(166, 206, 57, 0.18) 0%,
+      rgba(166, 206, 57, 0.04) 100%
+    );
+    border-bottom: 1px solid var(--dare-rule);
+  }
+
+  .dare-orcid-panel__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 620;
+    color: var(--dare-ink);
+  }
+
+  .dare-orcid-panel__body { padding: var(--dare-space-4); }
+}
+
+// --- Sync status -----------------------------------------------------------
+// State is carried by label and shape as well as colour (WCAG 1.4.1).
+
+.dare-orcid-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+
+  &--linked    { color: var(--dare-teal-strong); }   // 7.08:1
+  &--pending   { color: #8a5a00; }                   // 4.6:1
+  &--unlinked  { color: var(--dare-ink-muted); }
+}
+
+// --- Works sourced from ORCID ---------------------------------------------
+// A left rule in the brand green marks provenance without tinting the text.
+.dare-orcid-sourced {
+  border-left: 3px solid var(--dare-orcid-green);
+  padding-left: var(--dare-space-3);
+
+  .dare-orcid-sourced__label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dare-ink-muted);
+    margin-bottom: 0.15em;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .dare-orcid-id { color: #4c6018; }
+  .dare-author--verified .dare-author__name {
+    box-shadow: inset 0 -2px 0 0 var(--dare-orcid-green-dark);
+  }
+}

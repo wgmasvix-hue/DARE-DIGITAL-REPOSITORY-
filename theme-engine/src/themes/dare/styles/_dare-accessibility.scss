@@ -1,0 +1,147 @@
+// ---------------------------------------------------------------------------
+// DARE theme — accessibility layer
+//
+// Import after the DSpace/Bootstrap base so these win on specificity.
+// Everything here addresses a specific WCAG 2.1 AA criterion, noted inline.
+// ---------------------------------------------------------------------------
+
+// --- 2.4.7 Focus Visible ---------------------------------------------------
+// Focus has to read against white content, the grey navbar and the brand
+// gradient alike. A white inner ring plus a dark outer ring stays visible on
+// all three, where a single-colour outline disappears on at least one.
+:focus-visible {
+  outline: none;
+  box-shadow: var(--dare-focus-ring);
+  border-radius: 2px;
+}
+
+// Only suppress the ring for pointer users, never for keyboard users.
+:focus:not(:focus-visible) { outline: none; box-shadow: none; }
+
+.btn:focus-visible,
+.form-control:focus-visible,
+.nav-link:focus-visible,
+a:focus-visible {
+  box-shadow: var(--dare-focus-ring);
+  position: relative;
+  z-index: 1;              // keep the ring above adjacent cards
+}
+
+// --- 2.4.1 Bypass Blocks ---------------------------------------------------
+// Keyboard users should not traverse the whole navbar on every page.
+.dare-skip-link {
+  position: absolute;
+  left: var(--dare-space-3);
+  top: -100%;
+  z-index: 2000;
+  padding: var(--dare-space-2) var(--dare-space-4);
+  background: #ffffff;
+  color: var(--dare-blue-strong);
+  font-weight: 600;
+  border-radius: var(--dare-space-1);
+  box-shadow: var(--dare-shadow-md);
+  transition: top 120ms ease-in;
+
+  &:focus {
+    top: var(--dare-space-3);
+  }
+}
+
+// --- 1.4.1 Use of Colour ---------------------------------------------------
+// Links inside prose must not rely on hue alone. Navigation and buttons are
+// exempt: their affordance comes from position and shape.
+.item-page,
+.comcol-page,
+ds-item-page,
+.dare-prose {
+  a:not(.btn):not(.nav-link) {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 0.08em;
+
+    &:hover { text-decoration-thickness: 0.14em; }
+  }
+}
+
+// --- 1.4.11 Non-text Contrast ----------------------------------------------
+.form-control,
+.form-select,
+.custom-select {
+  border-color: var(--dare-border-ui);
+
+  &::placeholder {
+    color: var(--dare-ink-subtle);   // 5.74:1 — placeholders are often far worse
+    opacity: 1;                      // Firefox dims placeholders by default
+  }
+}
+
+// --- 2.5.5 Target Size -----------------------------------------------------
+// 44x44 CSS pixels. Pagination and facet controls are the usual offenders.
+.page-link,
+.pagination .page-item > *,
+.dare-icon-button {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// --- ORCID -----------------------------------------------------------------
+// #a6ce39 is 1.82:1 on white. It is a background, never a text colour, and
+// the text placed on it must be dark — white on ORCID green fails badly, which
+// is what most implementations ship.
+.dare-orcid-button {
+  background-color: var(--dare-orcid-green);
+  color: var(--dare-orcid-on-green);   // 9.54:1
+  border: 1px solid #7fa32c;
+  font-weight: 600;
+
+  &:hover,
+  &:focus-visible {
+    background-color: #97bd2f;
+    color: var(--dare-orcid-on-green);
+  }
+}
+
+// The word "ORCID" set as body text needs the darkened variant instead.
+.dare-orcid-text { color: var(--dare-orcid-text); }   // 4.54:1
+
+// --- 1.4.4 Resize Text / 1.4.10 Reflow -------------------------------------
+// Abstracts and descriptions become hard to track past ~70 characters.
+.item-page-field .simple-view-element-body,
+.dare-measure {
+  max-width: var(--dare-measure);
+}
+
+// --- 2.3.3 Animation from Interactions -------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// --- 1.4.6 Contrast Enhanced -----------------------------------------------
+@media (prefers-contrast: more) {
+  :root {
+    --dare-blue-text:  var(--dare-blue-strong);
+    --dare-teal-text:  var(--dare-teal-strong);
+    --dare-ink-subtle: var(--dare-ink-muted);
+  }
+}
+
+// --- Screen-reader utility -------------------------------------------------
+.dare-visually-hidden:not(:focus):not(:active) {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

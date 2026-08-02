@@ -1,0 +1,560 @@
+<title>DARE Theme — Colour &amp; Contrast Audit</title>
+
+<style>
+  /* ---------------------------------------------------------------------
+     Chrome is deliberately quiet: this page's job is to show the brand
+     palette truthfully, so nothing here competes with the swatches.
+     Neutrals carry a slight cool bias toward the brand blue.
+     --------------------------------------------------------------------- */
+  :root {
+    --ground:        #fcfcfd;
+    --panel:         #ffffff;
+    --panel-sunk:    #f4f5f8;
+    --ink:           #1a1d21;
+    --ink-muted:     #5b6270;
+    --ink-faint:     #858c99;
+    --rule:          #e3e5ea;
+    --rule-strong:   #c9ccd4;
+    --accent:        #2144e1;
+    --pass:          #12866f;
+    --fail:          #b3261e;
+    --warn:          #8a5a00;
+
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --s1: .25rem; --s2: .5rem; --s3: .75rem; --s4: 1rem;
+    --s5: 1.5rem; --s6: 2rem; --s7: 3rem; --s8: 4.5rem;
+    --radius: 10px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:      #16181c;
+      --panel:       #1d2025;
+      --panel-sunk:  #232730;
+      --ink:         #e8eaed;
+      --ink-muted:   #a3aab8;
+      --ink-faint:   #767d8b;
+      --rule:        #2c3038;
+      --rule-strong: #3c414c;
+      --accent:      #9fb4ff;
+      --pass:        #4ec9a8;
+      --fail:        #ff8a80;
+      --warn:        #e0b050;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #16181c; --panel: #1d2025; --panel-sunk: #232730;
+    --ink: #e8eaed; --ink-muted: #a3aab8; --ink-faint: #767d8b;
+    --rule: #2c3038; --rule-strong: #3c414c;
+    --accent: #9fb4ff; --pass: #4ec9a8; --fail: #ff8a80; --warn: #e0b050;
+  }
+  :root[data-theme="light"] {
+    --ground: #fcfcfd; --panel: #ffffff; --panel-sunk: #f4f5f8;
+    --ink: #1a1d21; --ink-muted: #5b6270; --ink-faint: #858c99;
+    --rule: #e3e5ea; --rule-strong: #c9ccd4;
+    --accent: #2144e1; --pass: #12866f; --fail: #b3261e; --warn: #8a5a00;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: var(--s7) var(--s5) var(--s8);
+  }
+
+  /* --- Header ---------------------------------------------------------- */
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: var(--s5); }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 var(--s3);
+  }
+  h1 {
+    font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+    line-height: 1.1;
+    letter-spacing: -.022em;
+    font-weight: 650;
+    margin: 0 0 var(--s4);
+    text-wrap: balance;
+  }
+  .standfirst {
+    font-size: 1.075rem;
+    color: var(--ink-muted);
+    max-width: 44rem;
+    margin: 0;
+  }
+
+  .method {
+    margin-top: var(--s5);
+    display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5);
+    font-family: var(--mono); font-size: .78rem; color: var(--ink-faint);
+  }
+  .method b { color: var(--ink-muted); font-weight: 500; }
+
+  /* --- Sections -------------------------------------------------------- */
+  section { margin-top: var(--s8); }
+  h2 {
+    font-size: 1.4rem; font-weight: 620; letter-spacing: -.014em;
+    margin: 0 0 var(--s2); text-wrap: balance;
+  }
+  .lede { color: var(--ink-muted); margin: 0 0 var(--s5); max-width: 46rem; }
+
+  /* --- Audit table ----------------------------------------------------- */
+  .scroller { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--rule); }
+  table { border-collapse: collapse; width: 100%; min-width: 40rem; background: var(--panel); }
+  th, td { padding: var(--s3) var(--s4); text-align: left; border-bottom: 1px solid var(--rule); }
+  th {
+    font-family: var(--mono); font-size: .72rem; font-weight: 500;
+    letter-spacing: .07em; text-transform: uppercase; color: var(--ink-muted);
+    background: var(--panel-sunk);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.ratio {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: 1rem; white-space: nowrap;
+  }
+  .chipcell { white-space: nowrap; }
+
+  .sw {
+    display: inline-block; width: 2.4rem; height: 1.4rem;
+    border-radius: 4px; border: 1px solid rgba(0,0,0,.22);
+    vertical-align: -.28rem; margin-right: var(--s3);
+  }
+  code.hex {
+    font-family: var(--mono); font-size: .88rem;
+    text-transform: uppercase; letter-spacing: .02em;
+  }
+
+  /* State is encoded in glyph + word, never colour alone — the same rule
+     this audit enforces on the theme. */
+  .chip {
+    display: inline-flex; align-items: center; gap: .4em;
+    font-family: var(--mono); font-size: .74rem; font-weight: 600;
+    letter-spacing: .04em; padding: .22em .6em;
+    border-radius: 999px; border: 1px solid currentColor;
+  }
+  .chip.pass { color: var(--pass); }
+  .chip.fail { color: var(--fail); }
+  .chip.warn { color: var(--warn); }
+  .chip .glyph { font-size: .9em; }
+
+  /* --- Token cards ----------------------------------------------------- */
+  .tiers { display: grid; gap: var(--s5); }
+  .tier {
+    border: 1px solid var(--rule); border-radius: var(--radius);
+    background: var(--panel); overflow: hidden;
+  }
+  .tier > header {
+    padding: var(--s4) var(--s5);
+    border-bottom: 1px solid var(--rule);
+    background: var(--panel-sunk);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s3);
+  }
+  .tier h3 { margin: 0; font-size: 1.05rem; font-weight: 620; letter-spacing: -.01em; }
+  .tier header p { margin: 0; color: var(--ink-muted); font-size: .9rem; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .step { padding: var(--s5); border-right: 1px solid var(--rule); }
+  .step:last-child { border-right: 0; }
+
+  /* The test surface stays white in BOTH themes: every ratio on this page is
+     measured against white, so tinting it would make the figures a lie. */
+  .surface {
+    background: #ffffff;
+    border: 1px solid var(--rule-strong);
+    border-radius: 8px;
+    padding: var(--s4);
+    margin-bottom: var(--s3);
+  }
+  .surface .sample { font-size: 1.05rem; font-weight: 600; margin-bottom: .15rem; }
+  .surface .sample-sm { font-size: .8rem; }
+  .surface .on-white-note {
+    font-family: var(--mono); font-size: .65rem; letter-spacing: .06em;
+    text-transform: uppercase; color: #666666; margin-top: var(--s3);
+  }
+  .step .name {
+    font-family: var(--mono); font-size: .8rem; font-weight: 600;
+    display: block; margin-bottom: .2rem; word-break: break-all;
+  }
+  .step .use { font-size: .86rem; color: var(--ink-muted); margin: var(--s2) 0 0; }
+  .figure {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em;
+  }
+
+  /* --- Callout --------------------------------------------------------- */
+  .callout {
+    border: 1px solid var(--rule); border-left: 4px solid var(--warn);
+    border-radius: var(--radius); background: var(--panel);
+    padding: var(--s5); margin-top: var(--s5);
+  }
+  .callout h3 { margin: 0 0 var(--s2); font-size: 1rem; font-weight: 620; }
+  .callout p { margin: 0 0 var(--s3); color: var(--ink-muted); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .orcid-demo { display: flex; flex-wrap: wrap; gap: var(--s4); margin: var(--s4) 0; }
+  .orcid-btn {
+    font-family: var(--sans); font-weight: 600; font-size: .92rem;
+    padding: .6em 1.1em; border-radius: 6px; border: 1px solid #7fa32c;
+    background: #a6ce39; display: inline-flex; align-items: center; gap: .5em;
+  }
+  .orcid-btn.good { color: #1a1a1a; }
+  .orcid-btn.bad  { color: #ffffff; }
+  .demo-label {
+    font-family: var(--mono); font-size: .7rem; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--ink-muted);
+    display: block; margin-bottom: var(--s2);
+  }
+
+  footer.page {
+    margin-top: var(--s8); padding-top: var(--s5);
+    border-top: 1px solid var(--rule);
+    font-size: .85rem; color: var(--ink-faint);
+  }
+  footer.page code { font-family: var(--mono); font-size: .95em; color: var(--ink-muted); }
+
+  a { color: var(--accent); }
+  a:focus-visible, .orcid-btn:focus-visible {
+    outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+  @media (max-width: 46rem) {
+    .step { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .step:last-child { border-bottom: 0; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">DARE Digital Repository · DSpace 9.3 theme</p>
+    <h1>Colour &amp; contrast audit</h1>
+    <p class="standfirst">
+      The DARE brand hues are unchanged. What changes is where each one is allowed
+      to be used — because three of the four fail WCAG AA at text sizes today,
+      including the primary blue that carries your links.
+    </p>
+    <div class="method">
+      <span><b>Standard</b> WCAG 2.1 AA</span>
+      <span><b>Measured against</b> #FFFFFF</span>
+      <span><b>Body text</b> needs 4.5:1</span>
+      <span><b>Large text &amp; UI</b> needs 3:1</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Where the palette stands today</h2>
+    <p class="lede">
+      Every colour currently in use on dare.co.zw, measured as text on a white
+      background — the way it appears on a DSpace item page.
+    </p>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Colour</th>
+            <th scope="col">Role</th>
+            <th scope="col">On white</th>
+            <th scope="col">Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="sw" style="background:#667eea"></span><code class="hex">#667eea</code></td>
+            <td>Primary blue — links, buttons</td>
+            <td class="ratio">3.66:1</td>
+            <td class="chipcell"><span class="chip fail"><span class="glyph" aria-hidden="true">✕</span>FAILS AA</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#764ba2"></span><code class="hex">#764ba2</code></td>
+            <td>Gradient end, secondary</td>
+            <td class="ratio">6.37:1</td>
+            <td class="chipcell"><span class="chip pass"><span class="glyph" aria-hidden="true">✓</span>PASSES AA</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#a6ce39"></span><code class="hex">#a6ce39</code></td>
+            <td>ORCID green</td>
+            <td class="ratio">1.82:1</td>
+            <td class="chipcell"><span class="chip fail"><span class="glyph" aria-hidden="true">✕</span>FAILS AA</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#85b638"></span><code class="hex">#85b638</code></td>
+            <td>ORCID green, darkened</td>
+            <td class="ratio">2.40:1</td>
+            <td class="chipcell"><span class="chip fail"><span class="glyph" aria-hidden="true">✕</span>FAILS AA</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#138d75"></span><code class="hex">#138d75</code></td>
+            <td>Teal accent</td>
+            <td class="ratio">4.12:1</td>
+            <td class="chipcell"><span class="chip fail"><span class="glyph" aria-hidden="true">✕</span>FAILS AA</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#16a085"></span><code class="hex">#16a085</code></td>
+            <td>Teal, light</td>
+            <td class="ratio">3.28:1</td>
+            <td class="chipcell"><span class="chip warn"><span class="glyph" aria-hidden="true">▲</span>LARGE ONLY</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#333333"></span><code class="hex">#333333</code></td>
+            <td>Body text</td>
+            <td class="ratio">12.63:1</td>
+            <td class="chipcell"><span class="chip pass"><span class="glyph" aria-hidden="true">✓</span>PASSES AAA</span></td>
+          </tr>
+          <tr>
+            <td><span class="sw" style="background:#666666"></span><code class="hex">#666666</code></td>
+            <td>Muted text</td>
+            <td class="ratio">5.74:1</td>
+            <td class="chipcell"><span class="chip pass"><span class="glyph" aria-hidden="true">✓</span>PASSES AA</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The fix: two tiers per hue</h2>
+    <p class="lede">
+      Each brand colour keeps its hue and saturation. Lightness drops only as far
+      as AA requires, producing a <strong>display</strong> tier for large decorative
+      surfaces and a <strong>text</strong> tier for anything below 24px. Reaching for
+      a display token on small text is the mistake the naming exists to prevent.
+    </p>
+
+    <div class="tiers">
+
+      <article class="tier">
+        <header>
+          <h3>Primary blue</h3>
+          <p>The link colour across every DSpace page</p>
+        </header>
+        <div class="steps">
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#667eea">Browse the repository</div>
+              <div class="sample-sm" style="color:#667eea">View item metadata</div>
+              <div class="on-white-note">3.66:1 — fails at this size</div>
+            </div>
+            <span class="name">--dare-blue-display</span>
+            <span class="figure" style="color:var(--fail)">3.66:1</span>
+            <p class="use">Gradients, hero panels, display type at 24px and above. Never body text.</p>
+          </div>
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#516ce7">Browse the repository</div>
+              <div class="sample-sm" style="color:#516ce7">View item metadata</div>
+              <div class="on-white-note">4.52:1 — clears AA</div>
+            </div>
+            <span class="name">--dare-blue-text</span>
+            <span class="figure" style="color:var(--pass)">4.52:1</span>
+            <p class="use">Links, buttons, form focus, icons that carry meaning.</p>
+          </div>
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#2144e1">Browse the repository</div>
+              <div class="sample-sm" style="color:#2144e1">View item metadata</div>
+              <div class="on-white-note">7.05:1 — clears AAA</div>
+            </div>
+            <span class="name">--dare-blue-strong</span>
+            <span class="figure" style="color:var(--pass)">7.05:1</span>
+            <p class="use">Hover states, dense metadata tables, small print.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="tier">
+        <header>
+          <h3>Teal accent</h3>
+          <p>Sat just under the threshold at 4.12:1</p>
+        </header>
+        <div class="steps">
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#138d75">Open access</div>
+              <div class="sample-sm" style="color:#138d75">Deposited 12 March 2026</div>
+              <div class="on-white-note">4.12:1 — just short</div>
+            </div>
+            <span class="name">--dare-teal-display</span>
+            <span class="figure" style="color:var(--fail)">4.12:1</span>
+            <p class="use">Large headings and decorative fills only.</p>
+          </div>
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#12866f">Open access</div>
+              <div class="sample-sm" style="color:#12866f">Deposited 12 March 2026</div>
+              <div class="on-white-note">4.50:1 — clears AA</div>
+            </div>
+            <span class="name">--dare-teal-text</span>
+            <span class="figure" style="color:var(--pass)">4.50:1</span>
+            <p class="use">Status labels, success states, availability badges.</p>
+          </div>
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#0d6453">Open access</div>
+              <div class="sample-sm" style="color:#0d6453">Deposited 12 March 2026</div>
+              <div class="on-white-note">7.08:1 — clears AAA</div>
+            </div>
+            <span class="name">--dare-teal-strong</span>
+            <span class="figure" style="color:var(--pass)">7.08:1</span>
+            <p class="use">Small text, and anywhere under prefers-contrast: more.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="tier">
+        <header>
+          <h3>Purple</h3>
+          <p>The only brand hue that already passed</p>
+        </header>
+        <div class="steps">
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#764ba2">Collections</div>
+              <div class="sample-sm" style="color:#764ba2">Faculty of Science</div>
+              <div class="on-white-note">6.37:1 — clears AA at any size</div>
+            </div>
+            <span class="name">--dare-purple-display</span>
+            <span class="figure" style="color:var(--pass)">6.37:1</span>
+            <p class="use">Unrestricted. Gradient end, secondary actions, section headers.</p>
+          </div>
+          <div class="step">
+            <div class="surface">
+              <div class="sample" style="color:#6e4698">Collections</div>
+              <div class="sample-sm" style="color:#6e4698">Faculty of Science</div>
+              <div class="on-white-note">7.02:1 — clears AAA</div>
+            </div>
+            <span class="name">--dare-purple-strong</span>
+            <span class="figure" style="color:var(--pass)">7.02:1</span>
+            <p class="use">Hover states and small print where AAA is wanted.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="callout">
+      <h3>ORCID green is a special case</h3>
+      <p>
+        <code class="hex">#a6ce39</code> is a fixed ORCID brand asset — it can't be
+        darkened where the ORCID mark appears. At 1.82:1 on white it is a
+        <strong>background colour only</strong>, and the text placed on it must be dark.
+        Most implementations ship white-on-green, which is the worst available combination.
+      </p>
+
+      <div class="orcid-demo">
+        <div>
+          <span class="demo-label">✕ White on green — 1.82:1</span>
+          <span class="orcid-btn bad">Sign in with ORCID</span>
+        </div>
+        <div>
+          <span class="demo-label">✓ Dark on green — 9.54:1</span>
+          <span class="orcid-btn good">Sign in with ORCID</span>
+        </div>
+      </div>
+
+      <p>
+        Where the word “ORCID” appears as body text rather than on the green,
+        use <code class="hex">#667f20</code> — the same hue at 4.54:1.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Neutrals and boundaries</h2>
+    <p class="lede">
+      One rule here is easy to miss: WCAG 1.4.11 requires 3:1 for the visible
+      boundary of an interactive control. Bootstrap's default input border is
+      <code class="hex">#adb5bd</code> at 2.07:1, so stock DSpace form fields fail
+      before any theming is applied.
+    </p>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Token</th>
+            <th scope="col">Value</th>
+            <th scope="col">On white</th>
+            <th scope="col">Permitted use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="hex">--dare-ink</code></td>
+            <td><span class="sw" style="background:#212529"></span><code class="hex">#212529</code></td>
+            <td class="ratio">15.43:1</td>
+            <td>Primary text</td>
+          </tr>
+          <tr>
+            <td><code class="hex">--dare-ink-muted</code></td>
+            <td><span class="sw" style="background:#555555"></span><code class="hex">#555555</code></td>
+            <td class="ratio">7.46:1</td>
+            <td>Secondary text, captions</td>
+          </tr>
+          <tr>
+            <td><code class="hex">--dare-ink-subtle</code></td>
+            <td><span class="sw" style="background:#666666"></span><code class="hex">#666666</code></td>
+            <td class="ratio">5.74:1</td>
+            <td>Lowest usable grey — placeholders</td>
+          </tr>
+          <tr>
+            <td><code class="hex">--dare-border-ui</code></td>
+            <td><span class="sw" style="background:#868e96"></span><code class="hex">#868e96</code></td>
+            <td class="ratio">3.32:1</td>
+            <td>Input and control boundaries</td>
+          </tr>
+          <tr>
+            <td><code class="hex">--dare-rule</code></td>
+            <td><span class="sw" style="background:#dee2e6"></span><code class="hex">#dee2e6</code></td>
+            <td class="ratio">1.31:1</td>
+            <td>Decorative separators only — never a control boundary</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h3>The dark footer needs its own blue</h3>
+      <p>
+        On the <code class="hex">#212529</code> footer, the raw brand blue drops to
+        4.21:1 and fails. Footer links use <code class="hex">#9fb4ff</code> at 7.67:1
+        instead — this is the usual cause of unreadable DSpace footers.
+      </p>
+    </div>
+  </section>
+
+  <footer class="page">
+    <p>
+      Ratios computed per WCAG 2.1 relative luminance against <code>#FFFFFF</code>.
+      Swatch test surfaces stay white in dark mode by design — tinting them would
+      misreport the figures.
+    </p>
+    <p>
+      Implemented in <code>theme-engine/src/themes/dare/styles/</code> —
+      <code>_theme_sass_variable_overrides.scss</code>,
+      <code>_theme_css_variable_overrides.scss</code> and
+      <code>_dare-accessibility.scss</code>.
+    </p>
+  </footer>
+
+</div>

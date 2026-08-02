@@ -1,0 +1,103 @@
+// ---------------------------------------------------------------------------
+// DARE theme — Bootstrap SCSS variable overrides
+//
+// Loaded before Bootstrap so these values feed its generated utilities.
+// Companion file: _theme_css_variable_overrides.scss (runtime CSS custom
+// properties). Palette rationale lives there; this file is the compile-time
+// half of the same system.
+//
+// The brand hues are unchanged. What changed is WHERE each one is allowed to
+// be used: the original tints stay for large decorative surfaces, and darker
+// same-hue variants carry text and interactive states, because the originals
+// fail WCAG AA at text sizes.
+// ---------------------------------------------------------------------------
+
+// --- Brand, as authored ----------------------------------------------------
+// Decorative use only: gradients, hero panels, large display type (>=24px).
+$dare-blue:            #667eea;  // 3.66:1 on white — below AA for body text
+$dare-purple:          #764ba2;  // 6.37:1 on white — passes AA
+$dare-orcid-green:     #a6ce39;  // 1.82:1 on white — background only
+$dare-teal:            #138d75;  // 4.12:1 on white — just below AA
+
+// --- Accessible variants ---------------------------------------------------
+// Same hue and saturation, lightness reduced only as far as AA requires.
+$dare-blue-aa:         #516ce7;  // 4.52:1  links, buttons, form focus
+$dare-blue-aaa:        #2144e1;  // 7.05:1  small text, dense UI
+$dare-teal-aa:         #12866f;  // 4.50:1
+$dare-teal-aaa:        #0d6453;  // 7.08:1
+$dare-orcid-text:      #667f20;  // 4.54:1  ORCID green as text on white
+$dare-orcid-on-green:  #1a1a1a;  // 9.54:1  text placed ON the green
+
+// --- Neutrals --------------------------------------------------------------
+$dare-ink:             #212529;  // 15.43:1  primary text
+$dare-ink-muted:       #555555;  //  7.46:1  secondary text — AAA
+$dare-ink-subtle:      #666666;  //  5.74:1  lowest usable grey on white
+$dare-border-ui:       #868e96;  //  3.32:1  minimum for control boundaries
+$dare-rule:            #dee2e6;  //  decorative rules only, not boundaries
+$dare-surface:         #f8f9fa;
+
+// --- Bootstrap mapping -----------------------------------------------------
+$primary:              $dare-blue-aa;
+$secondary:            $dare-purple;
+$success:              $dare-teal-aa;
+$info:                 $dare-blue-aa;
+$dark:                 $dare-ink;
+$light:                $dare-surface;
+
+$body-color:           $dare-ink;
+$body-bg:              #ffffff;
+
+// Links carry the AA variant, never the raw brand tint.
+$link-color:           $dare-blue-aa;
+$link-hover-color:     $dare-blue-aaa;
+$link-decoration:      underline;          // colour alone must not signal a link
+$link-hover-decoration: underline;
+
+// --- Typography ------------------------------------------------------------
+// Segoe UI first to match the dare.co.zw landing page, with a system stack
+// behind it so Linux and macOS visitors get a native face rather than a
+// fallback serif.
+$font-family-sans-serif:
+  'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue',
+  Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+
+$font-size-base:       1rem;
+$line-height-base:     1.6;      // long-form abstracts need more than BS's 1.5
+
+// A 1.2 modular scale. Stock DSpace headings are close in size, which flattens
+// the hierarchy on item pages carrying four levels of heading.
+$h1-font-size:         2.074rem;
+$h2-font-size:         1.728rem;
+$h3-font-size:         1.44rem;
+$h4-font-size:         1.2rem;
+$h5-font-size:         1rem;
+$h6-font-size:         0.833rem;
+
+$headings-font-weight: 600;
+$headings-line-height: 1.25;
+$headings-color:       $dare-ink;
+
+// --- Shape and spacing -----------------------------------------------------
+$border-radius:        0.375rem;
+$border-radius-sm:     0.25rem;
+$border-radius-lg:     0.5rem;
+$border-color:         $dare-rule;
+
+// --- Focus -----------------------------------------------------------------
+// Keyboard focus must be visible against both white and the brand gradient,
+// so the ring is deliberately heavier than the Bootstrap default.
+$focus-ring-width:     3px;
+$focus-ring-opacity:   1;
+$focus-ring-color:     $dare-blue-aaa;
+$btn-focus-width:      3px;
+
+// --- Components ------------------------------------------------------------
+$btn-font-weight:      600;
+$input-btn-focus-width: 3px;
+// Bootstrap's default #adb5bd is 2.07:1 on white and fails WCAG 1.4.11, which
+// requires 3:1 for the boundary of an interactive control.
+$input-border-color:   #868e96;   // 3.32:1 on white
+$input-focus-border-color: $dare-blue-aaa;
+
+$table-border-color:   $dare-rule;
+$card-border-color:    $dare-rule;

@@ -1,0 +1,109 @@
+// ---------------------------------------------------------------------------
+// DARE theme — runtime CSS custom properties
+//
+// The --ds-* names below are DSpace's own theming variables. Verify them
+// against your installed src/styles/_custom_variables.scss before relying on
+// any one of them; names have shifted between DSpace majors, and a variable
+// that does not exist upstream fails silently rather than loudly.
+//
+// The --dare-* names are ours and are safe to use anywhere in this theme.
+// ---------------------------------------------------------------------------
+
+:root {
+
+  // --- Brand tokens --------------------------------------------------------
+  // Two tiers, and the distinction is the whole point of this file.
+  //
+  //   *-display  the colour as authored. Gradients, hero panels, large type
+  //              (>=24px), decorative rules. Not for body text.
+  //   *-text     same hue, darkened to clear WCAG AA. Links, labels, icons
+  //              carrying meaning, anything below 24px.
+  //
+  // Reaching for a -display token on small text is the mistake this naming
+  // exists to prevent.
+
+  --dare-blue-display:    #667eea;   //  3.66:1 on white
+  --dare-blue-text:       #516ce7;   //  4.52:1  AA
+  --dare-blue-strong:     #2144e1;   //  7.05:1  AAA
+
+  --dare-purple-display:  #764ba2;   //  6.37:1  AA at any size
+  --dare-purple-strong:   #6e4698;   //  7.02:1  AAA
+
+  --dare-teal-display:    #138d75;   //  4.12:1
+  --dare-teal-text:       #12866f;   //  4.50:1  AA
+  --dare-teal-strong:     #0d6453;   //  7.08:1  AAA
+
+  // ORCID green is a fixed brand asset and cannot be darkened where the ORCID
+  // mark appears. It is a background colour only.
+  --dare-orcid-green:     #a6ce39;   //  1.82:1 on white — never text on white
+  --dare-orcid-on-green:  #1a1a1a;   //  9.54:1 against the green
+  --dare-orcid-text:      #667f20;   //  4.54:1 for "ORCID" as body text
+
+  --dare-gradient: linear-gradient(135deg,
+                     var(--dare-blue-display) 0%,
+                     var(--dare-purple-display) 100%);
+
+  // --- Neutrals ------------------------------------------------------------
+  --dare-ink:             #212529;
+  --dare-ink-muted:       #555555;
+  --dare-ink-subtle:      #666666;
+  // --dare-rule is decorative. Anything that forms the visible boundary of an
+  // interactive control needs --dare-border-ui to satisfy WCAG 1.4.11 (3:1).
+  --dare-rule:            #dee2e6;   //  1.31:1 — separators only
+  --dare-border-ui:       #868e96;   //  3.32:1 — inputs, checkboxes, buttons
+  --dare-surface:         #f8f9fa;
+  --dare-surface-sunken:  #f0f2f5;
+
+  // --- Elevation -----------------------------------------------------------
+  // Tinted rather than neutral black, so cards sit in the palette.
+  --dare-shadow-sm: 0 1px 2px rgba(33, 37, 41, 0.06),
+                    0 1px 3px rgba(33, 37, 41, 0.08);
+  --dare-shadow-md: 0 2px 4px rgba(33, 37, 41, 0.06),
+                    0 4px 12px rgba(33, 37, 41, 0.10);
+  --dare-shadow-lg: 0 4px 8px rgba(33, 37, 41, 0.06),
+                    0 12px 32px rgba(33, 37, 41, 0.12);
+
+  // --- Spacing -------------------------------------------------------------
+  // 4px base. Stock DSpace mixes Bootstrap spacers with ad-hoc pixel values,
+  // which is why vertical rhythm drifts between the search and item pages.
+  --dare-space-1: 0.25rem;
+  --dare-space-2: 0.5rem;
+  --dare-space-3: 1rem;
+  --dare-space-4: 1.5rem;
+  --dare-space-5: 2rem;
+  --dare-space-6: 3rem;
+  --dare-space-7: 4rem;
+
+  // Long-form metadata is far more readable capped near 70 characters.
+  --dare-measure: 68ch;
+
+  --dare-focus-ring: 0 0 0 3px #ffffff, 0 0 0 5px var(--dare-blue-strong);
+
+
+  // --- DSpace variable mapping ---------------------------------------------
+  // VERIFY these names against your installed DSpace before trusting them.
+
+  --ds-header-bg:                 #ffffff;
+  --ds-header-logo-height:        48px;
+
+  --ds-navbar-bg:                 var(--dare-surface);
+  --ds-navbar-link-color:         var(--dare-ink);
+  --ds-navbar-link-color-hover:   var(--dare-blue-strong);
+
+  --ds-footer-bg:                 var(--dare-ink);
+  --ds-footer-text-color:         #e9ecef;
+  // #9fb4ff on #212529 clears AA; the raw brand blue on this dark ground
+  // does not, which is the usual source of unreadable DSpace footers.
+  --ds-footer-link-color:         #9fb4ff;
+  --ds-footer-link-color-hover:   #ffffff;
+
+  --ds-breadcrumb-bg:             var(--dare-surface);
+  --ds-breadcrumb-link-color:     var(--dare-blue-text);
+  --ds-breadcrumb-max-length:     200px;
+
+  --ds-home-news-background-color: var(--dare-surface);
+  --ds-home-news-link-color:       var(--dare-blue-text);
+
+  --ds-content-spacing:           var(--dare-space-4);
+  --ds-icon-color:                var(--dare-ink-muted);
+}
