@@ -1,0 +1,338 @@
+[
+  {
+    "id": 1,
+    "title": "The United States Bill of Rights",
+    "authors": [
+      "United States"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/1/pg1.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 2547,
+    "url": "https://www.gutenberg.org/ebooks/1",
+    "subjects": [
+      "United States. Constitution"
+    ],
+    "copyright": false,
+    "publication_date": "1971-12-01"
+  },
+  {
+    "id": 11,
+    "title": "Alice's Adventures in Wonderland",
+    "authors": [
+      "Carroll, Lewis"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 125632,
+    "url": "https://www.gutenberg.org/ebooks/11",
+    "subjects": [
+      "Children's stories",
+      "Fantasy"
+    ],
+    "copyright": false,
+    "publication_date": "1865-11-30"
+  },
+  {
+    "id": 84,
+    "title": "Frankenstein; Or, The Modern Prometheus",
+    "authors": [
+      "Shelley, Mary"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 98756,
+    "url": "https://www.gutenberg.org/ebooks/84",
+    "subjects": [
+      "Science fiction",
+      "Classics"
+    ],
+    "copyright": false,
+    "publication_date": "1818-01-01"
+  },
+  {
+    "id": 98,
+    "title": "A Tale of Two Cities",
+    "authors": [
+      "Dickens, Charles"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/98/pg98.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 87543,
+    "url": "https://www.gutenberg.org/ebooks/98",
+    "subjects": [
+      "Historical fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1859-04-01"
+  },
+  {
+    "id": 100,
+    "title": "The Complete Works of William Shakespeare",
+    "authors": [
+      "Shakespeare, William"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/100/pg100.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 156234,
+    "url": "https://www.gutenberg.org/ebooks/100",
+    "subjects": [
+      "Drama",
+      "Plays"
+    ],
+    "copyright": false,
+    "publication_date": "1623-01-01"
+  },
+  {
+    "id": 2600,
+    "title": "War and Peace",
+    "authors": [
+      "Tolstoy, Lev"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/2600/pg2600.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 65432,
+    "url": "https://www.gutenberg.org/ebooks/2600",
+    "subjects": [
+      "Russia--History",
+      "Napoleonic Wars"
+    ],
+    "copyright": false,
+    "publication_date": "1869-01-01"
+  },
+  {
+    "id": 1661,
+    "title": "Sherlock Holmes: A Scandal in Bohemia",
+    "authors": [
+      "Doyle, Arthur Conan"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 54321,
+    "url": "https://www.gutenberg.org/ebooks/1661",
+    "subjects": [
+      "Detectives",
+      "Mystery"
+    ],
+    "copyright": false,
+    "publication_date": "1892-06-01"
+  },
+  {
+    "id": 45,
+    "title": "Sense and Sensibility",
+    "authors": [
+      "Austen, Jane"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/45/pg45.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 78654,
+    "url": "https://www.gutenberg.org/ebooks/45",
+    "subjects": [
+      "Romance",
+      "Regency"
+    ],
+    "copyright": false,
+    "publication_date": "1811-10-30"
+  },
+  {
+    "id": 121,
+    "title": "The Adventures of Sherlock Holmes",
+    "authors": [
+      "Doyle, Arthur Conan"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/121/pg121.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 142356,
+    "url": "https://www.gutenberg.org/ebooks/121",
+    "subjects": [
+      "Detective stories"
+    ],
+    "copyright": false,
+    "publication_date": "1892-06-01"
+  },
+  {
+    "id": 2701,
+    "title": "Crime and Punishment",
+    "authors": [
+      "Dostoevskii, Fedor"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 63245,
+    "url": "https://www.gutenberg.org/ebooks/2701",
+    "subjects": [
+      "Psychological fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1866-01-01"
+  },
+  {
+    "id": 9,
+    "title": "The Gutenberg Bible",
+    "authors": [
+      "Gutenberg, Johannes"
+    ],
+    "cover_image": null,
+    "languages": [
+      "de"
+    ],
+    "download_count": 1245,
+    "url": "https://www.gutenberg.org/ebooks/9",
+    "subjects": [
+      "Religious texts"
+    ],
+    "copyright": false,
+    "publication_date": "1455-01-01"
+  },
+  {
+    "id": 20,
+    "title": "The Odyssey",
+    "authors": [
+      "Homer"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/20/pg20.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 34567,
+    "url": "https://www.gutenberg.org/ebooks/20",
+    "subjects": [
+      "Ancient literature",
+      "Epic"
+    ],
+    "copyright": false,
+    "publication_date": "1872-01-01"
+  },
+  {
+    "id": 1342,
+    "title": "Pride and Prejudice",
+    "authors": [
+      "Austen, Jane"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 289456,
+    "url": "https://www.gutenberg.org/ebooks/1342",
+    "subjects": [
+      "Romance",
+      "Regency"
+    ],
+    "copyright": false,
+    "publication_date": "1813-01-28"
+  },
+  {
+    "id": 514,
+    "title": "Little Women",
+    "authors": [
+      "Alcott, Louisa May"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/514/pg514.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 134567,
+    "url": "https://www.gutenberg.org/ebooks/514",
+    "subjects": [
+      "Coming of age",
+      "Family"
+    ],
+    "copyright": false,
+    "publication_date": "1868-09-30"
+  },
+  {
+    "id": 1080,
+    "title": "The Picture of Dorian Gray",
+    "authors": [
+      "Wilde, Oscar"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/1080/pg1080.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 76543,
+    "url": "https://www.gutenberg.org/ebooks/1080",
+    "subjects": [
+      "Gothic fiction",
+      "Aestheticism"
+    ],
+    "copyright": false,
+    "publication_date": "1890-01-01"
+  },
+  {
+    "id": 105,
+    "title": "The Complete Sherlock Holmes",
+    "authors": [
+      "Doyle, Arthur Conan"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/105/pg105.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 234567,
+    "url": "https://www.gutenberg.org/ebooks/105",
+    "subjects": [
+      "Detective stories"
+    ],
+    "copyright": false,
+    "publication_date": "1927-01-01"
+  },
+  {
+    "id": 4300,
+    "title": "Ulysses",
+    "authors": [
+      "Joyce, James"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/4300/pg4300.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 45678,
+    "url": "https://www.gutenberg.org/ebooks/4300",
+    "subjects": [
+      "Modernist literature",
+      "Dublin"
+    ],
+    "copyright": false,
+    "publication_date": "1922-02-02"
+  },
+  {
+    "id": 25344,
+    "title": "The Great Gatsby",
+    "authors": [
+      "Fitzgerald, F. Scott"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/25344/pg25344.cover.medium.jpg",
+    "languages": [
+      "en"
+    ],
+    "download_count": 156789,
+    "url": "https://www.gutenberg.org/ebooks/25344",
+    "subjects": [
+      "Jazz Age",
+      "American literature"
+    ],
+    "copyright": false,
+    "publication_date": "1925-04-10"
+  }
+]
