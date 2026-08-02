@@ -213,39 +213,92 @@
             box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
         }
 
+        /* ── ORCID section ── */
         .orcid-section {
             background: #f8f9fa;
             border-left: 5px solid #a6ce39;
-            padding: 25px;
+            padding: 30px;
             margin: 30px;
-            border-radius: 5px;
+            border-radius: 8px;
+        }
+
+        .orcid-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .orcid-id-badge {
+            background: #a6ce39;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .orcid-section h3 {
-            color: #a6ce39;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .orcid-logo {
-            font-size: 1.2em;
+            color: #5a7a1a;
+            font-size: 1.6em;
+            margin: 0;
         }
 
         .orcid-description {
             color: #555;
             font-size: 0.95em;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        /* trust stats bar */
+        .orcid-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #eef7d0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+        }
+
+        .orcid-stat {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .orcid-stat .stat-number {
+            display: block;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #5a7a1a;
+        }
+
+        .orcid-stat .stat-label {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        /* action buttons */
+        .orcid-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+            align-items: center;
         }
 
         .orcid-login-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: linear-gradient(135deg, #a6ce39 0%, #85b638 100%);
             color: white;
-            padding: 12px 30px;
+            padding: 13px 30px;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
@@ -257,26 +310,172 @@
 
         .orcid-login-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(166, 206, 57, 0.4);
+            box-shadow: 0 5px 20px rgba(166, 206, 57, 0.45);
         }
 
+        .orcid-register-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #5a7a1a;
+            padding: 13px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            border: 2px solid #a6ce39;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+
+        .orcid-register-btn:hover {
+            background: #f4fbdf;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(166, 206, 57, 0.25);
+        }
+
+        /* ORCID iD lookup */
+        .orcid-lookup {
+            background: white;
+            border: 1px solid #d4e8a0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .orcid-lookup h4 {
+            color: #5a7a1a;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .orcid-lookup-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .orcid-lookup input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 2px solid #c8e06e;
+            border-radius: 5px;
+            font-size: 0.95em;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .orcid-lookup input:focus {
+            border-color: #a6ce39;
+        }
+
+        .orcid-lookup-btn {
+            padding: 10px 22px;
+            background: #a6ce39;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+
+        .orcid-lookup-btn:hover {
+            background: #85b638;
+        }
+
+        .orcid-lookup-result {
+            margin-top: 12px;
+            font-size: 0.9em;
+            color: #555;
+            display: none;
+        }
+
+        /* How it works steps */
+        .orcid-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .orcid-step {
+            flex: 1;
+            min-width: 160px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: #a6ce39;
+            color: white;
+            font-weight: bold;
+            font-size: 1em;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text strong {
+            display: block;
+            color: #5a7a1a;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+        }
+
+        .step-text p {
+            color: #666;
+            font-size: 0.85em;
+            margin: 0;
+        }
+
+        .orcid-steps-heading {
+            color: #5a7a1a;
+            font-size: 1.05em;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        /* benefit cards */
         .orcid-benefits {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
             gap: 15px;
-            margin-top: 20px;
         }
 
         .orcid-benefit {
             background: white;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 18px;
+            border-radius: 7px;
             border-top: 3px solid #a6ce39;
             font-size: 0.9em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .orcid-benefit .benefit-icon {
+            font-size: 1.6em;
+            margin-bottom: 8px;
         }
 
         .orcid-benefit strong {
-            color: #a6ce39;
+            display: block;
+            color: #5a7a1a;
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+
+        .orcid-benefit p {
+            color: #666;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -309,31 +508,149 @@
         </div>
 
         <div class="orcid-section">
-            <h3><span class="orcid-logo">🔐</span> ORCID Authentication</h3>
-            <p class="orcid-description">
-                Connect your ORCID account to DARE. ORCID (Open Researcher and Contributor ID) is a free service that provides you with a unique identifier to distinguish yourself from other researchers and researchers from similar names.
-            </p>
-            <a href="https://repo.dare.co.zw/oauth/authorize?client=orcid" class="orcid-login-btn">Login with ORCID</a>
+            <!-- Header -->
+            <div class="orcid-header">
+                <span class="orcid-id-badge">iD</span>
+                <h3>ORCID Integration</h3>
+            </div>
 
+            <p class="orcid-description">
+                Connect your <strong>ORCID iD</strong> to DARE Digital Repository. ORCID (Open Researcher and
+                Contributor ID) is a free, nonprofit service that gives every researcher a persistent digital
+                identifier — ensuring your work is always attributed to you, regardless of name changes or
+                institutional affiliation.
+            </p>
+
+            <!-- Trust stats -->
+            <div class="orcid-stats">
+                <div class="orcid-stat">
+                    <span class="stat-number">20M+</span>
+                    <span class="stat-label">Registered Researchers</span>
+                </div>
+                <div class="orcid-stat">
+                    <span class="stat-number">1,200+</span>
+                    <span class="stat-label">Integrated Organisations</span>
+                </div>
+                <div class="orcid-stat">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+                <div class="orcid-stat">
+                    <span class="stat-number">Free</span>
+                    <span class="stat-label">Forever for Researchers</span>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="orcid-actions">
+                <a href="https://repo.dare.co.zw/oauth/authorize?client=orcid" class="orcid-login-btn">
+                    🔐 Sign in with ORCID iD
+                </a>
+                <a href="https://orcid.org/register" class="orcid-register-btn" target="_blank" rel="noopener noreferrer">
+                    ✚ Register for an ORCID iD
+                </a>
+            </div>
+
+            <!-- ORCID iD Lookup -->
+            <div class="orcid-lookup">
+                <h4>🔍 Look up a Researcher by ORCID iD</h4>
+                <div class="orcid-lookup-row">
+                    <input type="text" id="orcidInput" placeholder="e.g. 0000-0002-1825-0097" maxlength="19" />
+                    <button class="orcid-lookup-btn" onclick="lookupOrcid()">Search</button>
+                </div>
+                <div class="orcid-lookup-result" id="orcidResult"></div>
+            </div>
+
+            <!-- How it works -->
+            <p class="orcid-steps-heading">📋 How to Connect Your ORCID iD</p>
+            <div class="orcid-steps">
+                <div class="orcid-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">
+                        <strong>Register or Sign In</strong>
+                        <p>Create a free ORCID iD at orcid.org or sign in if you already have one.</p>
+                    </div>
+                </div>
+                <div class="orcid-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">
+                        <strong>Authorise DARE</strong>
+                        <p>Grant DARE permission to read your ORCID profile via the secure OAuth flow.</p>
+                    </div>
+                </div>
+                <div class="orcid-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">
+                        <strong>Your Work Gets Linked</strong>
+                        <p>Your submissions in DARE are automatically associated with your ORCID iD.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefit cards -->
             <div class="orcid-benefits">
                 <div class="orcid-benefit">
-                    <strong>✓ Unique Identity</strong>
-                    <p>Get a persistent digital identifier for your research</p>
+                    <div class="benefit-icon">🪪</div>
+                    <strong>Unique Persistent Identity</strong>
+                    <p>A 16-digit iD that follows you throughout your career, across institutions and name changes.</p>
                 </div>
                 <div class="orcid-benefit">
-                    <strong>✓ Global Recognition</strong>
-                    <p>Connect with researchers worldwide through ORCID network</p>
+                    <div class="benefit-icon">🌐</div>
+                    <strong>Global Recognition</strong>
+                    <p>Recognised by publishers, funders, and institutions in over 100 countries worldwide.</p>
                 </div>
                 <div class="orcid-benefit">
-                    <strong>✓ Automatic Linking</strong>
-                    <p>Automatically link your publications and contributions</p>
+                    <div class="benefit-icon">🔗</div>
+                    <strong>Automatic Attribution</strong>
+                    <p>All DARE submissions are automatically attributed to your ORCID record — no manual entry.</p>
                 </div>
                 <div class="orcid-benefit">
-                    <strong>✓ Profile Integration</strong>
-                    <p>Integrate your ORCID profile with your research outputs</p>
+                    <div class="benefit-icon">🔒</div>
+                    <strong>Privacy Control</strong>
+                    <p>You decide what information is public, trusted parties only, or private in your ORCID profile.</p>
+                </div>
+                <div class="orcid-benefit">
+                    <div class="benefit-icon">📄</div>
+                    <strong>Funding &amp; Grants</strong>
+                    <p>Simplify grant applications by reusing your ORCID profile data across funding agencies.</p>
+                </div>
+                <div class="orcid-benefit">
+                    <div class="benefit-icon">📊</div>
+                    <strong>Research Impact</strong>
+                    <p>Track citations and downloads of your works across the DARE repository and beyond.</p>
                 </div>
             </div>
         </div>
+
+        <script>
+            function formatOrcid(value) {
+                var digits = value.replace(/\D/g, '').slice(0, 16);
+                return digits.replace(/(.{4})/g, '$1-').replace(/-$/, '');
+            }
+
+            var orcidInput = document.getElementById('orcidInput');
+            if (orcidInput) {
+                orcidInput.addEventListener('input', function () {
+                    var pos = this.selectionStart;
+                    this.value = formatOrcid(this.value);
+                });
+            }
+
+            function lookupOrcid() {
+                var raw = (document.getElementById('orcidInput').value || '').replace(/-/g, '');
+                var resultEl = document.getElementById('orcidResult');
+                if (raw.length !== 16) {
+                    resultEl.style.display = 'block';
+                    resultEl.innerHTML = '⚠️ Please enter a complete 16-digit ORCID iD (e.g. 0000-0002-1825-0097).';
+                    return;
+                }
+                var formatted = formatOrcid(raw);
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = '🔗 Searching ORCID public record for <strong>' + formatted + '</strong>&hellip; ' +
+                    '<a href="https://orcid.org/' + formatted + '" target="_blank" rel="noopener noreferrer" ' +
+                    'style="color:#5a7a1a;font-weight:bold;">View profile on orcid.org ↗</a>';
+            }
+        </script>
 
         <div class="marketing-section">
             <h3>Why Choose DARE with ChengetAi Integration</h3>
