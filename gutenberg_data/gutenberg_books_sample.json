@@ -1,0 +1,236 @@
+[
+  {
+    "id": 1,
+    "title": "The United States Bill of Rights",
+    "authors": [
+      "United States"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/1/pg1.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 2547,
+    "url": "https://www.gutenberg.org/ebooks/1",
+    "subjects": [
+      "United States. Constitution. Amendments, 1-10"
+    ],
+    "copyright": false,
+    "publication_date": "1971-12-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/1/1-0.epub",
+      "text/html": "https://www.gutenberg.org/files/1/1-h/1-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/1/1.txt"
+    }
+  },
+  {
+    "id": 11,
+    "title": "Alice's Adventures in Wonderland",
+    "authors": [
+      "Carroll, Lewis"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 125632,
+    "url": "https://www.gutenberg.org/ebooks/11",
+    "subjects": [
+      "Nonsense literature",
+      "Fantasy literature",
+      "Children's stories",
+      "Girls--Fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1865-11-30",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/11/11-0.epub",
+      "text/html": "https://www.gutenberg.org/files/11/11-h/11-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/11/11.txt"
+    }
+  },
+  {
+    "id": 84,
+    "title": "Frankenstein; Or, The Modern Prometheus",
+    "authors": [
+      "Shelley, Mary"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 98756,
+    "url": "https://www.gutenberg.org/ebooks/84",
+    "subjects": [
+      "Science fiction",
+      "Classics",
+      "Monsters--Fiction",
+      "Frankenstein, Victor (Fictional character)--Fiction",
+      "Reanimation--Fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1818-01-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/84/84-0.epub",
+      "text/html": "https://www.gutenberg.org/files/84/84-h/84-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/84/84.txt"
+    }
+  },
+  {
+    "id": 98,
+    "title": "A Tale of Two Cities",
+    "authors": [
+      "Dickens, Charles"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/98/pg98.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 87543,
+    "url": "https://www.gutenberg.org/ebooks/98",
+    "subjects": [
+      "Historical fiction",
+      "France--History--Revolution, 1789-1799--Fiction",
+      "Psychological fiction",
+      "Love stories"
+    ],
+    "copyright": false,
+    "publication_date": "1859-04-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/98/98-0.epub",
+      "text/html": "https://www.gutenberg.org/files/98/98-h/98-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/98/98.txt"
+    }
+  },
+  {
+    "id": 100,
+    "title": "The Complete Works of William Shakespeare",
+    "authors": [
+      "Shakespeare, William"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/100/pg100.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 156234,
+    "url": "https://www.gutenberg.org/ebooks/100",
+    "subjects": [
+      "Drama",
+      "Plays",
+      "English literature--Early modern, 1500-1700"
+    ],
+    "copyright": false,
+    "publication_date": "1623-01-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/100/100-0.epub",
+      "text/html": "https://www.gutenberg.org/files/100/100-h/100-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/100/100.txt"
+    }
+  },
+  {
+    "id": 2600,
+    "title": "War and Peace",
+    "authors": [
+      "Tolstoy, Lev"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/2600/pg2600.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 65432,
+    "url": "https://www.gutenberg.org/ebooks/2600",
+    "subjects": [
+      "Russia--History--Napoleonic Wars--Fiction",
+      "Napoleonic Wars--Fiction",
+      "Russia--History--19th century--Fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1869-01-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/2600/2600-0.epub",
+      "text/html": "https://www.gutenberg.org/files/2600/2600-h/2600-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/2600/2600.txt"
+    }
+  },
+  {
+    "id": 1661,
+    "title": "Sherlock Holmes: A Scandal in Bohemia",
+    "authors": [
+      "Doyle, Arthur Conan"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 54321,
+    "url": "https://www.gutenberg.org/ebooks/1661",
+    "subjects": [
+      "Holmes, Sherlock (Fictional character)--Fiction",
+      "Detectives--Fiction",
+      "Short stories"
+    ],
+    "copyright": false,
+    "publication_date": "1892-06-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/1661/1661-0.epub",
+      "text/html": "https://www.gutenberg.org/files/1661/1661-h/1661-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/1661/1661.txt"
+    }
+  },
+  {
+    "id": 45",
+    "title": "Sense and Sensibility",
+    "authors": [
+      "Austen, Jane"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/45/pg45.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 78654,
+    "url": "https://www.gutenberg.org/ebooks/45",
+    "subjects": [
+      "Regency fiction",
+      "Sisters--Fiction",
+      "England--Fiction",
+      "Coming of age--Fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1811-10-30",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/45/45-0.epub",
+      "text/html": "https://www.gutenberg.org/files/45/45-h/45-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/45/45.txt"
+    }
+  },
+  {
+    "id": 121,
+    "title": "The Adventures of Sherlock Holmes",
+    "authors": [
+      "Doyle, Arthur Conan"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/121/pg121.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 142356,
+    "url": "https://www.gutenberg.org/ebooks/121",
+    "subjects": [
+      "Holmes, Sherlock (Fictional character)--Fiction",
+      "Detectives--Fiction",
+      "Short stories"
+    ],
+    "copyright": false,
+    "publication_date": "1892-06-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/121/121-0.epub",
+      "text/html": "https://www.gutenberg.org/files/121/121-h/121-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/121/121.txt"
+    }
+  },
+  {
+    "id": 2701,
+    "title": "Crime and Punishment",
+    "authors": [
+      "Dostoevskii, Fedor"
+    ],
+    "cover_image": "https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg",
+    "languages": ["en"],
+    "download_count": 63245,
+    "url": "https://www.gutenberg.org/ebooks/2701",
+    "subjects": [
+      "Russia--Saint Petersburg--Fiction",
+      "Psychological fiction",
+      "Murder--Fiction",
+      "Russia--19th century--Fiction"
+    ],
+    "copyright": false,
+    "publication_date": "1866-01-01",
+    "formats": {
+      "application/epub+zip": "https://www.gutenberg.org/files/2701/2701-0.epub",
+      "text/html": "https://www.gutenberg.org/files/2701/2701-h/2701-h.htm",
+      "text/plain": "https://www.gutenberg.org/files/2701/2701.txt"
+    }
+  }
+]

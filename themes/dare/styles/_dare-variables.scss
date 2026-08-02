@@ -1,0 +1,66 @@
+// DARE Theme Variables
+// Bootstrap and custom variables used throughout the theme
+
+// Bootstrap color overrides
+$primary: $dare-primary;
+$secondary: $dare-secondary;
+$success: $dare-success;
+$info: $dare-info;
+$warning: $dare-warning;
+$danger: $dare-error;
+$light: $dare-gray-100;
+$dark: $dare-gray-900;
+
+// Bootstrap font variables
+$font-family-base: $dare-font-primary;
+$font-family-monospace: $dare-font-monospace;
+$font-size-base: $dare-font-size-base;
+$line-height-base: $dare-line-height-base;
+
+// Bootstrap spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * 0.25),
+  2: ($spacer * 0.5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+);
+
+// Bootstrap borders
+$border-radius: $dare-border-radius-md;
+$border-radius-sm: $dare-border-radius-sm;
+$border-radius-lg: $dare-border-radius-lg;
+$border-color: $dare-gray-300;
+
+// Bootstrap shadows
+$box-shadow: $dare-shadow-md;
+$box-shadow-lg: $dare-shadow-lg;
+
+// Component sizes
+$input-height: 2.5rem;
+$input-height-sm: 2rem;
+$input-height-lg: 3rem;
+
+// Navbar
+$navbar-padding-y: 1rem;
+$navbar-padding-x: 1.5rem;
+$navbar-brand-font-size: 1.5rem;
+$navbar-brand-font-weight: $dare-font-weight-bold;
+
+// Cards
+$card-spacer-y: 1.5rem;
+$card-spacer-x: 1.5rem;
+$card-border-width: 0;
+$card-border-radius: $dare-border-radius-lg;
+$card-box-shadow: $dare-shadow-md;
+
+// Modals
+$modal-content-border-radius: $dare-border-radius-lg;
+$modal-backdrop-bg: rgba(0, 0, 0, 0.5);
+
+// Transitions
+$transition-base: all 0.3s ease-in-out;
+$transition-fade: opacity 0.15s linear;
+$transition-collapse: height 0.35s ease;

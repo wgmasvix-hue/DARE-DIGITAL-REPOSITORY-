@@ -1,0 +1,352 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dare-data
+  labels:
+    app: dare
+    component: gutenberg
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gutenberg-config
+  namespace: dare-data
+data:
+  harvest_schedule: "0 2 * * *"  # Daily at 2 AM UTC
+  api_url: "https://repo.dare.co.zw"
+  data_path: "/data/gutenberg"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gutenberg-data-pvc
+  namespace: dare-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi
+  storageClassName: standard
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gutenberg-harvest
+  namespace: dare-data
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: dare
+            component: gutenberg
+        spec:
+          serviceAccountName: gutenberg-sa
+          containers:
+          - name: harvester
+            image: python:3.9-slim
+            imagePullPolicy: IfNotPresent
+            workingDir: /data/gutenberg
+            command:
+            - /bin/bash
+            - -c
+            - |
+              pip install requests PyYAML --quiet
+              python harvest_gutenberg.py
+              if [ $? -eq 0 ]; then
+                echo "$(date): Harvest completed successfully" >> /data/gutenberg/harvest.log
+              else
+                echo "$(date): Harvest failed" >> /data/gutenberg/harvest.log
+              fi
+            volumeMounts:
+            - name: gutenberg-data
+              mountPath: /data/gutenberg
+            - name: scripts
+              mountPath: /scripts
+            env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "500m"
+              limits:
+                memory: "2Gi"
+                cpu: "2000m"
+          volumes:
+          - name: gutenberg-data
+            persistentVolumeClaim:
+              claimName: gutenberg-data-pvc
+          - name: scripts
+            configMap:
+              name: gutenberg-scripts
+              defaultMode: 0755
+          restartPolicy: OnFailure
+          backoffLimit: 3
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gutenberg-sa
+  namespace: dare-data
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: gutenberg-role
+  namespace: dare-data
+rules:
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gutenberg-rolebinding
+  namespace: dare-data
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: gutenberg-role
+subjects:
+- kind: ServiceAccount
+  name: gutenberg-sa
+  namespace: dare-data
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gutenberg-api
+  namespace: dare-data
+  labels:
+    app: dare
+    component: gutenberg-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dare
+      component: gutenberg-api
+  template:
+    metadata:
+      labels:
+        app: dare
+        component: gutenberg-api
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 8080
+          name: http
+        volumeMounts:
+        - name: gutenberg-data
+          mountPath: /usr/share/nginx/html/data/gutenberg
+          readOnly: true
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /data/gutenberg/
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /data/gutenberg/
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: gutenberg-data
+        persistentVolumeClaim:
+          claimName: gutenberg-data-pvc
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: dare-data
+data:
+  default.conf: |
+    server {
+        listen 8080;
+        server_name _;
+
+        root /usr/share/nginx/html;
+        index index.json;
+
+        # Gutenberg data endpoints
+        location /data/gutenberg/ {
+            alias /usr/share/nginx/html/data/gutenberg/;
+            autoindex on;
+
+            # Add CORS headers
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, HEAD, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Content-Type' always;
+
+            # Cache headers
+            expires 1d;
+            add_header Cache-Control "public, max-age=86400" always;
+        }
+
+        # API endpoint
+        location /api/gutenberg/ {
+            add_header 'Content-Type' 'application/json' always;
+            add_header 'Access-Control-Allow-Origin' '*' always;
+
+            alias /usr/share/nginx/html/data/gutenberg/;
+            rewrite ^/api/gutenberg/books$ /gutenberg_books_latest.json break;
+            rewrite ^/api/gutenberg/sample$ /gutenberg_books_sample.json break;
+        }
+
+        # Health check
+        location /health {
+            access_log off;
+            return 200 "OK";
+            add_header Content-Type text/plain;
+        }
+    }
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gutenberg-api-service
+  namespace: dare-data
+  labels:
+    app: dare
+    component: gutenberg-api
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: dare
+    component: gutenberg-api
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gutenberg-ingress
+  namespace: dare-data
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - repo.dare.co.zw
+    secretName: gutenberg-tls
+  rules:
+  - host: repo.dare.co.zw
+    http:
+      paths:
+      - path: /data/gutenberg
+        pathType: Prefix
+        backend:
+          service:
+            name: gutenberg-api-service
+            port:
+              number: 80
+      - path: /api/gutenberg
+        pathType: Prefix
+        backend:
+          service:
+            name: gutenberg-api-service
+            port:
+              number: 80
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gutenberg-scripts
+  namespace: dare-data
+data:
+  harvest_gutenberg.py: |
+    #!/usr/bin/env python3
+    """
+    Gutenberg Harvester - Deployed version
+    """
+    import json
+    import csv
+    import requests
+    from datetime import datetime
+    from pathlib import Path
+
+    # Implementation from repository
+    # [Full script content would be inserted here]
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gutenberg-alerts
+  namespace: dare-data
+spec:
+  groups:
+  - name: gutenberg
+    interval: 30s
+    rules:
+    - alert: GutenbergHarvestFailed
+      expr: increase(gutenberg_harvest_failures_total[1h]) > 0
+      for: 5m
+      annotations:
+        summary: "Gutenberg harvest failed"
+        description: "The Gutenberg harvest job failed in the last hour"
+
+    - alert: GutenbergDataMissing
+      expr: gutenberg_books_count == 0
+      for: 10m
+      annotations:
+        summary: "Gutenberg data missing"
+        description: "No Gutenberg books found in storage"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gutenberg-monitoring
+  namespace: dare-data
+data:
+  prometheus-rules.yaml: |
+    global:
+      scrape_interval: 30s
+
+    scrape_configs:
+    - job_name: 'gutenberg-api'
+      static_configs:
+      - targets: ['localhost:8080']
+      metrics_path: '/metrics'

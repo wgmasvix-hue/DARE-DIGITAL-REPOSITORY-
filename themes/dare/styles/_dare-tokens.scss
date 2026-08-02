@@ -1,0 +1,105 @@
+// DARE Design Tokens
+// Centralized color, typography, and spacing definitions
+
+// Color Palette
+$dare-primary: #667eea;
+$dare-primary-light: #7c8ff5;
+$dare-primary-dark: #4d63d4;
+
+$dare-secondary: #764ba2;
+$dare-secondary-light: #8b62b8;
+$dare-secondary-dark: #5c3a7d;
+
+$dare-success: #16a085;
+$dare-success-light: #2fb89d;
+$dare-success-dark: #10785c;
+
+$dare-warning: #f39c12;
+$dare-error: #e74c3c;
+$dare-info: #3498db;
+
+$dare-gray-100: #f8f9fa;
+$dare-gray-200: #e9ecef;
+$dare-gray-300: #dee2e6;
+$dare-gray-400: #ced4da;
+$dare-gray-500: #adb5bd;
+$dare-gray-600: #6c757d;
+$dare-gray-700: #495057;
+$dare-gray-800: #343a40;
+$dare-gray-900: #212529;
+
+$dare-white: #ffffff;
+$dare-black: #000000;
+
+// Text Colors
+$dare-text-primary: $dare-gray-900;
+$dare-text-secondary: $dare-gray-600;
+$dare-text-muted: $dare-gray-500;
+
+// Typography
+$dare-font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$dare-font-monospace: 'Courier New', monospace;
+
+$dare-font-size-base: 1rem;
+$dare-font-size-sm: 0.875rem;
+$dare-font-size-lg: 1.25rem;
+$dare-font-size-xl: 1.5rem;
+$dare-font-size-2xl: 2rem;
+$dare-font-size-3xl: 2.5rem;
+
+$dare-line-height-base: 1.6;
+$dare-line-height-tight: 1.4;
+$dare-line-height-loose: 1.8;
+
+$dare-font-weight-normal: 400;
+$dare-font-weight-medium: 500;
+$dare-font-weight-semibold: 600;
+$dare-font-weight-bold: 700;
+
+// Spacing
+$dare-spacing-xs: 0.25rem;
+$dare-spacing-sm: 0.5rem;
+$dare-spacing-md: 1rem;
+$dare-spacing-lg: 1.5rem;
+$dare-spacing-xl: 2rem;
+$dare-spacing-2xl: 3rem;
+$dare-spacing-3xl: 4rem;
+
+// Borders
+$dare-border-radius-sm: 4px;
+$dare-border-radius-md: 8px;
+$dare-border-radius-lg: 12px;
+$dare-border-width: 1px;
+
+// Shadows
+$dare-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$dare-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$dare-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+$dare-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+// Transitions
+$dare-transition-base: all 0.3s ease-in-out;
+$dare-transition-fast: all 0.15s ease-in-out;
+$dare-transition-slow: all 0.5s ease-in-out;
+
+// Breakpoints
+$dare-breakpoint-xs: 0;
+$dare-breakpoint-sm: 576px;
+$dare-breakpoint-md: 768px;
+$dare-breakpoint-lg: 992px;
+$dare-breakpoint-xl: 1200px;
+$dare-breakpoint-xxl: 1400px;
+
+// Z-index
+$dare-zindex-dropdown: 1000;
+$dare-zindex-sticky: 1020;
+$dare-zindex-fixed: 1030;
+$dare-zindex-modal-backdrop: 1040;
+$dare-zindex-modal: 1050;
+$dare-zindex-popover: 1060;
+$dare-zindex-tooltip: 1070;
+
+// Gradients
+$dare-gradient-primary: linear-gradient(135deg, $dare-primary 0%, $dare-secondary 100%);
+$dare-gradient-success: linear-gradient(135deg, $dare-success 0%, darken($dare-success, 10%) 100%);
+$dare-gradient-hover: linear-gradient(135deg, $dare-primary-light 0%, $dare-secondary-light 100%);

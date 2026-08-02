@@ -1,0 +1,82 @@
+# MIT Papers Harvester Configuration
+
+# DSpace Repository URLs
+repositories:
+  mit_main:
+    url: "https://dspace.mit.edu"
+    name: "MIT Main Repository"
+    enabled: true
+
+  mit_handle:
+    url: "https://hdl.handle.net"
+    name: "MIT Handle System"
+    enabled: false
+
+# Harvest Configuration
+harvest:
+  # Metadata format: oai_dc (Dublin Core), mets, etc.
+  metadata_prefix: "oai_dc"
+
+  # Specific collections to harvest (empty = all)
+  # Examples: "com_123_456" or leave empty for all
+  collections: []
+
+  # Date range (optional, format: YYYY-MM-DD)
+  from_date: null
+  until_date: null
+
+  # Harvest only recent records (days, 0 = all)
+  recent_days: 0
+
+  # Request timeout in seconds
+  timeout: 30
+
+  # Batch size for resumption tokens
+  batch_size: 100
+
+# Output Configuration
+output:
+  directory: "./harvest_output"
+
+  # Output formats: json, csv, both
+  formats: ["json", "csv"]
+
+  # Include additional metadata (slower but comprehensive)
+  include_fulltext: false
+
+  # Filename prefix
+  prefix: "mit_papers"
+
+# Filtering
+filters:
+  # Exclude deleted records
+  exclude_deleted: true
+
+  # Resource types to include (empty = all)
+  # Examples: ["Article", "Thesis", "Conference Paper"]
+  resource_types: []
+
+  # Minimum year (optional)
+  min_year: null
+
+  # Keywords to search (optional, set-based searching)
+  keywords: []
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "harvest.log"
+  console: true
+
+# Network Configuration
+network:
+  # Retry failed requests
+  max_retries: 3
+  retry_delay: 2  # seconds
+
+  # Use proxy if needed
+  proxy: null
+
+  # Custom headers
+  headers:
+    User-Agent: "MIT-DSpace-Harvester/1.0"
