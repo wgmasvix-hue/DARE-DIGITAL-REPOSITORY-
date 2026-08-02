@@ -1,7 +1,7 @@
 # OpenAlex Harvester Configuration
 
 openalex:
-  email: harvester@example.com
+  email: chengetaisocietyzw@gmail.com
   base_url: https://api.openalex.org
   per_page: 100
   max_requests: 1000
@@ -11,11 +11,11 @@ openalex:
   max_publication_year: 2026
 
 dspace:
-  url: https://dspace.dare.co.zw/server
-  username: 
+  url: https://repo.dare.co.zw/server
+  username: admin@dare.co.zw
   password: ""
   api_key: ""
-  enabled: false
+  enabled: true
 
 output:
   directory: ./output
@@ -31,7 +31,11 @@ features:
 topics:
   - artificial intelligence
   - machine learning
+  - large language models
   - deep learning
   - computer vision
   - natural language processing
-
+  - robotics
+  - food science
+  - agriculture
+  - climate change
