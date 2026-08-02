@@ -1,6 +1,10 @@
-# DSpace Gutenberg Ingest Guide
+# DSpace 9 Gutenberg Ingest Guide
 
-Complete guide for ingesting Project Gutenberg books into your DSpace instance at repo.dare.co.zw.
+Complete guide for ingesting Project Gutenberg books into your **DSpace 9** instance at repo.dare.co.zw.
+
+**DSpace Version**: 9.x  
+**API Version**: 7.0+  
+**Server**: repo.dare.co.zw
 
 ## Quick Start
 
