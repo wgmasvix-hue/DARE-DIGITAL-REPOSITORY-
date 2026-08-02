@@ -1,0 +1,466 @@
+// DARE Accessibility Styling
+// WCAG 2.1 AA compliant styles for accessibility
+
+// Focus styles - visible focus indicators for keyboard navigation
+*:focus {
+  outline: 2px solid $dare-primary;
+  outline-offset: 2px;
+}
+
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid $dare-primary;
+  outline-offset: 2px;
+}
+
+// Remove default focus for mouse users (but keep for keyboard)
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid $dare-primary;
+  outline-offset: 2px;
+}
+
+// Skip to content link
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $dare-primary;
+  color: $dare-white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 $dare-border-radius-md 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// Enhanced color contrast
+.text-primary {
+  color: $dare-primary;
+  font-weight: $dare-font-weight-medium;
+}
+
+.text-secondary {
+  color: $dare-secondary;
+  font-weight: $dare-font-weight-medium;
+}
+
+.text-success {
+  color: darken($dare-success, 15%);
+  font-weight: $dare-font-weight-medium;
+}
+
+// Ensure text has sufficient contrast with backgrounds
+body {
+  color: $dare-text-primary;
+}
+
+a {
+  color: darken($dare-primary, 10%);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+
+  &:visited {
+    color: darken($dare-secondary, 10%);
+  }
+
+  &:hover {
+    text-decoration-thickness: 3px;
+  }
+
+  &:focus {
+    outline: 3px solid $dare-primary;
+    outline-offset: 2px;
+  }
+}
+
+// Larger, clearer form labels
+label {
+  display: block;
+  font-weight: $dare-font-weight-semibold;
+  margin-bottom: 0.5rem;
+  color: $dare-text-primary;
+
+  &.required::after {
+    content: ' *';
+    color: $dare-error;
+    margin-left: 0.25rem;
+    font-weight: $dare-font-weight-bold;
+  }
+}
+
+// Form field error messages with better visibility
+.error-message,
+.invalid-feedback {
+  color: darken($dare-error, 15%);
+  font-weight: $dare-font-weight-medium;
+  margin-top: 0.25rem;
+  font-size: $dare-font-size-sm;
+  display: block;
+
+  &::before {
+    content: '⚠ ';
+    margin-right: 0.25rem;
+  }
+}
+
+// Enhanced form control focus states
+.form-control,
+.form-select,
+textarea {
+  &:focus {
+    border-color: $dare-primary;
+    border-width: 2px;
+    box-shadow: 0 0 0 4px rgba($dare-primary, 0.15);
+  }
+
+  &:invalid {
+    border-color: $dare-error;
+
+    &:focus {
+      box-shadow: 0 0 0 4px rgba($dare-error, 0.15);
+    }
+  }
+}
+
+// Improved button focus states
+.btn {
+  &:focus {
+    outline: 3px solid $dare-primary;
+    outline-offset: 2px;
+  }
+
+  // Ensure buttons have sufficient padding for touch targets (WCAG 2.5.5)
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem 1.5rem;
+
+  // Ensure text is not just color-dependent
+  &.btn-primary,
+  &.btn-success {
+    border: 2px solid;
+    border-color: darken($dare-primary, 20%);
+
+    &:disabled {
+      border-style: dashed;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: more) {
+  body {
+    font-weight: $dare-font-weight-medium;
+  }
+
+  button, a {
+    font-weight: $dare-font-weight-semibold;
+  }
+
+  .btn {
+    border-width: 2px;
+  }
+
+  .form-control {
+    border-width: 2px;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: $dare-gray-900;
+    color: $dare-gray-200;
+  }
+
+  .card,
+  .form-control,
+  .btn-outline-primary {
+    background-color: $dare-gray-800;
+    color: $dare-gray-200;
+  }
+
+  a {
+    color: lighten($dare-primary, 20%);
+
+    &:visited {
+      color: lighten($dare-secondary, 20%);
+    }
+  }
+
+  .alert {
+    background-color: rgba($dare-gray-800, 0.8);
+  }
+
+  label {
+    color: $dare-gray-200;
+  }
+}
+
+// Print styles
+@media print {
+  .no-print,
+  .btn,
+  nav,
+  [role="navigation"],
+  .sidebar {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: underline;
+
+    &::after {
+      content: ' (' attr(href) ')';
+      font-size: 0.8em;
+      color: $dare-text-secondary;
+    }
+  }
+
+  body {
+    background-color: $dare-white;
+    color: $dare-text-primary;
+  }
+
+  .card {
+    page-break-inside: avoid;
+  }
+}
+
+// Screen reader only content
+.sr-only,
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Ensure images have alt text (CSS outline for missing alt)
+img {
+  &:not([alt]) {
+    border: 3px dashed $dare-error;
+    background-color: rgba($dare-error, 0.1);
+  }
+}
+
+// Enhanced headings for structure
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-top: 2rem;
+}
+
+// Improve table accessibility
+table {
+  caption {
+    font-weight: $dare-font-weight-semibold;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  thead th {
+    font-weight: $dare-font-weight-bold;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  tbody td {
+    padding: 0.75rem 1rem;
+  }
+}
+
+// Link indication
+a[target="_blank"]::after {
+  content: ' (opens in new window)';
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+// Form required field indicators
+input[required]::after,
+textarea[required]::after {
+  content: ' *';
+  color: $dare-error;
+}
+
+// Ensure lists are properly marked up
+.list-reset {
+  list-style: none;
+  padding: 0;
+
+  li::before {
+    content: '• ';
+    margin-right: 0.5rem;
+    font-weight: $dare-font-weight-bold;
+    color: $dare-primary;
+  }
+}
+
+// Improve link focus visibility
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid $dare-primary;
+  outline-offset: 2px;
+}
+
+// Ensure touch targets are large enough (WCAG 2.5.5)
+button,
+a[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"] {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+// Improve color-based information
+.color-only {
+  &::after {
+    content: attr(aria-label);
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+}
+
+// Enhanced semantic HTML styling
+article {
+  margin-bottom: $dare-spacing-2xl;
+  padding-bottom: $dare-spacing-2xl;
+  border-bottom: 1px solid $dare-gray-200;
+}
+
+aside {
+  border-left: 4px solid $dare-primary;
+  padding-left: $dare-spacing-lg;
+  margin: $dare-spacing-lg 0;
+}
+
+section {
+  margin: $dare-spacing-2xl 0;
+}
+
+// Consistent spacing for better readability
+p {
+  max-width: 70ch;
+  line-height: $dare-line-height-loose;
+}
+
+// Accessible form validation
+.form-group {
+  margin-bottom: $dare-spacing-lg;
+}
+
+.is-invalid {
+  .form-control,
+  .form-select {
+    border-color: $dare-error;
+    border-width: 2px;
+  }
+}
+
+.is-valid {
+  .form-control,
+  .form-select {
+    border-color: $dare-success;
+    border-width: 2px;
+
+    &::after {
+      content: ' ✓';
+      color: $dare-success;
+    }
+  }
+}
+
+// Ensure sufficient line height for readability
+body {
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3;
+}
+
+// Improve scrolling behavior
+html {
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+// Enhanced visibility for focus on interactive elements
+.sr-focus {
+  &:focus {
+    outline: 4px solid $dare-primary;
+    outline-offset: 4px;
+  }
+}
+
+// Ensure sufficient contrast for disabled buttons
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+// Accessible icon buttons
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: $dare-border-radius-md;
+  border: 1px solid $dare-gray-300;
+  background: $dare-white;
+  cursor: pointer;
+  transition: $dare-transition-fast;
+
+  &:hover {
+    background: $dare-gray-100;
+    border-color: $dare-primary;
+  }
+
+  &:focus {
+    outline: 2px solid $dare-primary;
+    outline-offset: 2px;
+  }
+
+  // Require aria-label for icon buttons
+  &:not([aria-label]) {
+    border-color: $dare-error;
+  }
+}

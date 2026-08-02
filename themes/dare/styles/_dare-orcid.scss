@@ -1,0 +1,401 @@
+// DARE ORCID Integration Styling
+// Customizations for ORCID login, authentication, and profile integration
+
+// ORCID color palette
+$orcid-green: #a6ce39;
+$orcid-dark: #85b638;
+
+// ORCID login section
+.orcid-section {
+  background: $dare-white;
+  border-left: 5px solid $orcid-green;
+  border-radius: $dare-border-radius-lg;
+  padding: $dare-spacing-2xl;
+  margin: $dare-spacing-2xl 0;
+  box-shadow: $dare-shadow-md;
+  transition: $dare-transition-base;
+
+  &:hover {
+    box-shadow: $dare-shadow-lg;
+  }
+
+  .orcid-header {
+    display: flex;
+    align-items: center;
+    gap: $dare-spacing-md;
+    margin-bottom: $dare-spacing-lg;
+
+    .orcid-logo {
+      font-size: 2.5rem;
+      color: $orcid-green;
+    }
+
+    h2, h3 {
+      color: $orcid-green;
+      margin: 0;
+      font-size: $dare-font-size-xl;
+      font-weight: $dare-font-weight-bold;
+    }
+  }
+
+  .orcid-description {
+    color: $dare-text-secondary;
+    font-size: $dare-font-size-base;
+    line-height: $dare-line-height-loose;
+    margin-bottom: $dare-spacing-lg;
+  }
+}
+
+// ORCID login button
+.orcid-login-btn,
+.btn-orcid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $dare-spacing-md;
+  background: linear-gradient(135deg, $orcid-green 0%, $orcid-dark 100%);
+  color: $dare-white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: $dare-border-radius-md;
+  font-weight: $dare-font-weight-semibold;
+  font-size: $dare-font-size-base;
+  cursor: pointer;
+  text-decoration: none;
+  transition: $dare-transition-base;
+  box-shadow: $dare-shadow-md;
+
+  &:hover {
+    background: linear-gradient(135deg, lighten($orcid-green, 5%) 0%, lighten($orcid-dark, 5%) 100%);
+    box-shadow: $dare-shadow-lg;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  .orcid-icon {
+    font-size: 1.2em;
+  }
+}
+
+// ORCID benefits grid
+.orcid-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $dare-spacing-lg;
+  margin: $dare-spacing-lg 0;
+
+  .orcid-benefit {
+    background: $dare-gray-100;
+    padding: $dare-spacing-lg;
+    border-radius: $dare-border-radius-md;
+    border-top: 3px solid $orcid-green;
+    transition: $dare-transition-base;
+
+    &:hover {
+      box-shadow: $dare-shadow-md;
+      transform: translateY(-4px);
+    }
+
+    .benefit-icon {
+      font-size: 2rem;
+      color: $orcid-green;
+      margin-bottom: $dare-spacing-sm;
+    }
+
+    .benefit-title {
+      font-weight: $dare-font-weight-semibold;
+      color: $orcid-green;
+      margin-bottom: $dare-spacing-sm;
+      font-size: $dare-font-size-base;
+    }
+
+    .benefit-description {
+      color: $dare-text-secondary;
+      font-size: $dare-font-size-sm;
+      line-height: $dare-line-height-base;
+    }
+  }
+}
+
+// ORCID profile card
+.orcid-profile {
+  background: $dare-white;
+  border: 1px solid $dare-gray-200;
+  border-radius: $dare-border-radius-lg;
+  padding: $dare-spacing-lg;
+  box-shadow: $dare-shadow-md;
+
+  .profile-header {
+    display: flex;
+    gap: $dare-spacing-lg;
+    margin-bottom: $dare-spacing-lg;
+    padding-bottom: $dare-spacing-lg;
+    border-bottom: 1px solid $dare-gray-200;
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: $dare-gradient-primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $dare-white;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+
+      .profile-name {
+        font-size: $dare-font-size-lg;
+        font-weight: $dare-font-weight-bold;
+        color: $dare-text-primary;
+        margin-bottom: $dare-spacing-sm;
+      }
+
+      .profile-orcid-id {
+        font-size: $dare-font-size-sm;
+        color: $dare-text-secondary;
+        font-family: $dare-font-monospace;
+        display: flex;
+        align-items: center;
+        gap: $dare-spacing-sm;
+
+        .orcid-badge {
+          background: $orcid-green;
+          color: $dare-white;
+          padding: 0.125rem 0.5rem;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: $dare-font-weight-bold;
+        }
+      }
+
+      .profile-link {
+        color: $orcid-green;
+        text-decoration: none;
+        font-weight: $dare-font-weight-medium;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $dare-spacing-md;
+    margin-bottom: $dare-spacing-lg;
+
+    .stat {
+      text-align: center;
+      padding: $dare-spacing-md;
+      background: $dare-gray-100;
+      border-radius: $dare-border-radius-md;
+
+      .stat-value {
+        font-size: $dare-font-size-lg;
+        font-weight: $dare-font-weight-bold;
+        color: $orcid-green;
+      }
+
+      .stat-label {
+        font-size: $dare-font-size-sm;
+        color: $dare-text-secondary;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: $dare-spacing-sm;
+
+    button {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border-radius: $dare-border-radius-md;
+      border: 1px solid $orcid-green;
+      background: transparent;
+      color: $orcid-green;
+      cursor: pointer;
+      font-weight: $dare-font-weight-medium;
+      transition: $dare-transition-fast;
+
+      &:hover {
+        background: $orcid-green;
+        color: $dare-white;
+      }
+
+      &.primary {
+        background: $orcid-green;
+        color: $dare-white;
+        border-color: $orcid-green;
+
+        &:hover {
+          background: $orcid-dark;
+          border-color: $orcid-dark;
+        }
+      }
+    }
+  }
+}
+
+// ORCID authentication prompt
+.orcid-auth-prompt {
+  background: linear-gradient(135deg, rgba($orcid-green, 0.1) 0%, rgba($orcid-dark, 0.05) 100%);
+  border: 2px solid $orcid-green;
+  border-radius: $dare-border-radius-lg;
+  padding: $dare-spacing-2xl;
+  text-align: center;
+  margin: $dare-spacing-2xl 0;
+
+  .prompt-icon {
+    font-size: 3rem;
+    color: $orcid-green;
+    margin-bottom: $dare-spacing-lg;
+  }
+
+  h3 {
+    color: $dare-text-primary;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  p {
+    color: $dare-text-secondary;
+    margin-bottom: $dare-spacing-lg;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .prompt-cta {
+    display: inline-block;
+    margin: 0 $dare-spacing-sm;
+  }
+}
+
+// ORCID connection status
+.orcid-status {
+  display: flex;
+  align-items: center;
+  gap: $dare-spacing-md;
+  padding: $dare-spacing-md;
+  border-radius: $dare-border-radius-md;
+  font-size: $dare-font-size-sm;
+
+  &.connected {
+    background: rgba($orcid-green, 0.1);
+    color: darken($orcid-green, 20%);
+    border-left: 4px solid $orcid-green;
+
+    .status-icon {
+      color: $orcid-green;
+      font-weight: $dare-font-weight-bold;
+    }
+  }
+
+  &.disconnected {
+    background: rgba($dare-error, 0.1);
+    color: darken($dare-error, 20%);
+    border-left: 4px solid $dare-error;
+
+    .status-icon {
+      color: $dare-error;
+      font-weight: $dare-font-weight-bold;
+    }
+  }
+}
+
+// ORCID widget/embed
+.orcid-widget {
+  background: $dare-white;
+  border: 1px solid $dare-gray-200;
+  border-radius: $dare-border-radius-lg;
+  padding: $dare-spacing-lg;
+  text-align: center;
+
+  .widget-title {
+    color: $orcid-green;
+    font-weight: $dare-font-weight-bold;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  .widget-logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  .widget-text {
+    color: $dare-text-secondary;
+    font-size: $dare-font-size-sm;
+    margin-bottom: $dare-spacing-lg;
+  }
+}
+
+// ORCID identity linking
+.orcid-identity-link {
+  background: $dare-gray-100;
+  border-radius: $dare-border-radius-md;
+  padding: $dare-spacing-lg;
+  margin-bottom: $dare-spacing-lg;
+
+  .identity-icon {
+    font-size: 2rem;
+    color: $orcid-green;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  .identity-title {
+    font-weight: $dare-font-weight-semibold;
+    color: $dare-text-primary;
+    margin-bottom: $dare-spacing-sm;
+  }
+
+  .identity-info {
+    color: $dare-text-secondary;
+    font-size: $dare-font-size-sm;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  .link-button {
+    background: $orcid-green;
+    color: $dare-white;
+    padding: 0.5rem 1rem;
+    border-radius: $dare-border-radius-sm;
+    text-decoration: none;
+    font-weight: $dare-font-weight-medium;
+    display: inline-block;
+    transition: $dare-transition-fast;
+
+    &:hover {
+      background: $orcid-dark;
+    }
+  }
+}
+
+// ORCID trust badge
+.orcid-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $dare-spacing-sm;
+  background: linear-gradient(135deg, $orcid-green 0%, $orcid-dark 100%);
+  color: $dare-white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  font-size: $dare-font-size-sm;
+  font-weight: $dare-font-weight-semibold;
+
+  .badge-icon {
+    font-size: 1em;
+  }
+}

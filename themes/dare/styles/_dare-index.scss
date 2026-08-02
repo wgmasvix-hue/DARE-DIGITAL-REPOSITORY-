@@ -1,0 +1,326 @@
+// DARE Theme - Main Index File
+// Imports all theme components and overrides
+
+@import 'dare-tokens';
+@import 'dare-variables';
+@import 'dare-bootstrap-overrides';
+@import 'dare-hero-patch';
+@import 'dare-library';
+@import 'dare-orcid';
+@import 'dare-accessibility';
+
+// Global theme styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $dare-font-primary;
+  font-size: $dare-font-size-base;
+  line-height: $dare-line-height-base;
+  color: $dare-text-primary;
+  background-color: $dare-white;
+  transition: $dare-transition-base;
+}
+
+// Typography
+h1, .h1 {
+  font-size: $dare-font-size-3xl;
+  font-weight: $dare-font-weight-bold;
+  line-height: $dare-line-height-tight;
+  margin-bottom: $dare-spacing-lg;
+}
+
+h2, .h2 {
+  font-size: $dare-font-size-2xl;
+  font-weight: $dare-font-weight-bold;
+  line-height: $dare-line-height-tight;
+  margin-bottom: $dare-spacing-md;
+}
+
+h3, .h3 {
+  font-size: $dare-font-size-xl;
+  font-weight: $dare-font-weight-semibold;
+  line-height: $dare-line-height-tight;
+  margin-bottom: $dare-spacing-md;
+}
+
+h4, .h4 {
+  font-size: $dare-font-size-lg;
+  font-weight: $dare-font-weight-semibold;
+  line-height: $dare-line-height-base;
+  margin-bottom: $dare-spacing-sm;
+}
+
+p {
+  margin-bottom: $dare-spacing-md;
+}
+
+a {
+  color: $dare-primary;
+  text-decoration: none;
+  transition: $dare-transition-base;
+
+  &:hover {
+    color: $dare-primary-dark;
+    text-decoration: underline;
+  }
+}
+
+// Links in paragraphs
+p a {
+  font-weight: $dare-font-weight-medium;
+}
+
+// Code styling
+code, pre {
+  font-family: $dare-font-monospace;
+  background-color: $dare-gray-100;
+  border-radius: $dare-border-radius-sm;
+  padding: $dare-spacing-xs $dare-spacing-sm;
+}
+
+pre {
+  padding: $dare-spacing-md;
+  overflow-x: auto;
+  margin-bottom: $dare-spacing-md;
+}
+
+// Buttons
+.btn {
+  font-weight: $dare-font-weight-medium;
+  border-radius: $dare-border-radius-md;
+  transition: $dare-transition-base;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  padding: 0.75rem 1.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $dare-shadow-lg;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $dare-shadow-md;
+  }
+}
+
+.btn-primary {
+  background: $dare-gradient-primary;
+  color: $dare-white;
+
+  &:hover {
+    background: $dare-gradient-hover;
+  }
+}
+
+.btn-secondary {
+  background-color: $dare-gray-300;
+  color: $dare-text-primary;
+
+  &:hover {
+    background-color: $dare-gray-400;
+  }
+}
+
+.btn-success {
+  background: $dare-gradient-success;
+  color: $dare-white;
+
+  &:hover {
+    background: darken($dare-success, 5%);
+  }
+}
+
+// Forms
+.form-control,
+.form-select,
+textarea {
+  font-family: $dare-font-primary;
+  border: $dare-border-width solid $dare-gray-300;
+  border-radius: $dare-border-radius-md;
+  padding: $dare-spacing-sm $dare-spacing-md;
+  transition: $dare-transition-fast;
+
+  &:focus {
+    border-color: $dare-primary;
+    box-shadow: 0 0 0 3px rgba($dare-primary, 0.1);
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: $dare-gray-100;
+    cursor: not-allowed;
+  }
+}
+
+// Alerts
+.alert {
+  border-radius: $dare-border-radius-md;
+  border-left: 4px solid;
+  padding: $dare-spacing-md;
+  margin-bottom: $dare-spacing-md;
+
+  &.alert-info {
+    border-left-color: $dare-info;
+    background-color: rgba($dare-info, 0.1);
+    color: $dare-info;
+  }
+
+  &.alert-success {
+    border-left-color: $dare-success;
+    background-color: rgba($dare-success, 0.1);
+    color: $dare-success;
+  }
+
+  &.alert-warning {
+    border-left-color: $dare-warning;
+    background-color: rgba($dare-warning, 0.1);
+    color: darken($dare-warning, 20%);
+  }
+
+  &.alert-danger {
+    border-left-color: $dare-error;
+    background-color: rgba($dare-error, 0.1);
+    color: $dare-error;
+  }
+}
+
+// Cards
+.card {
+  border: none;
+  border-radius: $dare-border-radius-lg;
+  box-shadow: $dare-shadow-md;
+  transition: $dare-transition-base;
+
+  &:hover {
+    box-shadow: $dare-shadow-lg;
+    transform: translateY(-4px);
+  }
+}
+
+.card-header {
+  background: $dare-gradient-primary;
+  color: $dare-white;
+  border-radius: $dare-border-radius-lg $dare-border-radius-lg 0 0;
+}
+
+// Navbar/Header
+header, nav {
+  background: $dare-gradient-primary;
+  color: $dare-white;
+  box-shadow: $dare-shadow-md;
+}
+
+// Footer
+footer {
+  background-color: $dare-gray-900;
+  color: $dare-gray-200;
+  margin-top: $dare-spacing-3xl;
+  padding: $dare-spacing-2xl $dare-spacing-md;
+}
+
+// Tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $dare-spacing-md;
+
+  thead {
+    background-color: $dare-gray-100;
+    border-bottom: 2px solid $dare-gray-300;
+
+    th {
+      padding: $dare-spacing-md;
+      text-align: left;
+      font-weight: $dare-font-weight-semibold;
+      color: $dare-text-primary;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: $dare-border-width solid $dare-gray-200;
+      transition: $dare-transition-fast;
+
+      &:hover {
+        background-color: $dare-gray-100;
+      }
+    }
+
+    td {
+      padding: $dare-spacing-md;
+    }
+  }
+}
+
+// Badges
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: $dare-font-size-sm;
+  font-weight: $dare-font-weight-semibold;
+  background-color: $dare-primary;
+  color: $dare-white;
+}
+
+// Loading spinner
+.spinner {
+  border: 4px solid $dare-gray-200;
+  border-top-color: $dare-primary;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Utility classes
+.text-primary {
+  color: $dare-primary;
+}
+
+.text-secondary {
+  color: $dare-secondary;
+}
+
+.text-success {
+  color: $dare-success;
+}
+
+.bg-primary {
+  background-color: $dare-primary;
+  color: $dare-white;
+}
+
+.bg-light {
+  background-color: $dare-gray-100;
+}
+
+.mt-1 { margin-top: $dare-spacing-sm; }
+.mt-2 { margin-top: $dare-spacing-md; }
+.mt-3 { margin-top: $dare-spacing-lg; }
+
+.mb-1 { margin-bottom: $dare-spacing-sm; }
+.mb-2 { margin-bottom: $dare-spacing-md; }
+.mb-3 { margin-bottom: $dare-spacing-lg; }
+
+.p-1 { padding: $dare-spacing-sm; }
+.p-2 { padding: $dare-spacing-md; }
+.p-3 { padding: $dare-spacing-lg; }

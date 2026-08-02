@@ -1,0 +1,373 @@
+// DARE Hero/Banner Styling
+// Customizations for hero sections, banners, and large visual elements
+
+// Hero section
+.hero, .hero-section {
+  background: $dare-gradient-primary;
+  color: $dare-white;
+  padding: $dare-spacing-3xl $dare-spacing-lg;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: $dare-shadow-lg;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1, h2 {
+    color: $dare-white;
+    font-size: clamp($dare-font-size-2xl, 5vw, $dare-font-size-3xl);
+    margin-bottom: $dare-spacing-lg;
+    font-weight: $dare-font-weight-bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    color: rgba($dare-white, 0.95);
+    font-size: clamp($dare-font-size-base, 2vw, $dare-font-size-lg);
+    margin-bottom: $dare-spacing-lg;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: $dare-spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: $dare-spacing-2xl;
+
+    a, button {
+      padding: 0.75rem 2rem;
+      font-size: $dare-font-size-base;
+    }
+  }
+
+  .hero-icon {
+    font-size: 4rem;
+    margin-bottom: $dare-spacing-md;
+  }
+}
+
+// Large banner sections
+.banner {
+  padding: $dare-spacing-2xl $dare-spacing-lg;
+  border-radius: $dare-border-radius-lg;
+  box-shadow: $dare-shadow-md;
+  margin-bottom: $dare-spacing-2xl;
+  position: relative;
+  overflow: hidden;
+
+  &.banner-primary {
+    background: $dare-gradient-primary;
+    color: $dare-white;
+  }
+
+  &.banner-success {
+    background: $dare-gradient-success;
+    color: $dare-white;
+  }
+
+  &.banner-secondary {
+    background: $dare-gradient-hover;
+    color: $dare-white;
+  }
+
+  &.banner-light {
+    background-color: $dare-gray-100;
+    color: $dare-text-primary;
+    border-left: 4px solid $dare-primary;
+  }
+
+  .banner-icon {
+    font-size: 2.5rem;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  .banner-title {
+    font-size: $dare-font-size-xl;
+    font-weight: $dare-font-weight-bold;
+    margin-bottom: $dare-spacing-sm;
+  }
+
+  .banner-text {
+    font-size: $dare-font-size-base;
+    line-height: $dare-line-height-loose;
+    opacity: 0.95;
+  }
+}
+
+// Feature highlight cards
+.feature-highlight {
+  background: $dare-white;
+  border: 2px solid $dare-primary;
+  border-radius: $dare-border-radius-lg;
+  padding: $dare-spacing-2xl $dare-spacing-xl;
+  text-align: center;
+  transition: $dare-transition-base;
+
+  &:hover {
+    box-shadow: $dare-shadow-xl;
+    transform: translateY(-8px);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: $dare-spacing-md;
+    color: $dare-primary;
+  }
+
+  .feature-title {
+    font-size: $dare-font-size-lg;
+    font-weight: $dare-font-weight-bold;
+    color: $dare-text-primary;
+    margin-bottom: $dare-spacing-sm;
+  }
+
+  .feature-description {
+    color: $dare-text-secondary;
+    font-size: $dare-font-size-base;
+    line-height: $dare-line-height-loose;
+  }
+}
+
+// Section headers
+.section-header {
+  text-align: center;
+  margin-bottom: $dare-spacing-3xl;
+
+  h2 {
+    font-size: $dare-font-size-2xl;
+    font-weight: $dare-font-weight-bold;
+    color: $dare-text-primary;
+    margin-bottom: $dare-spacing-md;
+  }
+
+  p {
+    font-size: $dare-font-size-lg;
+    color: $dare-text-secondary;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: $dare-gradient-primary;
+    margin: $dare-spacing-lg auto 0;
+    border-radius: 2px;
+  }
+}
+
+// Jumbotron-style section
+.jumbotron {
+  background: $dare-gradient-primary;
+  color: $dare-white;
+  padding: $dare-spacing-3xl;
+  border-radius: $dare-border-radius-lg;
+  margin-bottom: $dare-spacing-2xl;
+
+  h1 {
+    font-size: clamp($dare-font-size-2xl, 6vw, 3.5rem);
+    margin-bottom: $dare-spacing-lg;
+    font-weight: $dare-font-weight-bold;
+  }
+
+  p {
+    font-size: clamp($dare-font-size-base, 1.5vw, $dare-font-size-lg);
+    margin-bottom: $dare-spacing-lg;
+  }
+
+  .lead {
+    font-size: $dare-font-size-lg;
+    font-weight: $dare-font-weight-medium;
+    margin-bottom: $dare-spacing-xl;
+  }
+}
+
+// CTA sections
+.cta-section {
+  background: $dare-gray-50;
+  padding: $dare-spacing-3xl $dare-spacing-lg;
+  text-align: center;
+  border-radius: $dare-border-radius-lg;
+  margin: $dare-spacing-2xl 0;
+
+  h2 {
+    font-size: $dare-font-size-xl;
+    margin-bottom: $dare-spacing-lg;
+    color: $dare-text-primary;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: $dare-spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button, a {
+      margin: $dare-spacing-sm;
+    }
+  }
+
+  &.cta-highlight {
+    background: $dare-gradient-primary;
+    color: $dare-white;
+
+    h2 {
+      color: $dare-white;
+    }
+
+    p {
+      color: rgba($dare-white, 0.9);
+    }
+  }
+}
+
+// Divider
+.divider {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    $dare-primary,
+    transparent
+  );
+  margin: $dare-spacing-3xl 0;
+}
+
+// Media section with text
+.media-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $dare-spacing-2xl;
+  align-items: center;
+  margin: $dare-spacing-2xl 0;
+
+  @media (max-width: $dare-breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+
+  .media-content {
+    h2 {
+      font-size: $dare-font-size-xl;
+      margin-bottom: $dare-spacing-lg;
+    }
+
+    p {
+      color: $dare-text-secondary;
+      margin-bottom: $dare-spacing-md;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: $dare-spacing-sm 0;
+        color: $dare-text-secondary;
+
+        &::before {
+          content: '✓ ';
+          color: $dare-success;
+          font-weight: $dare-font-weight-bold;
+          margin-right: $dare-spacing-sm;
+        }
+      }
+    }
+  }
+
+  .media-image {
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: $dare-border-radius-lg;
+      box-shadow: $dare-shadow-lg;
+    }
+  }
+}
+
+// Testimonial section
+.testimonial {
+  background: $dare-white;
+  border-left: 4px solid $dare-primary;
+  padding: $dare-spacing-2xl;
+  border-radius: $dare-border-radius-md;
+  margin: $dare-spacing-lg 0;
+  box-shadow: $dare-shadow-md;
+
+  .testimonial-text {
+    font-size: $dare-font-size-lg;
+    font-style: italic;
+    color: $dare-text-primary;
+    margin-bottom: $dare-spacing-md;
+    line-height: $dare-line-height-loose;
+
+    &::before {
+      content: '"';
+      font-size: 3rem;
+      color: $dare-primary;
+      opacity: 0.2;
+    }
+  }
+
+  .testimonial-author {
+    font-weight: $dare-font-weight-semibold;
+    color: $dare-text-primary;
+    font-size: $dare-font-size-sm;
+  }
+
+  .testimonial-role {
+    color: $dare-text-secondary;
+    font-size: $dare-font-size-sm;
+  }
+}
+
+// Stats section
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $dare-spacing-2xl;
+  padding: $dare-spacing-2xl 0;
+
+  .stat-item {
+    text-align: center;
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: $dare-font-weight-bold;
+      color: $dare-primary;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: $dare-font-size-sm;
+      color: $dare-text-secondary;
+      margin-top: $dare-spacing-sm;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+}

@@ -1,0 +1,437 @@
+// DARE Bootstrap Overrides
+// Customizations to Bootstrap components for DARE theme
+
+// Button overrides
+.btn {
+  font-weight: $dare-font-weight-medium;
+  border-radius: $dare-border-radius-md;
+  padding: 0.625rem 1.25rem;
+  font-size: $dare-font-size-base;
+  transition: $dare-transition-base;
+
+  // Larger button option
+  &.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: $dare-font-size-lg;
+  }
+
+  // Smaller button option
+  &.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: $dare-font-size-sm;
+  }
+
+  // Primary button
+  &.btn-primary {
+    background: $dare-gradient-primary;
+    border: none;
+    box-shadow: $dare-shadow-md;
+
+    &:hover {
+      background: $dare-gradient-hover;
+      box-shadow: $dare-shadow-lg;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: $dare-shadow-sm;
+    }
+
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+  }
+
+  // Outline button
+  &.btn-outline-primary {
+    color: $dare-primary;
+    border: 2px solid $dare-primary;
+    background: transparent;
+
+    &:hover {
+      background: $dare-primary;
+      color: $dare-white;
+    }
+  }
+}
+
+// Form controls
+.form-control {
+  border: $dare-border-width solid $dare-gray-300;
+  border-radius: $dare-border-radius-md;
+  padding: 0.625rem 0.875rem;
+  font-size: $dare-font-size-base;
+  transition: $dare-transition-fast;
+
+  &:focus {
+    border-color: $dare-primary;
+    box-shadow: 0 0 0 3px rgba($dare-primary, 0.1);
+    outline: none;
+  }
+
+  &.is-invalid {
+    border-color: $dare-error;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($dare-error, 0.1);
+    }
+  }
+
+  &.is-valid {
+    border-color: $dare-success;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($dare-success, 0.1);
+    }
+  }
+}
+
+.form-select {
+  @extend .form-control;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23667eea' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.input-group {
+  .input-group-text {
+    background-color: $dare-gray-100;
+    border: $dare-border-width solid $dare-gray-300;
+    color: $dare-text-secondary;
+  }
+}
+
+// Checkbox and radio customization
+.form-check {
+  .form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.3em;
+    border: 2px solid $dare-gray-300;
+    border-radius: $dare-border-radius-sm;
+    cursor: pointer;
+    transition: $dare-transition-fast;
+
+    &:checked {
+      background-color: $dare-primary;
+      border-color: $dare-primary;
+    }
+
+    &:focus {
+      border-color: $dare-primary;
+      box-shadow: 0 0 0 3px rgba($dare-primary, 0.1);
+      outline: none;
+    }
+  }
+
+  .form-check-label {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+// Navbar customization
+.navbar {
+  background: $dare-gradient-primary;
+  box-shadow: $dare-shadow-md;
+  padding: $dare-spacing-md 0;
+
+  .navbar-brand {
+    font-size: $dare-font-size-xl;
+    font-weight: $dare-font-weight-bold;
+    color: $dare-white;
+  }
+
+  .nav-link {
+    color: rgba($dare-white, 0.9);
+    transition: $dare-transition-fast;
+
+    &:hover {
+      color: $dare-white;
+    }
+
+    &.active {
+      color: $dare-white;
+      border-bottom: 3px solid $dare-white;
+    }
+  }
+}
+
+// Card customization
+.card {
+  border: none;
+  border-radius: $dare-border-radius-lg;
+  box-shadow: $dare-shadow-md;
+  overflow: hidden;
+  transition: $dare-transition-base;
+
+  &:hover {
+    box-shadow: $dare-shadow-lg;
+    transform: translateY(-4px);
+  }
+
+  .card-header {
+    background: $dare-gradient-primary;
+    color: $dare-white;
+    border-bottom: none;
+    padding: $dare-spacing-md $dare-spacing-lg;
+    font-weight: $dare-font-weight-semibold;
+  }
+
+  .card-body {
+    padding: $dare-spacing-lg;
+  }
+
+  .card-footer {
+    background-color: $dare-gray-100;
+    border-top: $dare-border-width solid $dare-gray-200;
+  }
+}
+
+// Badge customization
+.badge {
+  padding: 0.375rem 0.75rem;
+  font-size: $dare-font-size-sm;
+  font-weight: $dare-font-weight-semibold;
+  border-radius: 999px;
+
+  &.bg-primary {
+    background: $dare-gradient-primary !important;
+  }
+
+  &.bg-success {
+    background: $dare-gradient-success !important;
+  }
+}
+
+// Alert customization
+.alert {
+  border: none;
+  border-radius: $dare-border-radius-md;
+  border-left: 4px solid;
+  padding: $dare-spacing-md $dare-spacing-lg;
+  margin-bottom: $dare-spacing-md;
+
+  &.alert-primary {
+    background-color: rgba($dare-primary, 0.1);
+    border-left-color: $dare-primary;
+    color: darken($dare-primary, 20%);
+  }
+
+  &.alert-success {
+    background-color: rgba($dare-success, 0.1);
+    border-left-color: $dare-success;
+    color: darken($dare-success, 20%);
+  }
+
+  &.alert-warning {
+    background-color: rgba($dare-warning, 0.1);
+    border-left-color: $dare-warning;
+    color: darken($dare-warning, 30%);
+  }
+
+  &.alert-danger {
+    background-color: rgba($dare-error, 0.1);
+    border-left-color: $dare-error;
+    color: darken($dare-error, 20%);
+  }
+
+  .alert-heading {
+    font-weight: $dare-font-weight-semibold;
+    margin-bottom: $dare-spacing-sm;
+  }
+
+  .close, .btn-close {
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  .page-link {
+    color: $dare-primary;
+    border: $dare-border-width solid $dare-gray-300;
+    border-radius: $dare-border-radius-md;
+    transition: $dare-transition-fast;
+
+    &:hover {
+      color: $dare-white;
+      background-color: $dare-primary;
+      border-color: $dare-primary;
+    }
+  }
+
+  .page-item.active .page-link {
+    background-color: $dare-primary;
+    border-color: $dare-primary;
+  }
+
+  .page-item.disabled .page-link {
+    color: $dare-gray-500;
+    cursor: not-allowed;
+  }
+}
+
+// Modal customization
+.modal {
+  .modal-content {
+    border: none;
+    border-radius: $dare-border-radius-lg;
+    box-shadow: $dare-shadow-xl;
+  }
+
+  .modal-header {
+    background: $dare-gradient-primary;
+    color: $dare-white;
+    border: none;
+    padding: $dare-spacing-lg;
+
+    .modal-title {
+      font-weight: $dare-font-weight-bold;
+    }
+
+    .btn-close {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .modal-footer {
+    background-color: $dare-gray-100;
+    border-top: $dare-border-width solid $dare-gray-200;
+  }
+}
+
+// Tooltip and popovers
+.tooltip-inner {
+  background-color: $dare-gray-900;
+  border-radius: $dare-border-radius-sm;
+  padding: $dare-spacing-sm $dare-spacing-md;
+  font-size: $dare-font-size-sm;
+}
+
+.popover {
+  border: none;
+  border-radius: $dare-border-radius-lg;
+  box-shadow: $dare-shadow-lg;
+
+  .popover-header {
+    background: $dare-gradient-primary;
+    color: $dare-white;
+    border: none;
+    border-radius: $dare-border-radius-lg $dare-border-radius-lg 0 0;
+  }
+}
+
+// Dropdown menu
+.dropdown-menu {
+  border: none;
+  border-radius: $dare-border-radius-md;
+  box-shadow: $dare-shadow-lg;
+
+  .dropdown-item {
+    padding: $dare-spacing-sm $dare-spacing-md;
+    transition: $dare-transition-fast;
+
+    &:hover {
+      background-color: $dare-gray-100;
+      color: $dare-primary;
+    }
+
+    &.active {
+      background: $dare-gradient-primary;
+      color: $dare-white;
+    }
+  }
+}
+
+// List groups
+.list-group {
+  .list-group-item {
+    border: $dare-border-width solid $dare-gray-200;
+    padding: $dare-spacing-md;
+    transition: $dare-transition-fast;
+
+    &:hover {
+      background-color: $dare-gray-100;
+      border-color: $dare-primary;
+    }
+
+    &.active {
+      background: $dare-gradient-primary;
+      border-color: $dare-primary;
+    }
+  }
+}
+
+// Tables
+.table {
+  margin-bottom: $dare-spacing-md;
+
+  thead {
+    background-color: $dare-gray-100;
+
+    th {
+      border-bottom: 2px solid $dare-gray-300;
+      font-weight: $dare-font-weight-semibold;
+      color: $dare-text-primary;
+      padding: $dare-spacing-md;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: $dare-transition-fast;
+
+      &:hover {
+        background-color: $dare-gray-100;
+      }
+
+      td {
+        padding: $dare-spacing-md;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  &.table-striped tbody tr:nth-child(odd) {
+    background-color: rgba($dare-gray-100, 0.5);
+  }
+
+  &.table-hover tbody tr:hover {
+    background-color: $dare-gray-100;
+  }
+}
+
+// Breadcrumb
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+
+  .breadcrumb-item {
+    color: $dare-text-secondary;
+
+    &.active {
+      color: $dare-text-primary;
+      font-weight: $dare-font-weight-medium;
+    }
+
+    a {
+      color: $dare-primary;
+
+      &:hover {
+        color: $dare-primary-dark;
+      }
+    }
+  }
+}
