@@ -14,8 +14,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 40s
+      retries: 5
+      start_period: 120s
     networks:
       - rosersg-network
     restart: unless-stopped
@@ -33,8 +33,7 @@ services:
       - FLASK_ENV=production
       - DEBUG=false
     depends_on:
-      ollama:
-        condition: service_healthy
+      - ollama
     volumes:
       - ./rosersg.py:/app/rosersg.py
       - ./rosersg-config.json:/app/rosersg-config.json
@@ -46,6 +45,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 60s
 
   rosersg-ui:
     image: node:18-alpine
