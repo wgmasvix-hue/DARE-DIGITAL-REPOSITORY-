@@ -1,0 +1,60 @@
+# DSpace 9 Angular with rosersg AI Integration
+# Based on dare/dspace-angular:9.3-unified
+
+FROM dare/dspace-angular:9.3-unified
+
+# Switch to root to install dependencies
+USER root
+
+# Install git and other build tools if needed
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+# Switch back to node user
+USER node
+
+# Copy rosersg component files to the container
+WORKDIR /app
+
+# Create rosersg component directories
+RUN mkdir -p src/app/shared/components/{rosersg-chat,rosersg-search-enhance,rosersg-metadata-suggestions,rosersg-recommendations}
+
+# Copy all rosersg component files
+# Chat Component
+COPY components/rosersg-chat/rosersg-chat.component.ts src/app/shared/components/rosersg-chat/
+COPY components/rosersg-chat/rosersg-chat.component.html src/app/shared/components/rosersg-chat/
+COPY components/rosersg-chat/rosersg-chat.component.scss src/app/shared/components/rosersg-chat/
+
+# Search Enhancement Component
+COPY components/rosersg-search-enhance/rosersg-search-enhance.component.ts src/app/shared/components/rosersg-search-enhance/
+COPY components/rosersg-search-enhance/rosersg-search-enhance.component.html src/app/shared/components/rosersg-search-enhance/
+COPY components/rosersg-search-enhance/rosersg-search-enhance.component.scss src/app/shared/components/rosersg-search-enhance/
+
+# Metadata Suggestions Component
+COPY components/rosersg-metadata-suggestions/rosersg-metadata-suggestions.component.ts src/app/shared/components/rosersg-metadata-suggestions/
+COPY components/rosersg-metadata-suggestions/rosersg-metadata-suggestions.component.html src/app/shared/components/rosersg-metadata-suggestions/
+COPY components/rosersg-metadata-suggestions/rosersg-metadata-suggestions.component.scss src/app/shared/components/rosersg-metadata-suggestions/
+
+# Recommendations Component
+COPY components/rosersg-recommendations/rosersg-recommendations.component.ts src/app/shared/components/rosersg-recommendations/
+COPY components/rosersg-recommendations/rosersg-recommendations.component.html src/app/shared/components/rosersg-recommendations/
+COPY components/rosersg-recommendations/rosersg-recommendations.component.scss src/app/shared/components/rosersg-recommendations/
+
+# Copy modified shared module
+COPY patches/shared.module.ts src/app/shared/
+
+# Copy modified app component
+COPY patches/app.component.html src/app/
+
+# Copy modified item-detail component
+COPY patches/item-detail.component.html src/app/item-page/full/
+
+# Copy modified search component
+COPY patches/search.component.html src/app/search-page/
+
+# Copy environment configuration
+COPY patches/environment.prod.ts src/environments/
+
+# Rebuild the Angular app
+RUN npm run build
+
+# The rest is handled by the base image's entrypoint
