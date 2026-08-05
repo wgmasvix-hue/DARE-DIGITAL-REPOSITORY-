@@ -3,13 +3,7 @@
 
 FROM dare/dspace-angular:9.3-unified
 
-# Switch to root to install dependencies
-USER root
-
-# Install git and other build tools if needed
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-
-# Switch back to node user
+# Work as node user
 USER node
 
 # Copy rosersg component files to the container
