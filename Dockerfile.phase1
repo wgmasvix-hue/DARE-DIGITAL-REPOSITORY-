@@ -1,0 +1,45 @@
+# DARE Research Assistant - Phase 1: RAG Core
+# Build: docker build -f Dockerfile.phase1 -t rosersg-api:phase1 .
+# Run: docker run -p 5000:5000 -e OLLAMA_ENDPOINT=http://ollama:11434 -e DSPACE_ENDPOINT=https://repo.dare.co.zw rosersg-api:phase1
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
+
+# Copy rosersg package
+COPY rosersg/ ./rosersg/
+
+# Create non-root user for security
+RUN useradd -m -u 1000 rosersg && chown -R rosersg:rosersg /app
+USER rosersg
+
+# Expose API port
+EXPOSE 5000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:5000/health || exit 1
+
+# Start with gunicorn (production WSGI server)
+# Configuration: 2 workers, 120s timeout for long LLM requests
+CMD ["gunicorn", \
+     "--bind", "0.0.0.0:5000", \
+     "--workers", "2", \
+     "--worker-class", "sync", \
+     "--timeout", "120", \
+     "--max-requests", "100", \
+     "--max-requests-jitter", "20", \
+     "--access-logfile", "-", \
+     "--error-logfile", "-", \
+     "rosersg.api.app:create_app()"]
