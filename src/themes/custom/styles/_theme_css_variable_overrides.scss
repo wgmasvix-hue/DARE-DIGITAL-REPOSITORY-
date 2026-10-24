@@ -1,0 +1,80 @@
+// Override or add CSS variables for the DARE theme here.
+// This file is imported AFTER src/styles/_custom_variables.scss, so these
+// values win over the DSpace defaults.
+
+:root {
+  // ---- DARE palette exposed to component styles (component .scss cannot see
+  //      the theme's Sass variables, so expose them as CSS custom properties) ----
+  --dare-indigo: #{$dare-indigo};
+  --dare-indigo-dark: #{$dare-indigo-dark};
+  --dare-indigo-soft: #{$dare-indigo-soft};
+  --dare-navy: #{$dare-navy};
+  --dare-terracotta: #{$dare-terracotta};
+  --dare-terracotta-dark: #{$dare-terracotta-dark};
+  --dare-gold: #{$dare-gold};
+  --dare-gold-soft: #{$dare-gold-soft};
+  --dare-ivory: #{$dare-ivory};
+  --dare-ivory-dark: #{$dare-ivory-dark};
+  --dare-sand: #{$dare-sand};
+  --dare-savanna: #{$dare-savanna};
+  --dare-taupe: #{$dare-taupe};
+  --dare-ink: #{$dare-ink};
+  --dare-muted: #{$dare-muted};
+
+  // ---- Shared design tokens ----
+  --dare-radius: .5rem;
+  --dare-radius-lg: .85rem;
+  --dare-shadow: 0 8px 28px rgba(18, 59, 93, .10);
+  --dare-shadow-hover: 0 14px 38px rgba(18, 59, 93, .16);
+  --dare-ring: 0 0 0 .25rem rgba(199, 154, 59, .35);
+
+  // ---- Institutional surfaces ----
+  --dare-white: #{$dare-ivory};
+  --dare-cream: #{$dare-ivory-dark};
+
+  // ---- Header (deep indigo brand bar) ----
+  --ds-header-bg: #{$dare-indigo};
+  --ds-header-logo-height: 52px;
+  --ds-header-icon-color: #{$dare-ivory};
+  --ds-header-icon-color-hover: #{$dare-gold};
+  --ds-header-navbar-border-bottom-color: #{$dare-gold};
+
+  // ---- Main navigation (ivory bar with indigo links) ----
+  --ds-navbar-bg: #{$dare-ivory};
+  --ds-navbar-link-color: #{$dare-indigo};
+  --ds-navbar-link-color-hover: #{$dare-terracotta};
+  --ds-expandable-navbar-bg: #{$dare-indigo-dark};
+  --ds-expandable-navbar-link-color: #{$dare-ivory};
+  --ds-expandable-navbar-link-color-hover: #{$dare-gold};
+
+  // ---- User menu ----
+  --ds-user-menu-bg: #{$dare-indigo-dark};
+  --ds-user-menu-link-color: #{$dare-ivory};
+  --ds-user-menu-link-color-hover: #{$dare-gold};
+
+  // ---- Admin sidebar (indigo) ----
+  --ds-admin-sidebar-bg: #{$dare-indigo-dark};
+  --ds-admin-sidebar-active-bg: #{$dare-indigo};
+  --ds-admin-sidebar-link-color: #{$dare-ivory};
+
+  // ---- Footer (deep indigo) ----
+  --ds-footer-bg: #{$dare-indigo};
+  --ds-top-footer-bg: #{$dare-indigo-dark};
+  --ds-footer-border: 0;
+  --ds-footer-logo-height: 44px;
+
+  // ---- Home page hero (fully themed by the custom component) ----
+  --ds-home-news-background-color: transparent;
+  --ds-home-news-link-color: #{$dare-gold};
+  --ds-home-news-link-hover-color: #{$dare-ivory};
+
+  // ---- Accent/breadcrumb/slider ----
+  --ds-breadcrumb-bg: #{$dare-ivory-dark};
+  --ds-breadcrumb-link-color: #{$dare-indigo};
+  --ds-breadcrumb-link-active-color: #{$dare-ink};
+  --ds-slider-color: #{$dare-savanna};
+  --ds-slider-handle-color: #{$dare-indigo};
+
+  // ---- Header translated from search navbar used on indigo ----
+  --dare-header-foreground: #{$dare-ivory};
+}

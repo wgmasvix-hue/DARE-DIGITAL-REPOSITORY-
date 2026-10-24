@@ -1,0 +1,43 @@
+<div class="container about-page py-4">
+  <header class="about-page__header">
+    <p class="about-page__eyebrow">{{ 'about.eyebrow' | translate }}</p>
+    <h1 class="about-page__title">{{ 'about.title' | translate }}</h1>
+    <p class="about-page__lead">{{ 'about.lead' | translate }}</p>
+  </header>
+
+  <div class="row gy-4">
+    <div class="col-lg-8">
+      <section aria-labelledby="about-mission-heading">
+        <h2 id="about-mission-heading">{{ 'about.mission.heading' | translate }}</h2>
+        <p>{{ 'about.mission.body' | translate }}</p>
+      </section>
+
+      <section aria-labelledby="about-principles-heading">
+        <h2 id="about-principles-heading">{{ 'about.principles.heading' | translate }}</h2>
+        <ul class="about-page__principles">
+          <li>{{ 'about.principles.decolonising' | translate }}</li>
+          <li>{{ 'about.principles.language' | translate }}</li>
+          <li>{{ 'about.principles.community' | translate }}</li>
+          <li>{{ 'about.principles.discovery' | translate }}</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="about-access-heading">
+        <h2 id="about-access-heading">{{ 'about.access.heading' | translate }}</h2>
+        <p>{{ 'about.access.body' | translate }}</p>
+      </section>
+    </div>
+
+    <aside class="col-lg-4">
+      <div class="about-page__card">
+        <h2 class="h5">{{ 'about.contact.heading' | translate }}</h2>
+        <p>{{ 'about.contact.body' | translate }}</p>
+        <ul class="list-unstyled mb-0">
+          <li><a routerLink="/community-list">{{ 'about.contact.communities' | translate }}</a></li>
+          <li><a routerLink="/info/feedback">{{ 'about.contact.feedback' | translate }}</a></li>
+          <li><a routerLink="/info/accessibility">{{ 'about.contact.accessibility' | translate }}</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>

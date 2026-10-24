@@ -1,0 +1,217 @@
+{
+  "export_type": "dare-web-datasets",
+  "generated_at_utc": "2026-10-14T07:13:09Z",
+  "note": "Verified catalogue metadata only. No download tokens are exposed.",
+  "count": 5,
+  "by_publication_state": {
+    "metadata-only": 2,
+    "approved-for-redistribution": 0,
+    "awaiting-licence-review": 3
+  },
+  "datasets": [
+    {
+      "id": "masakhaner-x",
+      "title": "MasakhaNER-X (span JSONL)",
+      "task": "named-entity-recognition",
+      "languages": [
+        {
+          "code": "sn",
+          "name": "chiShona"
+        }
+      ],
+      "licence": {
+        "spdx": "CC-BY-NC-4.0",
+        "name": "Creative Commons Attribution-NonCommercial 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "commercialUse": false,
+        "requiresAttribution": true,
+        "status": "RESOLVED_NONCOMMERCIAL"
+      },
+      "attribution": {
+        "curator": null,
+        "citation": null
+      },
+      "provenance": {
+        "sourceUrl": "https://github.com/masakhane-io/masakhane-ner",
+        "repository": "https://github.com/masakhane-io/masakhane-ner",
+        "revision": "ba5843cd08aa491d5f96a5e809e71eb9ec461391",
+        "retrieved": null,
+        "validationStatus": "not_validated",
+        "notes": "Verified on disk: sizes, git-blob SHA-1 and SHA-256 match the pinned revision. See reports/dataset-readiness-20261014.md."
+      },
+      "publicationState": "metadata-only",
+      "lifecycleState": "VALIDATED",
+      "downloadPermitted": false,
+      "reportLinks": [
+        "final-project-report.json",
+        "final-project-report.md",
+        "licensing-masakhaner_x-sna.json",
+        "licensing-masakhaner_x-sna.md",
+        "model-evaluation.json",
+        "model-evaluation.md",
+        "validation-masakhaner_x-sna-20261014.json",
+        "validation-masakhaner_x-sna-20261014.md"
+      ]
+    },
+    {
+      "id": "masakhaner-2.0-conll",
+      "title": "MasakhaNER 2.0 (CoNLL token/tag)",
+      "task": "named-entity-recognition",
+      "languages": [
+        {
+          "code": "sn",
+          "name": "chiShona"
+        }
+      ],
+      "licence": {
+        "spdx": "CC-BY-NC-4.0",
+        "name": null,
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "commercialUse": false,
+        "requiresAttribution": true,
+        "status": "RESOLVED_NONCOMMERCIAL"
+      },
+      "attribution": {
+        "curator": null,
+        "citation": null
+      },
+      "provenance": {
+        "sourceUrl": "https://github.com/masakhane-io/masakhane-ner",
+        "repository": "https://github.com/masakhane-io/masakhane-ner",
+        "revision": "ba5843cd08aa491d5f96a5e809e71eb9ec461391",
+        "retrieved": null,
+        "validationStatus": "not_validated",
+        "notes": "Alternate release of the same family; splits not interchangeable with the JSONL artefact. Retained as documented alternative."
+      },
+      "publicationState": "metadata-only",
+      "lifecycleState": "METADATA_VERIFIED",
+      "downloadPermitted": false,
+      "reportLinks": [
+        "final-project-report.json",
+        "final-project-report.md",
+        "model-evaluation.json",
+        "model-evaluation.md"
+      ]
+    },
+    {
+      "id": "lacuna-pos-ner-sna",
+      "title": "Lacuna POS/NER chiShona source corpus",
+      "task": "part-of-speech / named-entity-recognition",
+      "languages": [
+        {
+          "code": "sn",
+          "name": "chiShona"
+        }
+      ],
+      "licence": {
+        "spdx": null,
+        "name": "language README declares CC BY 4.0 for source text; repo LICENSE states CC BY-NC 4.0",
+        "url": null,
+        "commercialUse": null,
+        "requiresAttribution": true,
+        "status": "UNRESOLVED"
+      },
+      "attribution": {
+        "curator": null,
+        "citation": null
+      },
+      "provenance": {
+        "sourceUrl": "https://github.com/masakhane-io/lacuna_pos_ner",
+        "repository": "https://github.com/masakhane-io/lacuna_pos_ner",
+        "revision": null,
+        "retrieved": null,
+        "validationStatus": "not_validated",
+        "notes": "Underlying news text from voashona.com. Conflicting licence statements (language README CC BY 4.0 vs repo-level CC BY-NC 4.0). Requires written clarification before any redistribution."
+      },
+      "publicationState": "awaiting-licence-review",
+      "lifecycleState": "LICENCE_PENDING",
+      "downloadPermitted": false,
+      "reportLinks": [
+        "final-project-report.json",
+        "final-project-report.md",
+        "model-evaluation.json",
+        "model-evaluation.md"
+      ]
+    },
+    {
+      "id": "mozilla-common-voice",
+      "title": "Mozilla Common Voice",
+      "task": "automatic-speech-recognition",
+      "languages": [
+        {
+          "code": "sn",
+          "name": "chiShona"
+        }
+      ],
+      "licence": {
+        "spdx": null,
+        "name": "Commonly published as CC0; must be verified for the specific release and language",
+        "url": null,
+        "commercialUse": null,
+        "requiresAttribution": null,
+        "status": "UNRESOLVED"
+      },
+      "attribution": {
+        "curator": null,
+        "citation": null
+      },
+      "provenance": {
+        "sourceUrl": "https://commonvoice.mozilla.org/datasets",
+        "repository": "https://commonvoice.mozilla.org/datasets",
+        "revision": null,
+        "retrieved": null,
+        "validationStatus": "not_validated",
+        "notes": "Speech data may contain personal/identifiable voice data; do not download without documented permission and a personal-data review. Verify language coverage and CC0 claim per release."
+      },
+      "publicationState": "awaiting-licence-review",
+      "lifecycleState": "DISCOVERED",
+      "downloadPermitted": false,
+      "reportLinks": [
+        "final-project-report.json",
+        "final-project-report.md",
+        "model-evaluation.json",
+        "model-evaluation.md"
+      ]
+    },
+    {
+      "id": "opus-shona",
+      "title": "OPUS parallel corpora (Shona)",
+      "task": "machine-translation",
+      "languages": [
+        {
+          "code": "sn",
+          "name": "chiShona"
+        }
+      ],
+      "licence": {
+        "spdx": null,
+        "name": "Per-corpus; OPUS aggregates third-party corpora with heterogeneous licences",
+        "url": null,
+        "commercialUse": null,
+        "requiresAttribution": null,
+        "status": "UNRESOLVED"
+      },
+      "attribution": {
+        "curator": null,
+        "citation": null
+      },
+      "provenance": {
+        "sourceUrl": "https://opus.nlpl.eu/",
+        "repository": "https://opus.nlpl.eu/",
+        "revision": null,
+        "retrieved": null,
+        "validationStatus": "not_validated",
+        "notes": "Aggregator: each underlying corpus must be licensed individually. Do not assume Zimbabwe-specific data; Shona text may originate outside Zimbabwe."
+      },
+      "publicationState": "awaiting-licence-review",
+      "lifecycleState": "DISCOVERED",
+      "downloadPermitted": false,
+      "reportLinks": [
+        "final-project-report.json",
+        "final-project-report.md",
+        "model-evaluation.json",
+        "model-evaluation.md"
+      ]
+    }
+  ]
+}

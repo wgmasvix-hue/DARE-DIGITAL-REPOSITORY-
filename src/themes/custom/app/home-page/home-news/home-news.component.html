@@ -1,0 +1,49 @@
+@if (homeNewsMetadataValue$ | async; as homeNewsMetadataValue) {
+  <div class="dare-news-announcement">
+    <div class="container">
+      <div class="dare-news-card" role="region" aria-label="Repository announcement">
+        <ds-markdown-viewer [value]="homeNewsMetadataValue"></ds-markdown-viewer>
+      </div>
+    </div>
+  </div>
+}
+
+<section class="dare-hero" aria-labelledby="dare-hero-title">
+  <div class="dare-hero__media" aria-hidden="true">
+    <img src="assets/custom/images/hero.svg" alt="" />
+  </div>
+  <div class="container dare-hero__inner">
+    <p class="dare-hero__eyebrow">DARE African Knowledge Repository &middot; Digital Academic Repository &amp; Education</p>
+    <h1 id="dare-hero-title" class="dare-hero__title">Discover Africa&rsquo;s Knowledge.</h1>
+    <p class="dare-hero__tagline">African knowledge. African scholarship. A shared intellectual heritage.</p>
+    <p class="dare-hero__lead">
+      Explore African scholarship, research publications, datasets and educational resources in one digital repository.
+    </p>
+  </div>
+  <div class="dare-pillars">
+    <div class="container">
+      <ul class="dare-pillars__list">
+        <li class="dare-pillars__item">
+          <span class="dare-pillars__icon fas fa-book-open" aria-hidden="true"></span>
+          <span class="dare-pillars__label">Decolonising Knowledge</span>
+          <span class="dare-pillars__text">African epistemologies at the centre, not the margins.</span>
+        </li>
+        <li class="dare-pillars__item">
+          <span class="dare-pillars__icon fas fa-language" aria-hidden="true"></span>
+          <span class="dare-pillars__label">Language &amp; Access</span>
+          <span class="dare-pillars__text">Multi-lingual metadata and equitable access for all.</span>
+        </li>
+        <li class="dare-pillars__item">
+          <span class="dare-pillars__icon fas fa-people-group" aria-hidden="true"></span>
+          <span class="dare-pillars__label">Community &amp; Ethics</span>
+          <span class="dare-pillars__text">Consent, provenance and benefit-sharing with communities.</span>
+        </li>
+        <li class="dare-pillars__item">
+          <span class="dare-pillars__icon fas fa-compass" aria-hidden="true"></span>
+          <span class="dare-pillars__label">Responsible Discovery</span>
+          <span class="dare-pillars__text">Transparent, accountable and context-aware search.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

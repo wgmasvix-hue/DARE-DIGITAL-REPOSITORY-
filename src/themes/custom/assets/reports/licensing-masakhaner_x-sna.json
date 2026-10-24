@@ -1,0 +1,104 @@
+{
+  "report_type": "licensing",
+  "dataset_id": "masakhaner-x",
+  "language": {
+    "name": "chiShona",
+    "hf_config": "sn",
+    "record_language_tag": "sna"
+  },
+  "generated_at_utc": "2026-10-14T03:40:00Z",
+  "status": "RESOLVED_NONCOMMERCIAL",
+  "decision": "Hugging Face MasakhaNER-X JSONL is the primary candidate source of record. The GitHub MasakhaNER2.0/sna CoNLL corpus is retained as a documented alternative.",
+  "verified_upstream_source": {
+    "candidate_repository": "huggingface.co/datasets/masakhane/masakhaner-x",
+    "candidate_revision": "8fc2213823e45e5bdf0ddca7680b64fc2faacf4b",
+    "candidate_revision_date": "2024-11-21T00:11:51Z",
+    "data_host_repository": "github.com/masakhane-io/masakhane-ner",
+    "data_host_path": "xtreme-up/MasakhaNER-X",
+    "data_host_revision": "ba5843cd08aa491d5f96a5e809e71eb9ec461391",
+    "data_host_revision_date": "2025-10-15T20:37:20Z",
+    "data_host_revision_is_main_head": true,
+    "note": "The HF repository holds only the card and loader; the loader fetches the JSONL from the GitHub path on the moving 'main' branch. We pin to the commit above for reproducibility.",
+    "files": [
+      {
+        "split": "train",
+        "name": "sn.jsonl",
+        "url": "https://raw.githubusercontent.com/masakhane-io/masakhane-ner/ba5843cd08aa491d5f96a5e809e71eb9ec461391/xtreme-up/MasakhaNER-X/train/sn.jsonl",
+        "size_bytes": 584209,
+        "git_blob_sha1": "51fcfb954f2f330e7f6955009c157ba01b639439"
+      },
+      {
+        "split": "validation",
+        "name": "sn.jsonl",
+        "url": "https://raw.githubusercontent.com/masakhane-io/masakhane-ner/ba5843cd08aa491d5f96a5e809e71eb9ec461391/xtreme-up/MasakhaNER-X/validation/sn.jsonl",
+        "size_bytes": 378655,
+        "git_blob_sha1": "a8052446f96968da1f64be7f42488c1ca5b754c6"
+      },
+      {
+        "split": "test",
+        "name": "sn.jsonl",
+        "url": "https://raw.githubusercontent.com/masakhane-io/masakhane-ner/ba5843cd08aa491d5f96a5e809e71eb9ec461391/xtreme-up/MasakhaNER-X/test/sn.jsonl",
+        "size_bytes": 410445,
+        "git_blob_sha1": "0ea5a14f4388db11368b48d57387421e4f5a021a"
+      }
+    ],
+    "total_bytes": 1373309,
+    "declared_splits": {"train": 1441, "validation": 887, "test": 1000}
+  },
+  "licence_evidence": [
+    {
+      "kind": "repository_license_file",
+      "url": "https://github.com/masakhane-io/masakhane-ner/blob/ba5843cd08aa491d5f96a5e809e71eb9ec461391/LICENSE",
+      "statement": "The Masakhane-NER data is under CC-NC Attribution-NonCommercial 4.0 International",
+      "applies_to_data": true,
+      "applies_to_code": false
+    },
+    {
+      "kind": "readme",
+      "url": "https://github.com/masakhane-io/masakhane-ner/blob/main/README.md",
+      "statement": "The license of the NER dataset is in CC-BY-4.0-NC (https://creativecommons.org/licenses/by-nc/4.0/)",
+      "applies_to_data": true
+    },
+    {
+      "kind": "readme",
+      "url": "https://github.com/masakhane-io/masakhane-ner/blob/main/MasakhaNER2.0/README.md",
+      "statement": "The license of the NER dataset is in CC-BY-4.0-NC",
+      "applies_to_data": true
+    },
+    {
+      "kind": "huggingface_card_body",
+      "url": "https://huggingface.co/datasets/masakhane/masakhaner-x/raw/main/README.md",
+      "statement": "The licensing status of the data is CC 4.0 Non-Commercial",
+      "applies_to_data": true
+    },
+    {
+      "kind": "huggingface_card_body",
+      "url": "https://huggingface.co/datasets/masakhane/masakhaner2/raw/main/README.md",
+      "statement": "The licensing status of the data is CC 4.0 Non-Commercial",
+      "applies_to_data": true
+    }
+  ],
+  "paper_and_project_documentation": {
+    "masakhaner_2_paper": "https://aclanthology.org/2022.emnlp-main.298/ (Adelani et al., EMNLP 2022) - describes construction; data licence stated on GitHub/HF, not in the paper.",
+    "masakhaner_1_paper": "https://aclanthology.org/2021.tacl-1.69/ (Adelani et al., TACL 2021)",
+    "xtreme_up_paper": "https://aclanthology.org/2023.findings-emnlp.125/ (Ruder et al., Findings EMNLP 2023) - describes MasakhaNER-X byte-span construction.",
+    "xtreme_up_code_repo": "https://github.com/google-research/xtreme-up - Apache-2.0 (CODE only; does not override the masakhane-ner data licence).",
+    "project_docs": "https://github.com/masakhane-io/masakhane-ner (root README 'License information'; no separate LICENSE/README in xtreme-up/MasakhaNER-X)."
+  },
+  "conflicts": [
+    {"layer": "huggingface_masakhaner-x_frontmatter", "value": "license: unknown", "severity": "metadata anomaly"},
+    {"layer": "huggingface_masakhaner2_frontmatter", "value": "license: afl-3.0", "severity": "metadata anomaly against all prose evidence"},
+    {"layer": "github_LICENSE", "value": "Apache-2.0 (code) + CC BY-NC 4.0 (data) in one file", "severity": "scope ambiguity resolved by LICENSE prose"},
+    {"layer": "github_README", "value": "CC-BY-4.0-NC (non-standard SPDX name) -> CC BY-NC 4.0", "severity": "naming only"},
+    {"layer": "underlying_monolingual_corpus", "value": "per-source-site; chiShona source text declared CC-BY-4.0", "severity": "applies to raw source text, not annotations"}
+  ],
+  "conclusion": {
+    "data_licence": "CC-BY-NC-4.0",
+    "commercial_use": false,
+    "redistribution": "permitted for non-commercial purposes with attribution",
+    "local_noncommercial_research": "permitted",
+    "conditions": "Retain attribution to Masakhane / Adelani et al. (2022), include the licence notice and link, and indicate any modifications.",
+    "caveat": "HTTP 200 / a pinned URL does NOT establish permission. Permission derives from the licence terms above only. A final written confirmation from the Masakhane rights holders is advisable before any redistribution."
+  },
+  "recommended_next_action": "Obtain explicit human confirmation that the intended DARE use is strictly non-commercial, then (and only then) download the three pinned JSONL files and run scripts/inspect_dataset.py --validate on them. Do not redistribute raw underlying news text without reviewing per-site licences."
+}

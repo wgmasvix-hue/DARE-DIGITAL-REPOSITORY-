@@ -1,0 +1,65 @@
+<section class="dare-discovery dare-discovery--subjects mt-5" aria-labelledby="dare-subjects-heading">
+  <h2 id="dare-subjects-heading" class="dare-section-title">{{ 'home.dare-discovery.subjects.head' | translate }}</h2>
+  <p class="lead dare-discovery__help">{{ 'home.dare-discovery.subjects.help' | translate }}</p>
+
+  @if (subjects$ | async; as subjectsRD) {
+    @if (subjectsRD.hasSucceeded && subjectsRD.payload?.page?.length > 0) {
+      <ul class="dare-subject-cloud list-unstyled" [attr.aria-label]="'home.dare-discovery.subjects.aria' | translate">
+        @for (subject of subjectsRD.payload.page; track subject.value) {
+          <li class="dare-subject-cloud__item">
+            <a class="dare-subject-chip"
+              [routerLink]="['/search']"
+              [queryParams]="subjectQueryParams(subject.value)">
+              <span class="dare-subject-chip__label">{{ subject.value }}</span>
+              <span class="dare-subject-chip__count badge rounded-pill">{{ subject.count }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+    @if (subjectsRD.hasSucceeded && !(subjectsRD.payload?.page?.length > 0)) {
+      <div class="dare-empty-state" role="status">
+        <div class="dare-empty-state__icon fas fa-tags" aria-hidden="true"></div>
+        <h3 class="dare-empty-state__title h5">{{ 'home.dare-discovery.subjects.empty.head' | translate }}</h3>
+        <p class="mb-0 text-muted">{{ 'home.dare-discovery.subjects.empty.text' | translate }}</p>
+      </div>
+    }
+  }
+  <p class="dare-discovery__more mb-0">
+    <a routerLink="/browse/subject">{{ 'home.dare-discovery.subjects.browse-all' | translate }} &raquo;</a>
+  </p>
+</section>
+
+<section class="dare-discovery dare-discovery--collections mt-5" aria-labelledby="dare-collections-heading">
+  <h2 id="dare-collections-heading" class="dare-section-title">{{ 'home.dare-discovery.collections.head' | translate }}</h2>
+  <p class="lead dare-discovery__help">{{ 'home.dare-discovery.collections.help' | translate }}</p>
+
+  @if (collections$ | async; as collectionsRD) {
+    @if (collectionsRD.hasSucceeded && collectionsRD.payload?.page?.length > 0) {
+      <ul class="dare-collection-grid list-unstyled">
+        @for (collection of collectionsRD.payload.page; track collection.uuid) {
+          <li class="dare-collection-card">
+            <a class="dare-collection-card__link"
+              [routerLink]="collectionRoute(collection)">
+              <span class="dare-collection-card__icon fas fa-folder-open" aria-hidden="true"></span>
+              <span class="dare-collection-card__name">{{ collection.name }}</span>
+              @if (collection.handle) {
+                <span class="dare-collection-card__handle">{{ collection.handle }}</span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+      <p class="dare-discovery__more mb-0">
+        <a routerLink="/community-list">{{ 'home.dare-discovery.collections.browse-all' | translate }} &raquo;</a>
+      </p>
+    }
+    @if (collectionsRD.hasSucceeded && !(collectionsRD.payload?.page?.length > 0)) {
+      <div class="dare-empty-state" role="status">
+        <div class="dare-empty-state__icon fas fa-folder-open" aria-hidden="true"></div>
+        <h3 class="dare-empty-state__title h5">{{ 'home.dare-discovery.collections.empty.head' | translate }}</h3>
+        <p class="mb-0 text-muted">{{ 'home.dare-discovery.collections.empty.text' | translate }}</p>
+      </div>
+    }
+  }
+</section>

@@ -1,0 +1,21 @@
+@import '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.scss';
+
+// DARE item page — clearer hierarchy: authors + date sit directly under the
+// title, followed by the abstract and identifiers in the main column and the
+// downloadable files in the sidebar.
+.dare-item-primary {
+  margin: 1rem 0 1.75rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(18, 59, 93, .04), rgba(199, 154, 59, .06));
+  border: 1px solid rgba(199, 154, 59, .28);
+  border-left: 5px solid var(--dare-gold);
+  border-radius: var(--dare-radius-lg);
+
+  ds-metadata-representation-list {
+    display: block;
+  }
+}
+
+.dare-item-full-link {
+  margin-top: 1rem;
+}

@@ -1,0 +1,798 @@
+{
+  "report_type": "shona-ner-evaluation",
+  "dataset_id": "masakhaner-x",
+  "language": "chiShona (sn/sna)",
+  "generated_at_utc": "2026-10-14T04:24:39Z",
+  "generated_by": "darelang.ner.run",
+  "environment_note": "stdlib only; no torch/transformers/seqeval installed",
+  "randomness": "none (deterministic baselines); no seed required",
+  "data": {
+    "train_records": 1441,
+    "validation_records": 887,
+    "test_records": 1000,
+    "labels": [
+      "PER",
+      "ORG",
+      "LOC",
+      "DATE"
+    ]
+  },
+  "evaluations": [
+    {
+      "name": "null",
+      "level": "span",
+      "results": {
+        "validation": {
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro_f1": 0.0,
+          "per_label": {
+            "ORG": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 639,
+              "predicted": 0,
+              "tp": 0
+            },
+            "DATE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 254,
+              "predicted": 0,
+              "tp": 0
+            },
+            "LOC": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 411,
+              "predicted": 0,
+              "tp": 0
+            },
+            "PER": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 723,
+              "predicted": 0,
+              "tp": 0
+            }
+          },
+          "totals": {
+            "tp": 0,
+            "predicted": 0,
+            "gold": 2027
+          },
+          "invalid_predictions": 0,
+          "examples": 887
+        },
+        "test": {
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro_f1": 0.0,
+          "per_label": {
+            "ORG": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 637,
+              "predicted": 0,
+              "tp": 0
+            },
+            "DATE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 272,
+              "predicted": 0,
+              "tp": 0
+            },
+            "LOC": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 489,
+              "predicted": 0,
+              "tp": 0
+            },
+            "PER": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 756,
+              "predicted": 0,
+              "tp": 0
+            }
+          },
+          "totals": {
+            "tp": 0,
+            "predicted": 0,
+            "gold": 2154
+          },
+          "invalid_predictions": 0,
+          "examples": 1000
+        },
+        "test_errors": {
+          "false_positives": [],
+          "false_negatives": [
+            [
+              "test-00016635",
+              "ORG",
+              "eZimbabwe Republic Police"
+            ],
+            [
+              "test-00016636",
+              "DATE",
+              "neChitatu"
+            ],
+            [
+              "test-00016636",
+              "LOC",
+              "weCanada muZimbabwe"
+            ],
+            [
+              "test-00016636",
+              "ORG",
+              "neNational Prosecuting Authority of Zimbabwe"
+            ],
+            [
+              "test-00016637",
+              "PER",
+              "Godwin Matanga"
+            ],
+            [
+              "test-00016639",
+              "ORG",
+              "reWomen's Coalition of Zimbabwe"
+            ],
+            [
+              "test-00016639",
+              "PER",
+              "Sally Ncube"
+            ],
+            [
+              "test-00016641",
+              "ORG",
+              "seWest End neParirenyatwa"
+            ],
+            [
+              "test-00016642",
+              "DATE",
+              "weMuvhuro"
+            ],
+            [
+              "test-00016642",
+              "ORG",
+              "cheMpilo"
+            ],
+            [
+              "test-00016646",
+              "LOC",
+              "wekuChina"
+            ],
+            [
+              "test-00016646",
+              "ORG",
+              "cheWest End"
+            ],
+            [
+              "test-00016646",
+              "ORG",
+              "mukanzuru yeHarare"
+            ],
+            [
+              "test-00016646",
+              "PER",
+              "Prosper Chonzi"
+            ],
+            [
+              "test-00016649",
+              "LOC",
+              "China"
+            ],
+            [
+              "test-00016649",
+              "LOC",
+              "neItaly neIran"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Algeria"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Burkina Faso"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Cameroon"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "DRC"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Egypt"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Morocco"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Nigeria"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Senegal"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "South Africa"
+            ]
+          ],
+          "num_false_positives": 0,
+          "num_false_negatives": 2154
+        }
+      }
+    },
+    {
+      "name": "gazetteer",
+      "level": "span",
+      "results": {
+        "validation": {
+          "micro": {
+            "precision": 0.5942,
+            "recall": 0.4277,
+            "f1": 0.4974
+          },
+          "macro_f1": 0.5137,
+          "per_label": {
+            "ORG": {
+              "precision": 0.6345,
+              "recall": 0.4945,
+              "f1": 0.5558,
+              "support": 639,
+              "predicted": 498,
+              "tp": 316
+            },
+            "DATE": {
+              "precision": 0.6084,
+              "recall": 0.6299,
+              "f1": 0.619,
+              "support": 254,
+              "predicted": 263,
+              "tp": 160
+            },
+            "LOC": {
+              "precision": 0.5763,
+              "recall": 0.4501,
+              "f1": 0.5055,
+              "support": 411,
+              "predicted": 321,
+              "tp": 185
+            },
+            "PER": {
+              "precision": 0.5464,
+              "recall": 0.2849,
+              "f1": 0.3745,
+              "support": 723,
+              "predicted": 377,
+              "tp": 206
+            }
+          },
+          "totals": {
+            "tp": 867,
+            "predicted": 1459,
+            "gold": 2027
+          },
+          "invalid_predictions": 0,
+          "examples": 887
+        },
+        "test": {
+          "micro": {
+            "precision": 0.5947,
+            "recall": 0.4271,
+            "f1": 0.4972
+          },
+          "macro_f1": 0.5118,
+          "per_label": {
+            "ORG": {
+              "precision": 0.6074,
+              "recall": 0.4662,
+              "f1": 0.5275,
+              "support": 637,
+              "predicted": 489,
+              "tp": 297
+            },
+            "DATE": {
+              "precision": 0.597,
+              "recall": 0.5772,
+              "f1": 0.5869,
+              "support": 272,
+              "predicted": 263,
+              "tp": 157
+            },
+            "LOC": {
+              "precision": 0.609,
+              "recall": 0.4683,
+              "f1": 0.5295,
+              "support": 489,
+              "predicted": 376,
+              "tp": 229
+            },
+            "PER": {
+              "precision": 0.5656,
+              "recall": 0.3135,
+              "f1": 0.4034,
+              "support": 756,
+              "predicted": 419,
+              "tp": 237
+            }
+          },
+          "totals": {
+            "tp": 920,
+            "predicted": 1547,
+            "gold": 2154
+          },
+          "invalid_predictions": 0,
+          "examples": 1000
+        },
+        "test_errors": {
+          "false_positives": [
+            [
+              "test-00016635",
+              "LOC",
+              "Zimbabwe"
+            ],
+            [
+              "test-00016636",
+              "LOC",
+              "Zimbabwe"
+            ],
+            [
+              "test-00016636",
+              "LOC",
+              "muZimbabwe"
+            ],
+            [
+              "test-00016639",
+              "LOC",
+              "Zimbabwe"
+            ],
+            [
+              "test-00016639",
+              "PER",
+              "Ncube"
+            ],
+            [
+              "test-00016639",
+              "PER",
+              "chiri"
+            ],
+            [
+              "test-00016641",
+              "PER",
+              "Parirenyatwa"
+            ],
+            [
+              "test-00016646",
+              "LOC",
+              "kuChina"
+            ],
+            [
+              "test-00016649",
+              "ORG",
+              "China"
+            ],
+            [
+              "test-00016651",
+              "ORG",
+              "Cameroon"
+            ],
+            [
+              "test-00016651",
+              "ORG",
+              "Nigeria"
+            ],
+            [
+              "test-00016651",
+              "ORG",
+              "Senegal"
+            ],
+            [
+              "test-00016658",
+              "ORG",
+              "zera"
+            ],
+            [
+              "test-00016676",
+              "DATE",
+              "zvita"
+            ],
+            [
+              "test-00016678",
+              "ORG",
+              "Tsholotsho"
+            ],
+            [
+              "test-00016681",
+              "ORG",
+              "Zanu PF"
+            ],
+            [
+              "test-00016681",
+              "ORG",
+              "neMDC Alliance"
+            ],
+            [
+              "test-00016683",
+              "PER",
+              "Mthuli Ncube"
+            ],
+            [
+              "test-00016694",
+              "ORG",
+              "zera"
+            ],
+            [
+              "test-00016708",
+              "DATE",
+              "ndira"
+            ],
+            [
+              "test-00016711",
+              "PER",
+              "chiri"
+            ],
+            [
+              "test-00016722",
+              "PER",
+              "Muhammed Ali"
+            ],
+            [
+              "test-00016729",
+              "ORG",
+              "eu"
+            ],
+            [
+              "test-00016729",
+              "PER",
+              "mushure"
+            ],
+            [
+              "test-00016730",
+              "PER",
+              "mushure"
+            ]
+          ],
+          "false_negatives": [
+            [
+              "test-00016635",
+              "ORG",
+              "eZimbabwe Republic Police"
+            ],
+            [
+              "test-00016636",
+              "LOC",
+              "weCanada muZimbabwe"
+            ],
+            [
+              "test-00016636",
+              "ORG",
+              "neNational Prosecuting Authority of Zimbabwe"
+            ],
+            [
+              "test-00016637",
+              "PER",
+              "Godwin Matanga"
+            ],
+            [
+              "test-00016639",
+              "ORG",
+              "reWomen's Coalition of Zimbabwe"
+            ],
+            [
+              "test-00016639",
+              "PER",
+              "Sally Ncube"
+            ],
+            [
+              "test-00016641",
+              "ORG",
+              "seWest End neParirenyatwa"
+            ],
+            [
+              "test-00016646",
+              "LOC",
+              "wekuChina"
+            ],
+            [
+              "test-00016646",
+              "ORG",
+              "cheWest End"
+            ],
+            [
+              "test-00016646",
+              "PER",
+              "Prosper Chonzi"
+            ],
+            [
+              "test-00016649",
+              "LOC",
+              "China"
+            ],
+            [
+              "test-00016649",
+              "LOC",
+              "neItaly neIran"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Algeria"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Burkina Faso"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Cameroon"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "DRC"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Egypt"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Morocco"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Nigeria"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Senegal"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Togo"
+            ],
+            [
+              "test-00016651",
+              "LOC",
+              "Tunisia"
+            ],
+            [
+              "test-00016654",
+              "LOC",
+              "seGlen Norah neBudiriro"
+            ],
+            [
+              "test-00016658",
+              "ORG",
+              "Community Water Alliance"
+            ],
+            [
+              "test-00016658",
+              "PER",
+              "VaHardlife Mudzingwa"
+            ]
+          ],
+          "num_false_positives": 627,
+          "num_false_negatives": 1234
+        }
+      }
+    },
+    {
+      "name": "most_frequent_token",
+      "level": "token(BIO)",
+      "results": {
+        "validation": {
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro_f1": 0.0,
+          "per_label": {
+            "ORG": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 612
+            },
+            "DATE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 253
+            },
+            "LOC": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 375
+            },
+            "PER": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 692
+            }
+          },
+          "totals": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1932
+          },
+          "invalid_predictions": 0
+        },
+        "test": {
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro_f1": 0.0,
+          "per_label": {
+            "ORG": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 617
+            },
+            "DATE": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 272
+            },
+            "LOC": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 436
+            },
+            "PER": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 734
+            }
+          },
+          "totals": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 2059
+          },
+          "invalid_predictions": 0
+        }
+      }
+    },
+    {
+      "name": "averaged_perceptron",
+      "level": "token(BIO)",
+      "results": {
+        "validation": {
+          "micro": {
+            "precision": 0.7655,
+            "recall": 0.6439,
+            "f1": 0.6995
+          },
+          "macro_f1": 0.6795,
+          "per_label": {
+            "ORG": {
+              "precision": 0.7625,
+              "recall": 0.6503,
+              "f1": 0.7019,
+              "support": 612
+            },
+            "DATE": {
+              "precision": 0.7277,
+              "recall": 0.581,
+              "f1": 0.6462,
+              "support": 253
+            },
+            "LOC": {
+              "precision": 0.7003,
+              "recall": 0.536,
+              "f1": 0.6073,
+              "support": 375
+            },
+            "PER": {
+              "precision": 0.8111,
+              "recall": 0.7197,
+              "f1": 0.7626,
+              "support": 692
+            }
+          },
+          "totals": {
+            "tp": 1244,
+            "fp": 381,
+            "fn": 688
+          },
+          "invalid_predictions": 0
+        },
+        "test": {
+          "micro": {
+            "precision": 0.7453,
+            "recall": 0.6338,
+            "f1": 0.685
+          },
+          "macro_f1": 0.669,
+          "per_label": {
+            "ORG": {
+              "precision": 0.705,
+              "recall": 0.6159,
+              "f1": 0.6574,
+              "support": 617
+            },
+            "DATE": {
+              "precision": 0.7054,
+              "recall": 0.5809,
+              "f1": 0.6371,
+              "support": 272
+            },
+            "LOC": {
+              "precision": 0.7156,
+              "recall": 0.5482,
+              "f1": 0.6208,
+              "support": 436
+            },
+            "PER": {
+              "precision": 0.8073,
+              "recall": 0.7193,
+              "f1": 0.7608,
+              "support": 734
+            }
+          },
+          "totals": {
+            "tp": 1305,
+            "fp": 446,
+            "fn": 754
+          },
+          "invalid_predictions": 0
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Baselines are not state-of-the-art; they establish lower bounds.",
+    "The averaged perceptron classifies tokens independently (no Viterbi).",
+    "Span matching is exact on (label, surface) per sentence.",
+    "Transformer baselines were not run (packages not installed)."
+  ]
+}

@@ -1,0 +1,9 @@
+// DARE top-level community list — section framing on the home page.
+@import '../../../../../app/home-page/top-level-community-list/top-level-community-list.component.scss';
+
+.dare-communities {
+  &__help {
+    color: var(--dare-muted);
+    margin-bottom: 1.25rem;
+  }
+}

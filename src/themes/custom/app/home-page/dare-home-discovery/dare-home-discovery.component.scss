@@ -1,0 +1,138 @@
+// DARE home page discovery (subjects + featured collections).
+// Uses the CSS custom properties exposed by the global theme so the component
+// does not depend on Sass variable scope.
+
+.dare-discovery {
+  &__help {
+    color: var(--dare-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  &__more {
+    margin-top: 1rem;
+    font-weight: 600;
+
+    a {
+      color: var(--dare-indigo);
+
+      &:hover {
+        color: var(--dare-terracotta);
+      }
+    }
+  }
+}
+
+// ---- Subject chips ---------------------------------------------------------
+.dare-subject-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.dare-subject-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .8rem;
+  border: 1px solid rgba(199, 154, 59, .5);
+  border-radius: 50rem;
+  background: #fff;
+  color: var(--dare-indigo);
+  font-weight: 600;
+  font-size: .92rem;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: border-color .15s ease, box-shadow .15s ease, color .15s ease, transform .12s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-terracotta);
+    border-color: var(--dare-terracotta);
+    box-shadow: 0 8px 20px rgba(18, 59, 93, .12);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  &__count {
+    background-color: var(--dare-savanna) !important;
+    color: #fff;
+    font-size: .74rem;
+    font-weight: 700;
+  }
+}
+
+// ---- Featured collection cards --------------------------------------------
+.dare-collection-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.dare-collection-card {
+  height: 100%;
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.1rem 1.2rem;
+    background: #fff;
+    border: 1px solid rgba(107, 123, 140, .18);
+    border-top: 4px solid var(--dare-gold);
+    border-radius: var(--dare-radius-lg);
+    box-shadow: 0 2px 10px rgba(18, 59, 93, .05);
+    color: var(--dare-indigo);
+    text-decoration: none;
+    transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-top-color: var(--dare-terracotta);
+      box-shadow: var(--dare-shadow-hover);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+  }
+
+  &__icon {
+    color: var(--dare-gold);
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+  }
+
+  &__name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  &__handle {
+    margin-top: .35rem;
+    color: var(--dare-muted);
+    font-size: .82rem;
+    word-break: break-all;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dare-subject-chip,
+  .dare-collection-card__link {
+    transition: none !important;
+
+    &:hover {
+      transform: none !important;
+    }
+  }
+}

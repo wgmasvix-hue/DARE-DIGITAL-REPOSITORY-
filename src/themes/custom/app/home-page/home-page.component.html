@@ -1,0 +1,211 @@
+@if (homeHeaderMetadataValue$ | async; as homeHeaderMetadataValue) {
+  <div class="container home-header">
+    <ds-markdown-viewer [value]="homeHeaderMetadataValue"></ds-markdown-viewer>
+  </div>
+}
+
+<ds-home-coar></ds-home-coar>
+<ds-home-news></ds-home-news>
+
+<!-- Prominent repository search ------------------------------------------------->
+<section class="dare-home-search" aria-labelledby="dare-home-search-heading">
+  <div class="container">
+    <div class="dare-home-search__panel">
+      <h2 id="dare-home-search-heading" class="dare-home-search__title">Search the Repository</h2>
+      <p class="dare-home-search__subtitle">
+        Discover African scholarship, researchers, collections and heritage materials.
+      </p>
+      <ds-search-form [inPlaceSearch]="false"
+        [searchPlaceholder]="'home.search-form.placeholder' | translate">
+      </ds-search-form>
+
+      <nav class="dare-home-search__browse" aria-label="Quick browse">
+        <span class="dare-home-search__browse-label">Browse by</span>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item"><a routerLink="/browse/title">Title</a></li>
+          <li class="list-inline-item"><a routerLink="/browse/author">Author</a></li>
+          <li class="list-inline-item"><a routerLink="/browse/subject">Subject</a></li>
+          <li class="list-inline-item"><a routerLink="/browse/dateissued">Date</a></li>
+          <li class="list-inline-item"><a routerLink="/community-list">Communities &amp; Collections</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+
+<!-- DARE primary actions -->
+<section class="dare-home-actions" aria-label="DARE quick actions">
+  <div class="container">
+    <div class="dare-home-actions__grid">
+      <a class="dare-home-action dare-home-action--primary" routerLink="/search">
+        <span class="fas fa-search dare-home-action__icon" aria-hidden="true"></span>
+        <span class="dare-home-action__content">
+          <strong>Search Repository</strong>
+          <small>Find African scholarship and resources</small>
+        </span>
+        <span class="dare-home-action__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="dare-home-action" href="#dare-librarian">
+        <span class="fas fa-comments dare-home-action__icon" aria-hidden="true"></span>
+        <span class="dare-home-action__content">
+          <strong>Ask DARE</strong>
+          <small>Get help discovering knowledge</small>
+        </span>
+        <span class="dare-home-action__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="dare-home-action" href="#dare-subjects-heading">
+        <span class="fas fa-compass dare-home-action__icon" aria-hidden="true"></span>
+        <span class="dare-home-action__content">
+          <strong>Explore with DARE</strong>
+          <small>Discover subjects and collections</small>
+        </span>
+        <span class="dare-home-action__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="dare-home-action" routerLink="/community-list">
+        <span class="fas fa-folder-open dare-home-action__icon" aria-hidden="true"></span>
+        <span class="dare-home-action__content">
+          <strong>Browse Communities</strong>
+          <small>Explore institutions and collections</small>
+        </span>
+        <span class="dare-home-action__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="dare-home-action" routerLink="/register">
+        <span class="fas fa-users dare-home-action__icon" aria-hidden="true"></span>
+        <span class="dare-home-action__content">
+          <strong>Join the DARE Networkk</strong>
+          <small>Create an account to participate</small>
+        </span>
+        <span class="dare-home-action__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Institutional mission ------------------------------------------------------->
+<section class="dare-mission" id="about" aria-labelledby="dare-mission-heading">
+  <div class="container">
+    <div class="dare-mission__inner">
+      <p class="dare-mission__eyebrow">Our Mission</p>
+      <h2 id="dare-mission-heading" class="dare-mission__title">An African knowledge commons, open to the world</h2>
+      <p class="dare-mission__text">
+        DARE &#8212; the Digital Academic Repository &amp; Education initiative &#8212; collects,
+        preserves and shares African scholarship, research publications, datasets and
+        educational resources. We centre African voices and epistemologies, keep provenance
+        and licensing transparent, and make knowledge freely discoverable, citable and
+        reusable for present and future generations.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DARE service gateway -->
+<section class="dare-service-gateway" aria-labelledby="dare-service-gateway-heading">
+  <div class="container">
+    <p class="dare-service-gateway__eyebrow">One knowledge mission</p>
+    <h2 id="dare-service-gateway-heading" class="dare-service-gateway__title">Explore DARE</h2>
+    <p class="dare-service-gateway__intro">Discover African scholarship, strengthen your learning, and access educational resources through our connected platforms.</p>
+    <div class="dare-service-gateway__grid">
+      <article class="dare-service-card">
+        <div class="dare-service-card__icon fas fa-book-open" aria-hidden="true"></div>
+        <h3 class="dare-service-card__title">DARE Library</h3>
+        <p class="dare-service-card__text">Discover African research, books, scholarly publications, collections, and datasets in our digital repository.</p>
+        <a class="dare-service-card__action" href="https://library.dare.co.zw">Explore the Library <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="dare-service-card dare-service-card--featured">
+        <div class="dare-service-card__icon fas fa-graduation-cap" aria-hidden="true"></div>
+        <h3 class="dare-service-card__title">DARE Learn</h3>
+        <p class="dare-service-card__text">Learn, practise, and build confidence with our high-school learning platform.</p>
+        <a class="dare-service-card__action" href="https://fa346cd2.mydala.app">Start Learning <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="dare-service-card">
+        <div class="dare-service-card__icon fas fa-laptop" aria-hidden="true"></div>
+        <h3 class="dare-service-card__title">DARE Kolibri</h3>
+        <p class="dare-service-card__text">Access educational content through our offline-first learning platform, designed for environments with limited connectivity.</p>
+        <a class="dare-service-card__action" href="https://learn.dare.co.zw">Access Kolibri <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Resource categories --------------------------------------------------------->
+<section class="dare-categories" aria-labelledby="dare-categories-heading">
+  <div class="container">
+    <h2 id="dare-categories-heading" class="dare-section-title">Explore by Resource Type</h2>
+    <p class="dare-categories__lead">
+      Books, textbooks, research papers, theses and datasets from across the
+      African academy and its global partners.
+    </p>
+    <ul class="dare-categories__grid list-unstyled">
+      <li class="dare-category-card">
+        <a class="dare-category-card__link" routerLink="/search" [queryParams]="{ query: 'book' }">
+          <span class="dare-category-card__icon fas fa-book" aria-hidden="true"></span>
+          <span class="dare-category-card__name">Books</span>
+          <span class="dare-category-card__text">Monographs and scholarly volumes.</span>
+        </a>
+      </li>
+      <li class="dare-category-card">
+        <a class="dare-category-card__link" routerLink="/search" [queryParams]="{ query: 'textbook' }">
+          <span class="dare-category-card__icon fas fa-graduation-cap" aria-hidden="true"></span>
+          <span class="dare-category-card__name">Textbooks</span>
+          <span class="dare-category-card__text">Open and licensed teaching texts.</span>
+        </a>
+      </li>
+      <li class="dare-category-card">
+        <a class="dare-category-card__link" routerLink="/search" [queryParams]="{ query: 'research' }">
+          <span class="dare-category-card__icon fas fa-flask" aria-hidden="true"></span>
+          <span class="dare-category-card__name">Research Papers</span>
+          <span class="dare-category-card__text">Peer-reviewed articles and preprints.</span>
+        </a>
+      </li>
+      <li class="dare-category-card">
+        <a class="dare-category-card__link" routerLink="/search" [queryParams]="{ query: 'thesis' }">
+          <span class="dare-category-card__icon fas fa-scroll" aria-hidden="true"></span>
+          <span class="dare-category-card__name">Theses</span>
+          <span class="dare-category-card__text">Dissertations and graduate research.</span>
+        </a>
+      </li>
+      <li class="dare-category-card">
+        <a class="dare-category-card__link" routerLink="/search" [queryParams]="{ query: 'dataset' }">
+          <span class="dare-category-card__icon fas fa-database" aria-hidden="true"></span>
+          <span class="dare-category-card__name">Datasets</span>
+          <span class="dare-category-card__text">Curated and research data collections.</span>
+        </a>
+      </li>
+      <li class="dare-category-card">
+        <a class="dare-category-card__link" routerLink="/search" [queryParams]="{ query: 'open educational resources' }">
+          <span class="dare-category-card__icon fas fa-chalkboard-user" aria-hidden="true"></span>
+          <span class="dare-category-card__name">Open Educational Resources</span>
+          <span class="dare-category-card__text">Freely reusable learning materials.</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+@if (showDiscoverFilters) {
+  <ds-configuration-search-page
+    [sideBarWidth]="3"
+    [showViewModes]="false"
+    [searchEnabled]="false"
+    [inPlaceSearch]="false"
+    [showScopeSelector]="false">
+    <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
+  </ds-configuration-search-page>
+}
+@if (!showDiscoverFilters) {
+  <div class="container dare-home-content">
+    <ng-container *ngTemplateOutlet="homeContent"></ng-container>
+  </div>
+}
+<ds-suggestions-popup></ds-suggestions-popup>
+
+<ng-template #homeContent>
+  <ds-top-level-community-list></ds-top-level-community-list>
+  <ds-dare-home-discovery></ds-dare-home-discovery>
+  <ds-dare-librarian></ds-dare-librarian>
+  <ds-dare-language-datasets></ds-dare-language-datasets>
+  @if (recentSubmissionspageSize > 0) {
+    <ds-recent-item-list></ds-recent-item-list>
+  }
+</ng-template>

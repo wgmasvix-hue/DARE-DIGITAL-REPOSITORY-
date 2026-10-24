@@ -1,0 +1,723 @@
+// =============================================================================
+// DARE African Knowledge Repository — global (theme-wide) styles
+//
+// Layers a modern, Afrocentric academic-repository interface on top of the
+// stock DSpace markup. Everything here targets existing DSpace classes and
+// data-test attributes, so no backend behaviour is changed.
+// =============================================================================
+
+// imports the base global style (must stay first)
+@import '../../../styles/_global-styles.scss';
+
+// -----------------------------------------------------------------------------
+// Reusable Adinkra-inspired geometric motifs (inline SVG, no asset copy needed)
+// -----------------------------------------------------------------------------
+$dare-motif-diamond: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23C79A3B' stroke-width='1.4'%3E%3Cpath d='M0 20 L20 0 L40 20 L20 40 Z'/%3E%3Cpath d='M20 9 L31 20 L20 31 L9 20 Z'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='2.4' fill='%23C79A3B'/%3E%3C/svg%3E");
+$dare-motif-zig: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12' viewBox='0 0 48 12'%3E%3Cpath d='M0 11 L8 1 L16 11 L24 1 L32 11 L40 1 L48 11' fill='none' stroke='%23C79A3B' stroke-width='2'/%3E%3C/svg%3E");
+$dare-motif-kente: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23B5432A' stroke-width='1' opacity='.5'%3E%3Cpath d='M0 30 L30 0 L60 30 L30 60 Z'/%3E%3Cpath d='M15 30 L30 15 L45 30 L30 45 Z'/%3E%3Cpath d='M30 0 V60 M0 30 H60'/%3E%3C/g%3E%3C/svg%3E");
+
+// -----------------------------------------------------------------------------
+// Base surfaces & typography
+// -----------------------------------------------------------------------------
+body {
+  background-color: var(--dare-ivory);
+  background-image:
+    radial-gradient(1200px 480px at 100% -10%, rgba(199, 154, 59, .07), transparent 60%),
+    radial-gradient(900px 420px at -10% 0%, rgba(18, 59, 93, .05), transparent 55%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: .1px;
+}
+
+h1, h2, h3 {
+  color: var(--dare-indigo-dark);
+}
+
+h2 {
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+}
+
+a {
+  transition: color .15s ease;
+}
+
+// A reusable gold/gradient section heading with an Adinkra underline
+.dare-section-title,
+#main-content > .container > h1,
+.comcol-header > ds-comcol-page-header h1 {
+  position: relative;
+  padding-bottom: .5rem;
+  margin-bottom: 1.1rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 72px;
+    height: 4px;
+    background: linear-gradient(to right, var(--dare-gold), var(--dare-indigo-soft));
+    border-radius: 2px;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Buttons
+// -----------------------------------------------------------------------------
+.btn {
+  font-weight: 600;
+  letter-spacing: .01em;
+  transition: transform .12s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.btn:not(.btn-link):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(18, 59, 93, .14);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--dare-indigo);
+  --bs-btn-border-color: var(--dare-indigo);
+  --bs-btn-hover-bg: var(--dare-terracotta);
+  --bs-btn-hover-border-color: var(--dare-terracotta);
+  --bs-btn-active-bg: var(--dare-terracotta-dark);
+  --bs-btn-active-border-color: var(--dare-terracotta-dark);
+}
+
+.btn-outline-primary {
+  color: var(--dare-indigo);
+  border-color: var(--dare-indigo);
+
+  &:hover, &:focus {
+    background-color: var(--dare-indigo);
+    border-color: var(--dare-indigo);
+    color: #fff;
+  }
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--dare-taupe);
+  --bs-btn-border-color: var(--dare-taupe);
+}
+
+// -----------------------------------------------------------------------------
+// Search: the global search box is the centrepiece of the experience
+// -----------------------------------------------------------------------------
+ds-search-form .input-group,
+.dare-home-search .input-group {
+  border-radius: var(--dare-radius-pill, 50rem);
+  box-shadow: 0 10px 30px rgba(18, 59, 93, .14);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(199, 154, 59, .55);
+}
+
+ds-search-form .input-group > .form-control,
+ds-search-form .input-group > .btn,
+ds-search-form .input-group > .scope-button {
+  border: 0;
+  min-height: 3.15rem;
+}
+
+ds-search-form input.form-control {
+  font-size: 1.05rem;
+  padding-left: 1.25rem;
+  background: #fff;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+ds-search-form .search-button {
+  border-radius: 0 !important;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  font-size: 1.02rem;
+  background-color: var(--dare-indigo);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--dare-terracotta);
+  }
+}
+
+ds-search-form .scope-button {
+  background-color: var(--dare-ivory-dark);
+  color: var(--dare-indigo);
+  border-radius: 0 !important;
+  max-width: 14rem;
+}
+
+// -----------------------------------------------------------------------------
+// Cards — communities, collections and list/search results are rendered as
+// elegant paper cards with a subtle gold accent.
+// -----------------------------------------------------------------------------
+.card {
+  border: 1px solid rgba(107, 123, 140, .18);
+  border-radius: var(--dare-radius-lg);
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(18, 59, 93, .05);
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+
+  &:hover, &:focus-within {
+    border-color: var(--dare-gold);
+    box-shadow: var(--dare-shadow-hover);
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  background-color: rgba(199, 154, 59, .12);
+  border-bottom: 1px solid rgba(199, 154, 59, .3);
+  font-weight: 600;
+}
+
+.card-footer {
+  background-color: var(--dare-ivory-dark);
+}
+
+// List results (communities, collections, search results, browse results)
+#main-content ul.list-unstyled > li[data-test="list-object"] {
+  position: relative;
+  padding: .25rem .25rem .25rem 1.25rem;
+  margin-bottom: 1.25rem !important;
+  border: 1px solid rgba(107, 123, 140, .16) !important;
+  border-left: 5px solid var(--dare-gold) !important;
+  border-radius: var(--dare-radius);
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(18, 59, 93, .05);
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+
+  &:hover,
+  &:focus-within {
+    border-left-color: var(--dare-terracotta) !important;
+    box-shadow: var(--dare-shadow-hover);
+    transform: translateY(-2px);
+  }
+}
+
+.item-list-title {
+  color: var(--dare-indigo);
+  font-family: var(--bs-heading-font-family, $headings-font-family);
+  font-weight: 600;
+  font-size: 1.18rem;
+
+  &:hover {
+    color: var(--dare-terracotta);
+    text-decoration: none;
+  }
+}
+
+.item-list-abstract {
+  color: var(--dare-muted);
+}
+
+.item-list-authors,
+.item-list-publisher,
+.item-list-date {
+  color: var(--dare-muted);
+}
+
+// Grid cards
+.card-columns .card-element {
+  border: 1px solid rgba(107, 123, 140, .18);
+  border-top: 4px solid var(--dare-gold);
+  border-radius: var(--dare-radius-lg);
+  background: #fff;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: 0 2px 10px rgba(18, 59, 93, .05);
+  transition: box-shadow .18s ease, transform .18s ease;
+
+  &:hover {
+    box-shadow: var(--dare-shadow-hover);
+    transform: translateY(-3px);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Community / collection headers
+// -----------------------------------------------------------------------------
+.comcol-header {
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, rgba(18, 59, 93, .04), rgba(199, 154, 59, .06));
+  border: 1px solid rgba(199, 154, 59, .28);
+  border-radius: var(--dare-radius-lg);
+  border-left: 6px solid var(--dare-gold);
+
+  ds-comcol-page-header h1 {
+    color: var(--dare-indigo-dark);
+  }
+
+  ds-comcol-page-handle {
+    display: inline-block;
+    color: var(--dare-muted);
+    font-size: .9rem;
+  }
+
+  ds-comcol-page-logo img {
+    max-height: 96px;
+    border-radius: var(--dare-radius);
+  }
+}
+
+.comcol-page-browse-section {
+  margin-top: 1rem;
+}
+
+// -----------------------------------------------------------------------------
+// Item detail page
+// -----------------------------------------------------------------------------
+.item-page-title-field {
+  color: var(--dare-indigo-dark);
+  font-family: var(--bs-heading-font-family, $headings-font-family);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.simple-view-element {
+  margin-bottom: 1.35rem;
+}
+
+.simple-view-element-header {
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--dare-terracotta);
+  margin-bottom: .35rem;
+  padding-bottom: .15rem;
+  border-bottom: 1px solid rgba(199, 154, 59, .4);
+}
+
+.simple-view-element-body {
+  color: var(--dare-ink);
+}
+
+// Attachment / file list on item pages
+.ds-item-page-file-section,
+ds-item-page-file-section {
+  .list-group-item {
+    border-color: rgba(107, 123, 140, .16);
+    border-left: 4px solid var(--dare-savanna);
+    border-radius: var(--dare-radius) !important;
+    margin-bottom: .5rem;
+    background: #fff;
+
+    &:hover {
+      border-left-color: var(--dare-gold);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Browse pages
+// -----------------------------------------------------------------------------
+.browse-by-header,
+nav[ngbdropdown] {
+  margin-bottom: 1rem;
+}
+
+.btn-outline-secondary {
+  color: var(--dare-indigo);
+  border-color: rgba(18, 59, 93, .35);
+}
+
+// -----------------------------------------------------------------------------
+// Login / auth
+// -----------------------------------------------------------------------------
+.login-container {
+  max-width: 30rem;
+  background: #fff;
+  border: 1px solid rgba(199, 154, 59, .35);
+  border-top: 5px solid var(--dare-gold);
+  border-radius: var(--dare-radius-lg);
+  box-shadow: var(--dare-shadow);
+}
+
+// -----------------------------------------------------------------------------
+// Badges, pills, pagination, breadcrumbs
+// -----------------------------------------------------------------------------
+.badge.bg-secondary,
+.archived-items-lead {
+  background-color: var(--dare-indigo-soft) !important;
+  color: #fff;
+  font-weight: 600;
+}
+
+.pagination {
+  .page-link {
+    color: var(--dare-indigo);
+    border-color: rgba(107, 123, 140, .2);
+
+    &:hover {
+      background: var(--dare-ivory-dark);
+      color: var(--dare-terracotta);
+    }
+  }
+
+  .page-item.active .page-link {
+    background-color: var(--dare-indigo);
+    border-color: var(--dare-indigo);
+    color: #fff;
+  }
+}
+
+.breadcrumb {
+  background-color: transparent;
+  padding-left: 0;
+  border-bottom: 1px solid rgba(199, 154, 59, .3);
+  margin-bottom: 1.25rem;
+
+  a {
+    color: var(--dare-indigo);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Header branding
+// -----------------------------------------------------------------------------
+ds-themed-header header,
+ds-header header {
+  box-shadow: 0 2px 14px rgba(18, 59, 93, .18);
+}
+
+// -----------------------------------------------------------------------------
+// Main navigation: gold Adinkra motif rule under the ivory bar
+// -----------------------------------------------------------------------------
+ds-themed-navbar .navbar,
+ds-navbar .navbar {
+  position: relative;
+  background-color: var(--ds-navbar-bg);
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 12px;
+    background-image: $dare-motif-zig;
+    background-repeat: repeat-x;
+    background-position: center bottom;
+    opacity: .9;
+    pointer-events: none;
+  }
+}
+
+ds-themed-navbar .navbar-nav .nav-link,
+ds-navbar .navbar-nav .nav-link {
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+
+  &:hover,
+  &.active {
+    color: var(--dare-terracotta);
+    border-bottom-color: var(--dare-gold);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Footer motif rule
+// -----------------------------------------------------------------------------
+ds-themed-footer footer,
+ds-footer footer {
+  position: relative;
+  border-top: 0;
+  padding-top: 12px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-image: $dare-motif-diamond;
+    background-repeat: repeat-x;
+    background-position: center top;
+    opacity: .85;
+    pointer-events: none;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Empty states / featured research helpers
+// -----------------------------------------------------------------------------
+.dare-empty-state {
+  text-align: center;
+  padding: 2.25rem 1.5rem;
+  background: #fff;
+  border: 1px dashed rgba(199, 154, 59, .6);
+  border-radius: var(--dare-radius-lg);
+
+  .dare-empty-state__icon {
+    font-size: 2rem;
+    color: var(--dare-gold);
+    margin-bottom: .75rem;
+  }
+
+  .dare-empty-state__title {
+    color: var(--dare-indigo-dark);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Accessibility: selection + focus visibility
+// -----------------------------------------------------------------------------
+::selection {
+  background: var(--dare-gold);
+  color: var(--dare-ink);
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible {
+  outline: 3px solid var(--dare-gold);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.focus-visible,
+.visually-hidden-focusable:focus {
+  outline: 3px solid var(--dare-gold);
+}
+
+// Skip-to-content link, if present, should be clearly visible
+.skip-link:focus,
+a[href="#main-content"]:focus {
+  background: var(--dare-indigo);
+  color: var(--dare-ivory);
+  padding: .5rem .75rem;
+  border-radius: var(--dare-radius);
+}
+
+// -----------------------------------------------------------------------------
+// Responsive refinements
+// -----------------------------------------------------------------------------
+@media (max-width: 575.98px) {
+  .comcol-header {
+    padding: 1.1rem 1.15rem;
+  }
+
+  #main-content ul.list-unstyled > li[data-test="list-object"] {
+    padding-left: 1rem;
+  }
+
+  ds-search-form .input-group > .form-control,
+  ds-search-form .input-group > .btn,
+  ds-search-form .input-group > .scope-button {
+    min-height: 2.9rem;
+  }
+}
+
+// Respect reduced-motion preferences
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .card,
+  .card-element,
+  #main-content ul.list-unstyled > li[data-test="list-object"] {
+    transition: none !important;
+  }
+
+  .btn:not(.btn-link):hover,
+  .card:hover,
+  .card-element:hover,
+  #main-content ul.list-unstyled > li[data-test="list-object"]:hover {
+    transform: none !important;
+  }
+}
+
+// =============================================================================
+// Phase 2 — search, filters, sort and mobile navigation
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Search results page layout
+// -----------------------------------------------------------------------------
+#search-page,
+ds-page-with-sidebar {
+  display: block;
+  margin-top: 1rem;
+}
+
+// Left-hand tools/filters column reads as a distinct panel on desktop
+ds-search-sidebar {
+  display: block;
+}
+
+#search-sidebar-content {
+  border-radius: var(--dare-radius-lg);
+}
+
+// -----------------------------------------------------------------------------
+// Facet filters
+// -----------------------------------------------------------------------------
+.facet-filter {
+  background: #fff;
+  border: 1px solid rgba(107, 123, 140, .16);
+  border-left: 4px solid var(--dare-gold);
+  border-radius: var(--dare-radius);
+  box-shadow: 0 2px 8px rgba(18, 59, 93, .05);
+  transition: border-color .15s ease, box-shadow .15s ease;
+
+  &.focus,
+  &:focus-within {
+    border-left-color: var(--dare-terracotta);
+    box-shadow: var(--dare-ring), 0 4px 14px rgba(18, 59, 93, .1);
+  }
+
+  .filter-name {
+    width: 100%;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    align-items: center;
+    gap: .5rem;
+
+    .h4 {
+      font-size: .95rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--dare-indigo);
+      width: 100%;
+    }
+
+    .filter-toggle {
+      color: var(--dare-terracotta);
+      flex: 0 0 auto !important;
+    }
+  }
+
+  .search-filter-wrapper {
+    margin-top: .6rem;
+  }
+}
+
+// Active-filter chips (the "filters applied" summary)
+.ds-filters-badge-container {
+  gap: .4rem;
+
+  button,
+  .badge {
+    background-color: var(--dare-indigo-soft) !important;
+    color: #fff;
+    border: 0;
+    border-radius: var(--dare-radius-pill, 50rem) !important;
+    font-weight: 600;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Sort / results-per-page settings
+// -----------------------------------------------------------------------------
+ds-search-settings,
+ds-page-size-selector {
+  display: block;
+}
+
+.result-order-settings {
+  margin-bottom: 1rem;
+}
+
+// -----------------------------------------------------------------------------
+// Inline search form on listings (collection/community/search pages)
+// -----------------------------------------------------------------------------
+ds-search-form.ds-search-form-inline,
+.in-place-search ds-search-form {
+  .input-group {
+    box-shadow: 0 4px 14px rgba(18, 59, 93, .09);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Item page: project / org-unit / journal related sections keep a tidy rhythm
+// -----------------------------------------------------------------------------
+.dare-item-primary {
+  ds-metadata-representation-list {
+    .simple-view-element-header {
+      border-bottom: 0;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Mobile: search controls, collapsible sidebar and nav
+// -----------------------------------------------------------------------------
+@media (max-width: 767.98px) {
+  #sidebar-options.search-controls {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: .6rem .75rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid rgba(199, 154, 59, .35);
+    border-radius: var(--dare-radius);
+    box-shadow: 0 2px 10px rgba(18, 59, 93, .06);
+
+    .results {
+      font-weight: 600;
+      color: var(--dare-indigo);
+    }
+
+    .close-sidebar {
+      float: none;
+    }
+  }
+
+  // Full-width filter panel when toggled open on small screens
+  #search-sidebar,
+  ds-search-sidebar {
+    width: 100%;
+  }
+
+  #search-page .col-md-3,
+  #search-page .col-md-9 {
+    width: 100%;
+  }
+
+  .btn-primary.w-100,
+  ds-search-filters .btn-primary {
+    width: 100%;
+  }
+
+  // Item page: bring media/files above the description on small screens
+  .dare-item-primary {
+    padding: .85rem 1rem;
+  }
+
+  // Browse/sort controls wrap nicely
+  nav[ngbdropdown],
+  .browse-by-header {
+    flex-wrap: wrap;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Search results header (rendered by the custom search-results component)
+// -----------------------------------------------------------------------------
+.dare-results-header {
+  flex-wrap: wrap;
+  gap: .75rem;
+
+  &__title {
+    color: var(--dare-indigo-dark);
+  }
+}
+
+.dare-empty-state--search {
+  max-width: 46rem;
+  margin-inline: auto;
+}

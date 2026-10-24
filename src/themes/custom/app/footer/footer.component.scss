@@ -1,0 +1,75 @@
+// DARE footer — imports the base component styles, then brands the footer
+@import '../../../../app/footer/footer.component.scss';
+
+:host {
+  footer {
+    color: var(--dare-ivory);
+  }
+
+  .top-footer {
+    h5 {
+      color: var(--dare-gold);
+      font-size: .95rem;
+      letter-spacing: .08em;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: rgba(255, 255, 255, .82);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: var(--dare-gold);
+        text-decoration: underline;
+      }
+    }
+
+    ul li {
+      margin-bottom: .4rem;
+    }
+  }
+
+  .dare-footer-mission {
+    max-width: 46rem;
+    color: rgba(255, 255, 255, .82);
+  }
+
+  .dare-footer-fullname {
+    font-family: var(--bs-heading-font-family, $headings-font-family);
+    font-weight: 600;
+    letter-spacing: .02em;
+    color: var(--dare-gold);
+  }
+
+  .dare-footer-tagline {
+    color: rgba(255, 255, 255, .9);
+    font-style: italic;
+  }
+
+  .dare-footer-cms {
+    color: rgba(255, 255, 255, .82);
+    border-bottom: 1px solid rgba(199, 154, 59, .25);
+
+    a {
+      color: var(--dare-gold);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--dare-ivory);
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .dare-pillars {
+    color: rgba(255, 255, 255, .82);
+  }
+
+  .bottom-footer {
+    background-color: var(--dare-indigo-dark);
+    border-top: 1px solid rgba(199, 154, 59, .35);
+  }
+}

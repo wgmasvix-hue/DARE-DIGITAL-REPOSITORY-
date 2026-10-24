@@ -1,0 +1,101 @@
+<footer>
+  @if (showTopFooter) {
+    <div class="top-footer">
+      @if (footerMetadataValue$ | async; as footerMetadataValue) {
+        <div class="container pt-4 dare-footer-cms">
+          <ds-markdown-viewer [value]="footerMetadataValue"></ds-markdown-viewer>
+        </div>
+      }
+      <div class="container py-4">
+        <div class="row gy-4">
+            <div class="col-lg-4 col-md-6">
+              <div class="dare-footer-brand">
+                <img src="assets/custom/images/dare-logo.svg" alt="DARE African Knowledge Repository" />
+              </div>
+              <p class="dare-footer-fullname mt-3 mb-0">Digital Academic Repository &amp; Education</p>
+              <p class="dare-footer-tagline mb-2">African knowledge. African scholarship. A shared intellectual heritage.</p>
+              <p class="mt-2 mb-0">
+                An Afrocentric, open-access repository preserving and amplifying African
+                scholarship, knowledge and heritage for present and future generations.
+              </p>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+              <h5 class="text-uppercase">Explore</h5>
+              <ul class="list-unstyled mb-0">
+                <li><a routerLink="/">{{ 'footer.link.home' | translate }}</a></li>
+                <li><a routerLink="/community-list">Communities &amp; Collections</a></li>
+                <li><a routerLink="/browse">Browse</a></li>
+                <li><a routerLink="/search">Search</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <h5 class="text-uppercase">For Researchers</h5>
+              <ul class="list-unstyled mb-0">
+                <li><a routerLink="/info/feedback">Submit &amp; Suggest</a></li>
+                <li><a routerLink="/info/accessibility">Accessibility</a></li>
+                @if (showPrivacyPolicy) {
+                  <li><a routerLink="/info/privacy">{{ 'footer.link.privacy-policy' | translate }}</a></li>
+                }
+                @if (showEndUserAgreement) {
+                  <li><a routerLink="/info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate }}</a></li>
+                }
+              </ul>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+              <h5 class="text-uppercase">Our Principles</h5>
+              <ul class="list-unstyled mb-0 dare-footer-values">
+                <li>Decolonising Knowledge</li>
+                <li>Language &amp; Access</li>
+                <li>Community &amp; Ethics</li>
+                <li>Responsible Discovery</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+  }
+
+  <div class="bottom-footer p-1 d-flex flex-column flex-md-row justify-content-center align-items-center text-white">
+    <div class="content-container align-self-center">
+      <p class="m-0">
+        <span>{{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}</span>
+        &middot;
+        <a class="text-white" href="https://www.lyrasis.org/" role="link" tabindex="0" rel="noopener">
+          {{ 'footer.link.lyrasis' | translate }}
+        </a>
+      </p>
+      <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
+        @if (showCookieSettings) {
+          <li>
+            <button class="btn btn-link text-white" type="button" (click)="openCookieSettings()" role="button" tabindex="0">
+              {{ 'footer.link.cookies' | translate }}
+            </button>
+          </li>
+        }
+        <li>
+          <a class="btn text-white" routerLink="info/accessibility" role="link" tabindex="0">
+            {{ 'footer.link.accessibility' | translate }}
+          </a>
+        </li>
+        @if (showSendFeedback$ | async) {
+          <li>
+            <a class="btn text-white" routerLink="info/feedback" role="link" tabindex="0">
+              {{ 'footer.link.feedback' | translate }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+    @if (coarLdnEnabled$ | async) {
+      <div class="notify-enabled text-white align-self-end">
+        <a class="coar-notify-support-route" routerLink="info/coar-notify-support" role="link" tabindex="0">
+          <img class="n-coar" src="assets/images/n-coar.svg" [attr.alt]="'menu.header.image.logo' | translate" />
+          {{ 'footer.link.coar-notify-support' | translate }}
+        </a>
+      </div>
+    }
+  </div>
+</footer>

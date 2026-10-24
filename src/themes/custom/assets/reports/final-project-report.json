@@ -1,0 +1,498 @@
+{
+  "report_type": "final-project-report",
+  "generated_at_utc": "2026-10-14T04:31:30Z",
+  "generated_by": "scripts/make_final_report.py",
+  "project": "DARE African-language dataset harvesting engine",
+  "dataset": "MasakhaNER-X chiShona (sn/sna)",
+  "phases": {
+    "1_documentation": "complete",
+    "2_harvesting_engine": "complete",
+    "3_catalogue_and_licence_gate": "complete",
+    "4_masakhaner_x_pipeline": "complete",
+    "5_normalisation": "complete",
+    "6_ner_baselines": "complete",
+    "7_zw_evaluation_framework": "complete (framework only; no corpus)",
+    "8_providers": "complete (optional providers documented)",
+    "9_dare_export": "complete (metadata proposal only)",
+    "10_release_bundle": "complete (local, metadata-only)",
+    "11_final_report": "complete"
+  },
+  "source": {
+    "repository": "masakhane-io/masakhane-ner",
+    "revision": "ba5843cd08aa491d5f96a5e809e71eb9ec461391",
+    "licence_spdx": "CC-BY-NC-4.0",
+    "licence_status": "RESOLVED_NONCOMMERCIAL"
+  },
+  "data": {
+    "files": [
+      {
+        "split": "train",
+        "name": "sn.jsonl",
+        "path": "data/masakhaner-x/sna/jsonl/train/sn.jsonl",
+        "exists": true,
+        "size_bytes": 584209,
+        "sha256": "3313b18fc397665d2a52f370292ba5c12d98fdf92b0860e45c162b0df42827b0",
+        "git_blob_sha1": "51fcfb954f2f330e7f6955009c157ba01b639439",
+        "records": 1441,
+        "spans": 2950,
+        "label_counts": {
+          "DATE": 332,
+          "LOC": 548,
+          "ORG": 1035,
+          "PER": 1035
+        },
+        "empty_records": 0,
+        "duplicate_ids": [],
+        "duplicate_records": [],
+        "duplicate_record_count": 0,
+        "duplicate_text_values": 1,
+        "malformed_or_errors": [],
+        "error_count": 0,
+        "offset_validation": "PASS"
+      },
+      {
+        "split": "validation",
+        "name": "sn.jsonl",
+        "path": "data/masakhaner-x/sna/jsonl/validation/sn.jsonl",
+        "exists": true,
+        "size_bytes": 378655,
+        "sha256": "c1e10549860ce753e780cb2589bffcfdb87c058d46ea81f9192651987586f9bd",
+        "git_blob_sha1": "a8052446f96968da1f64be7f42488c1ca5b754c6",
+        "records": 887,
+        "spans": 2037,
+        "label_counts": {
+          "DATE": 255,
+          "LOC": 415,
+          "ORG": 640,
+          "PER": 727
+        },
+        "empty_records": 0,
+        "duplicate_ids": [],
+        "duplicate_records": [],
+        "duplicate_record_count": 0,
+        "duplicate_text_values": 0,
+        "malformed_or_errors": [],
+        "error_count": 0,
+        "offset_validation": "PASS"
+      },
+      {
+        "split": "test",
+        "name": "sn.jsonl",
+        "path": "data/masakhaner-x/sna/jsonl/test/sn.jsonl",
+        "exists": true,
+        "size_bytes": 410445,
+        "sha256": "c4f7663958d64871bf5bf6717ad88b193483174563005f4535fb59a8971b7c50",
+        "git_blob_sha1": "0ea5a14f4388db11368b48d57387421e4f5a021a",
+        "records": 1000,
+        "spans": 2174,
+        "label_counts": {
+          "DATE": 275,
+          "LOC": 496,
+          "ORG": 640,
+          "PER": 763
+        },
+        "empty_records": 0,
+        "duplicate_ids": [],
+        "duplicate_records": [],
+        "duplicate_record_count": 0,
+        "duplicate_text_values": 0,
+        "malformed_or_errors": [],
+        "error_count": 0,
+        "offset_validation": "PASS"
+      }
+    ],
+    "entities": {
+      "train": {
+        "records": 1441,
+        "spans": 2950,
+        "errors": 0
+      },
+      "validation": {
+        "records": 887,
+        "spans": 2037,
+        "errors": 0
+      },
+      "test": {
+        "records": 1000,
+        "spans": 2174,
+        "errors": 0
+      }
+    },
+    "readiness_recommendation": {
+      "status": "GO (with environment setup required)",
+      "note": "No model weights downloaded and no ML packages installed by this audit.",
+      "recommended_baseline": {
+        "objective": "Token-classification NER over PER/ORG/LOC/DATE with BIO tagging.",
+        "primary": "Fine-tune a multilingual transformer sequence-tagger (XLM-R / Afro-XLM-R / mBERT) with Hugging Face transformers + datasets + seqeval.",
+        "lightweight_alternative": "sklearn-crfsuite (CRF) baseline with word + char n-gram features; no GPU required.",
+        "trivial_lower_bound": "All-O majority baseline to anchor entity-level F1.",
+        "data_prep": "Convert byte-span JSONL to token tags by aligning spans.start_byte/limit_byte over the UTF-8 encoded text; decode spans on character boundaries.",
+        "splits": "Use provided train(1441)/validation(887)/test(1000) unchanged.",
+        "metrics": "Entity-level micro/macro F1 via seqeval; per-label PER/ORG/LOC/DATE.",
+        "reproducibility": "Pin package versions, fix random seeds (e.g. 42), record git-style data revision ba5843cd."
+      },
+      "environment_gaps": [
+        "numpy",
+        "sklearn",
+        "torch",
+        "transformers",
+        "datasets",
+        "seqeval"
+      ]
+    }
+  },
+  "validation": {
+    "status": "PASS",
+    "files": [
+      {
+        "split": "train",
+        "path": "data/masakhaner-x/sna/jsonl/train/sn.jsonl",
+        "records": 1441,
+        "spans": 2950,
+        "errors": 0,
+        "duplicate_ids": [],
+        "duplicate_record_count": 0,
+        "empty_records": 0,
+        "ok": true
+      },
+      {
+        "split": "validation",
+        "path": "data/masakhaner-x/sna/jsonl/validation/sn.jsonl",
+        "records": 887,
+        "spans": 2037,
+        "errors": 0,
+        "duplicate_ids": [],
+        "duplicate_record_count": 0,
+        "empty_records": 0,
+        "ok": true
+      },
+      {
+        "split": "test",
+        "path": "data/masakhaner-x/sna/jsonl/test/sn.jsonl",
+        "records": 1000,
+        "spans": 2174,
+        "errors": 0,
+        "duplicate_ids": [],
+        "duplicate_record_count": 0,
+        "empty_records": 0,
+        "ok": true
+      }
+    ]
+  },
+  "split_integrity": {
+    "leakage_detected": false,
+    "pairwise": [
+      {
+        "splits": [
+          "test",
+          "train"
+        ],
+        "shared_ids": 0,
+        "shared_texts": 0,
+        "shared_id_examples": [],
+        "shared_text_examples": []
+      },
+      {
+        "splits": [
+          "test",
+          "validation"
+        ],
+        "shared_ids": 0,
+        "shared_texts": 0,
+        "shared_id_examples": [],
+        "shared_text_examples": []
+      },
+      {
+        "splits": [
+          "train",
+          "validation"
+        ],
+        "shared_ids": 0,
+        "shared_texts": 0,
+        "shared_id_examples": [],
+        "shared_text_examples": []
+      }
+    ]
+  },
+  "ner_baselines": [
+    {
+      "name": "null",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "name": "gazetteer",
+      "precision": 0.5947,
+      "recall": 0.4271,
+      "f1": 0.4972
+    },
+    {
+      "name": "most_frequent_token",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "name": "averaged_perceptron",
+      "precision": 0.7453,
+      "recall": 0.6338,
+      "f1": 0.685
+    }
+  ],
+  "catalogue": {
+    "count": 5,
+    "states": {
+      "VALIDATED": 1,
+      "METADATA_VERIFIED": 1,
+      "LICENCE_PENDING": 1,
+      "DISCOVERED": 2
+    }
+  },
+  "discovery": {
+    "count": 5,
+    "offline": true
+  },
+  "release_bundle": {
+    "dataset_id": "masakhaner-x",
+    "language": {
+      "name": "chiShona",
+      "iso639_1": "sn",
+      "iso639_3": "sna",
+      "masakhaner_code": "sna"
+    },
+    "source_revision": "ba5843cd08aa491d5f96a5e809e71eb9ec461391",
+    "generated_at_utc": "2026-10-14T04:30:35Z",
+    "mode": "metadata-only",
+    "licence": "CC-BY-NC-4.0",
+    "commercial_use": false,
+    "attribution_required": true,
+    "members": [
+      {
+        "path": "README.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/README.md",
+        "size_bytes": 5203,
+        "sha256": "78641a15664a959797f46a18c28e4e6555052d6ca3697edd168c8c2f8100d548"
+      },
+      {
+        "path": "ATTRIBUTION.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/ATTRIBUTION.md",
+        "size_bytes": 2887,
+        "sha256": "cfaf0459591dd280617b14a450a13750b5910b48131b2774b9e3612313644f06"
+      },
+      {
+        "path": "config/masakhaner_x.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/config/masakhaner_x.json",
+        "size_bytes": 5314,
+        "sha256": "f812739120b24abd32560cfc9e96ed5151d91199d5c8fbf3de166a965db07f6f"
+      },
+      {
+        "path": "scripts/harvest.py",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/scripts/harvest.py",
+        "size_bytes": 9007,
+        "sha256": "350be50d667d229eabd2e24d8db2df9f27416e0302fd2ca6bfc0f8edcb2b6eb0"
+      },
+      {
+        "path": "scripts/dare_harvest_run.sh",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/scripts/dare_harvest_run.sh",
+        "size_bytes": 1208,
+        "sha256": "474c7a08f66eb82e8c3159bd52c885ca73aefe6d7c33a42379ea7da669ce3d07"
+      },
+      {
+        "path": "scripts/make_release.py",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/scripts/make_release.py",
+        "size_bytes": 5309,
+        "sha256": "66aaf974f8b7982e9ddfedc45f6d7d1755556cd9763ddf3a5691dcd93694b80b"
+      },
+      {
+        "path": "provenance/masakhaner-ner-LICENSE.txt",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/provenance/masakhaner-ner-LICENSE.txt",
+        "size_bytes": 30929,
+        "sha256": "194aaedc58f2aeaf707b36e727e1d97a86e71c661d5caadfb5f36bd5f461085a"
+      },
+      {
+        "path": "provenance/masakhaner_x_source.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/provenance/masakhaner_x_source.json",
+        "size_bytes": 1445,
+        "sha256": "4894fb6838c60d443ae25ab7c11cc2676788dbb704314ec561a7c5f72328cc1c"
+      },
+      {
+        "path": "data/masakhaner-x/sna/manifest.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/data/masakhaner-x/sna/manifest.json",
+        "size_bytes": 3345,
+        "sha256": "0e0ff754589c73de98122dc71fc8a1f765405ca6b2ed8634908f6272771fad15"
+      },
+      {
+        "path": "data/masakhaner-x/sna/ATTRIBUTION.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/data/masakhaner-x/sna/ATTRIBUTION.md",
+        "size_bytes": 2887,
+        "sha256": "cfaf0459591dd280617b14a450a13750b5910b48131b2774b9e3612313644f06"
+      },
+      {
+        "path": "scripts/fetch_masakhaner_x_jsonl.py",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/scripts/fetch_masakhaner_x_jsonl.py",
+        "size_bytes": 8777,
+        "sha256": "3bfa9dfe976133e1dc6af227cd50572d1fe0442bc5009fb02b06444372cdb5a6"
+      },
+      {
+        "path": "scripts/inspect_dataset.py",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/scripts/inspect_dataset.py",
+        "size_bytes": 18262,
+        "sha256": "0ad0eb48654715dbf6c978f27d955c0162a2fdd5f808891cda9cdf5855ac6dbc"
+      },
+      {
+        "path": "sources/masakhaner_x.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/sources/masakhaner_x.json",
+        "size_bytes": 9072,
+        "sha256": "9f20546133594e79b71aeb5e0101b2add30f903cf6f10cdd73622e3b9652500b"
+      },
+      {
+        "path": "manifests/masakhaner_x.sna.download.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/manifests/masakhaner_x.sna.download.json",
+        "size_bytes": 2278,
+        "sha256": "4be75b522cbe70ad40d1d064657f170519c73af2db0fa5005caea7a6a9c3891a"
+      },
+      {
+        "path": "manifests/masakhaner_x.sna.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/manifests/masakhaner_x.sna.json",
+        "size_bytes": 5106,
+        "sha256": "0a5b03ca8515fb04fbe11ff0160079563f08e489b6124b7805cbeb12b4839b7c"
+      },
+      {
+        "path": "reports/dataset-readiness-20261014.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/dataset-readiness-20261014.json",
+        "size_bytes": 9076,
+        "sha256": "3c4d84103d477f8f2ceb8f6d6859bc40c7b04081e731f6de51d986a45345b5bc"
+      },
+      {
+        "path": "reports/discovery-20261014.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/discovery-20261014.json",
+        "size_bytes": 1580,
+        "sha256": "f2050b251788c6ab17c51caf642183d40038cc8db1212cfd58a83ef6c289b2c8"
+      },
+      {
+        "path": "reports/engine-validation-20261014.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/engine-validation-20261014.json",
+        "size_bytes": 958,
+        "sha256": "601c44a6941aa5301309b2f43c056fc7f5c70400cf50d8ceb8ce22df9b66b834"
+      },
+      {
+        "path": "reports/licensing-masakhaner_x-sna.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/licensing-masakhaner_x-sna.json",
+        "size_bytes": 6066,
+        "sha256": "dd520c85a7b8c77967057672a109d38214c6d7afe0f73f12b22a9cf18f199523"
+      },
+      {
+        "path": "reports/model-evaluation.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/model-evaluation.json",
+        "size_bytes": 18658,
+        "sha256": "394f65e678af633e254927fb66347286fddb5953ce958d51fc84911b3a35e9ed"
+      },
+      {
+        "path": "reports/split-integrity-20261014.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/split-integrity-20261014.json",
+        "size_bytes": 995,
+        "sha256": "11b25c864a373962b260deb56d1b36ca492e00fd89421e7f4a6ec58d86f15e2f"
+      },
+      {
+        "path": "reports/validation-masakhaner_x-sna-20261014.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/validation-masakhaner_x-sna-20261014.json",
+        "size_bytes": 1997,
+        "sha256": "960ebde5bb0259c44c057925889bcc1296b563402919a6dc36c077fbc6acba30"
+      },
+      {
+        "path": "reports/zw-evaluation-framework.json",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/zw-evaluation-framework.json",
+        "size_bytes": 877,
+        "sha256": "92586af952c217cfabbbe0d2b731764df1c422064499c2c281702ab63babb19d"
+      },
+      {
+        "path": "reports/dataset-readiness-20261014.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/dataset-readiness-20261014.md",
+        "size_bytes": 4350,
+        "sha256": "eb189be8f324f9ceaab021d1d17bf3b8bfa3d0e69656009dbb8541145ffcae3b"
+      },
+      {
+        "path": "reports/inspection-masakhaner_x-sna-20261014.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/inspection-masakhaner_x-sna-20261014.md",
+        "size_bytes": 2838,
+        "sha256": "e963953bf88a112d4f7499b8375c1381911a36b43bbffc389fea832d895488ab"
+      },
+      {
+        "path": "reports/licensing-masakhaner_x-sna.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/licensing-masakhaner_x-sna.md",
+        "size_bytes": 4339,
+        "sha256": "772d83c77e327c21ebda69dc84d872c9540b5b9319aee7c63f121571e1135260"
+      },
+      {
+        "path": "reports/model-evaluation.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/model-evaluation.md",
+        "size_bytes": 2651,
+        "sha256": "94afaf481fbb26d496f1d282d40756646d9f700e8a57c13ecfde483d6c204584"
+      },
+      {
+        "path": "reports/validation-masakhaner_x-sna-20261014.md",
+        "arcname": "dare-masakhaner-x-sna-ba5843cd08aa/reports/validation-masakhaner_x-sna-20261014.md",
+        "size_bytes": 2688,
+        "sha256": "43fe857f04915e10678e62eb1fa8e80cd05df0995ce3ddf3c6ab2bac07d121ef"
+      }
+    ]
+  },
+  "tests": {
+    "unittest": "PASS (20 tests)",
+    "validation": "PASS (rc=0)"
+  },
+  "environment": {
+    "python_version": "3.9.25",
+    "python_executable": "/usr/bin/python3",
+    "implementation": "CPython",
+    "platform": "Linux-6.1.188-233.386.amzn2023.x86_64-x86_64-with-glibc2.34",
+    "packages": {
+      "numpy": false,
+      "pandas": false,
+      "scipy": false,
+      "sklearn": false,
+      "torch": false,
+      "tensorflow": false,
+      "transformers": false,
+      "datasets": false,
+      "tokenizers": false,
+      "seqeval": false,
+      "conllu": false,
+      "huggingface_hub": true,
+      "spacy": false,
+      "flair": false,
+      "crfsuite": false
+    },
+    "ml_stack_ready": false
+  },
+  "governance": {
+    "redistribution_default": "metadata-only",
+    "commercial_use": false,
+    "attribution_required": true,
+    "personal_data_review": "required before any speech/voice data use"
+  },
+  "pending_approval_gates": [
+    "Publishing or uploading data/weights (incl. Hugging Face).",
+    "DARE/DSpace ingest (only a metadata proposal has been produced).",
+    "Installing large ML packages or training a transformer model.",
+    "Any use of personal/identifiable speech data."
+  ],
+  "limitations": [
+    "NER figures are simple baselines, not state-of-the-art.",
+    "The averaged perceptron has no Viterbi decoding.",
+    "No Zimbabwe-specific evaluation corpus is shipped.",
+    "Only one Zimbabwean language (chiShona) has been fully validated."
+  ],
+  "reproduce": [
+    "python3 scripts/dare.py discover",
+    "python3 scripts/dare.py catalogue",
+    "python3 scripts/dare.py validate",
+    "python3 scripts/dare.py splits",
+    "python3 scripts/dare.py normalise --split train",
+    "python3 scripts/dare.py ner",
+    "python3 scripts/dare.py dare-export",
+    "python3 -m unittest discover -s tests",
+    "python3 scripts/make_release.py --dataset masakhaner_x"
+  ]
+}

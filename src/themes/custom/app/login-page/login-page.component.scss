@@ -1,0 +1,25 @@
+// DARE login page — inherits the base layout, then swaps the stock DSpace logo
+// for the DARE lockup and balances the standalone authentication layout.
+@import '../../../../app/login-page/login-page.component.scss';
+
+// Center the standalone auth column and keep it comfortable on all viewports.
+.dare-auth-panel {
+  max-width: 30rem;
+  padding: 0 1rem;
+}
+
+// DARE lockup replaces the DSPace repository logo. The DARE logo is a dark
+// lockup on a transparent background, which reads correctly on the white page.
+.dare-login-logo {
+  display: inline-block;
+  height: auto;
+  max-height: 56px;
+  max-width: 100%;
+  width: auto;
+}
+
+@media (max-width: 575.98px) {
+  .dare-login-logo {
+    max-height: 46px;
+  }
+}

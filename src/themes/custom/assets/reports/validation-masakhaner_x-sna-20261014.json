@@ -1,0 +1,78 @@
+{
+  "report_type": "validation",
+  "dataset_id": "masakhaner-x",
+  "language": {
+    "name": "chiShona",
+    "iso639_1": "sn",
+    "iso639_3": "sna",
+    "hf_config": "sn",
+    "record_language_tag": "sna"
+  },
+  "source_revision": "ba5843cd08aa491d5f96a5e809e71eb9ec461391",
+  "licence": "CC-BY-NC-4.0",
+  "commercial_use": false,
+  "generated_at_utc": "2026-10-14T03:48:30Z",
+  "label_set": [
+    "PER",
+    "ORG",
+    "LOC",
+    "DATE"
+  ],
+  "files": [
+    {
+      "path": "data/masakhaner-x/sna/jsonl/train/sn.jsonl",
+      "records": 1441,
+      "errors": [],
+      "duplicate_ids": [],
+      "empty_records": 0,
+      "label_counts": {
+        "DATE": 332,
+        "LOC": 548,
+        "ORG": 1035,
+        "PER": 1035
+      },
+      "span_count": 2950,
+      "size_bytes": 584209,
+      "sha256": "3313b18fc397665d2a52f370292ba5c12d98fdf92b0860e45c162b0df42827b0",
+      "git_blob_sha1": "51fcfb954f2f330e7f6955009c157ba01b639439",
+      "ok": true
+    },
+    {
+      "path": "data/masakhaner-x/sna/jsonl/validation/sn.jsonl",
+      "records": 887,
+      "errors": [],
+      "duplicate_ids": [],
+      "empty_records": 0,
+      "label_counts": {
+        "DATE": 255,
+        "LOC": 415,
+        "ORG": 640,
+        "PER": 727
+      },
+      "span_count": 2037,
+      "size_bytes": 378655,
+      "sha256": "c1e10549860ce753e780cb2589bffcfdb87c058d46ea81f9192651987586f9bd",
+      "git_blob_sha1": "a8052446f96968da1f64be7f42488c1ca5b754c6",
+      "ok": true
+    },
+    {
+      "path": "data/masakhaner-x/sna/jsonl/test/sn.jsonl",
+      "records": 1000,
+      "errors": [],
+      "duplicate_ids": [],
+      "empty_records": 0,
+      "label_counts": {
+        "DATE": 275,
+        "LOC": 496,
+        "ORG": 640,
+        "PER": 763
+      },
+      "span_count": 2174,
+      "size_bytes": 410445,
+      "sha256": "c4f7663958d64871bf5bf6717ad88b193483174563005f4535fb59a8971b7c50",
+      "git_blob_sha1": "0ea5a14f4388db11368b48d57387421e4f5a021a",
+      "ok": true
+    }
+  ],
+  "status": "OK"
+}

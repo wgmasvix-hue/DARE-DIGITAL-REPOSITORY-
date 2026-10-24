@@ -1,0 +1,22 @@
+<ng-container *ngVar="(communitiesRD$ | async) as communitiesRD">
+  @if (communitiesRD?.hasSucceeded ) {
+    <section class="dare-communities mt-5" aria-labelledby="dare-communities-heading">
+      <h2 id="dare-communities-heading" class="dare-section-title">
+        {{'home.top-level-communities.head' | translate}}
+      </h2>
+      <p class="lead dare-communities__help">{{'home.top-level-communities.help' | translate}}</p>
+      <ds-viewable-collection
+        [config]="config"
+        [sortConfig]="sortConfig"
+        [showRSS]="rssSortConfig"
+        [objects]="communitiesRD$ | async"
+        [hideGear]="true">
+      </ds-viewable-collection>
+    </section>
+  }
+  @if (communitiesRD?.hasFailed ) {
+    <ds-error message="{{'error.top-level-communities' | translate}}"></ds-error>
+  }
+  @if (communitiesRD?.isLoading ) {
+    <ds-loading message="{{'loading.top-level-communities' | translate}}"></ds-loading>
+  }</ng-container>

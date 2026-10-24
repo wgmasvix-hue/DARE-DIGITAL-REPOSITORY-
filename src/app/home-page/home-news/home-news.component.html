@@ -1,0 +1,20 @@
+<div class="home-news-content py-4 px-2 py-sm-5 px-sm-0 mt-ncs mb-4">
+  @if (homeNewsMetadataValue$ | async; as homeNewsMetadataValue) {
+    <div class="container">
+      <div class="jumbotron jumbotron-fluid">
+        <ds-markdown-viewer [value]="homeNewsMetadataValue"></ds-markdown-viewer>
+      </div>
+    </div>
+  }
+  @else {
+    <div class="container">
+      <div class="d-flex flex-wrap">
+        <div>
+          <h1 class="display-2">DARE African Knowledge Repository</h1>
+          <p class="lead">African knowledge. African scholarship. A shared intellectual heritage.</p>
+        </div>
+      </div>
+      <p>An Afrocentric, open-access repository preserving and amplifying African scholarship, knowledge and heritage for present and future generations.</p>
+    </div>
+  }
+</div>

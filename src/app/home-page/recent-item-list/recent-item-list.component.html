@@ -1,0 +1,38 @@
+<ng-container *ngVar="(itemRD$ | async) as itemRD">
+  @if (itemRD?.hasSucceeded && itemRD?.payload?.page.length > 0) {
+    <section class="dare-recent mt-5" [ngClass]="placeholderFontClass" @fadeIn>
+      <h2 class="dare-section-title"> {{ 'home.recent-submissions.head' | translate }}</h2>
+      <ul class="list-unstyled m-0 p-0">
+        @for (item of itemRD?.payload?.page; track item) {
+          <li class="my-4">
+            <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="pb-4">
+            </ds-listable-object-component-loader>
+          </li>
+        }
+      </ul>
+      <button (click)="onLoadMore()" class="btn btn-primary search-button mt-4 float-start" role="link" tabindex="0">
+        {{ 'vocabulary-treeview.load-more' | translate }} ...
+      </button>
+    </section>
+  }
+  @if (itemRD?.hasSucceeded && itemRD?.payload?.page.length === 0) {
+    <section class="dare-recent mt-5" aria-labelledby="dare-recent-heading">
+      <h2 id="dare-recent-heading" class="dare-section-title"> {{ 'home.recent-submissions.head' | translate }}</h2>
+      <div class="dare-empty-state">
+        <div class="dare-empty-state__icon fas fa-book-open" aria-hidden="true"></div>
+        <h3 class="dare-empty-state__title h5">No research has been added yet</h3>
+        <p class="mb-0 text-muted">
+          This repository is ready for its first deposits. Explore the communities below
+          or <a href="/browse">browse the collection</a>.
+        </p>
+      </div>
+    </section>
+  }
+  @if (itemRD?.hasFailed) {
+    <ds-error message="{{'error.recent-submissions' | translate}}"></ds-error>
+  }
+  @if (!itemRD || itemRD.isLoading) {
+    <ds-loading message="{{'loading.recent-submissions' | translate}}">
+    </ds-loading>
+  }
+</ng-container>

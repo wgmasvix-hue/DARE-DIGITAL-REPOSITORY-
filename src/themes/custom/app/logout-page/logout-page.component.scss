@@ -1,0 +1,21 @@
+// DARE logout page — replace the stock DSpace logo with the DARE lockup.
+@import '../../../../app/logout-page/logout-page.component.scss';
+
+.dare-auth-panel {
+  max-width: 30rem;
+  padding: 0 1rem;
+}
+
+.dare-login-logo {
+  display: inline-block;
+  height: auto;
+  max-height: 56px;
+  max-width: 100%;
+  width: auto;
+}
+
+@media (max-width: 575.98px) {
+  .dare-login-logo {
+    max-height: 46px;
+  }
+}

@@ -1,0 +1,202 @@
+<section class="dare-lang mt-5" aria-labelledby="dare-lang-heading">
+  <h2 id="dare-lang-heading" class="dare-section-title">
+    {{ 'home.dare-language-datasets.head' | translate }}
+  </h2>
+  <p class="lead dare-lang__help">{{ 'home.dare-language-datasets.help' | translate }}</p>
+
+  <!-- Controls: search + language + publication state --------------------- -->
+  <div class="dare-lang__controls">
+    <div class="dare-lang__search">
+      <label class="visually-hidden" for="dare-lang-search">
+        {{ 'home.dare-language-datasets.search.label' | translate }}
+      </label>
+      <i class="fas fa-search dare-lang__search-icon" aria-hidden="true"></i>
+      <input
+        id="dare-lang-search"
+        type="search"
+        class="form-control dare-lang__search-input"
+        [placeholder]="'home.dare-language-datasets.search.placeholder' | translate"
+        [value]="searchTerm()"
+        (input)="onSearch($event)" />
+    </div>
+
+    <div class="dare-lang__filters" role="group"
+         [attr.aria-label]="'home.dare-language-datasets.filter.languages' | translate">
+      <span class="dare-lang__filter-label">
+        {{ 'home.dare-language-datasets.filter.languages' | translate }}
+      </span>
+      <button type="button" class="dare-chip"
+              [class.dare-chip--active]="activeLanguage() === null"
+              (click)="activeLanguage.set(null)">
+        {{ 'home.dare-language-datasets.filter.all' | translate }}
+      </button>
+      @for (language of languageOptions(); track language.code) {
+        <button type="button" class="dare-chip"
+                [class.dare-chip--active]="activeLanguage() === language.code"
+                [attr.aria-pressed]="activeLanguage() === language.code"
+                (click)="toggleLanguage(language.code)">
+          {{ language.name }}
+          <span class="dare-chip__count">{{ language.count }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="dare-lang__filters" role="group"
+         [attr.aria-label]="'home.dare-language-datasets.filter.state' | translate">
+      <span class="dare-lang__filter-label">
+        {{ 'home.dare-language-datasets.filter.state' | translate }}
+      </span>
+      <button type="button" class="dare-chip"
+              [class.dare-chip--active]="activeState() === null"
+              (click)="activeState.set(null)">
+        {{ 'home.dare-language-datasets.filter.all' | translate }}
+      </button>
+      @for (option of stateOptions(); track option.key) {
+        <button type="button" class="dare-chip"
+                [class.dare-chip--active]="activeState() === option.key"
+                [attr.aria-pressed]="activeState() === option.key"
+                (click)="toggleState(option.key)">
+          {{ stateLabelKey(option.key) | translate }}
+          <span class="dare-chip__count">{{ option.count }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <p class="dare-lang__count" aria-live="polite">
+    {{ filtered().length }} / {{ datasets().length }}
+    {{ 'home.dare-language-datasets.count' | translate }}
+    @if (hasFilters()) {
+      <button type="button" class="btn btn-link btn-sm dare-lang__reset" (click)="clearFilters()">
+        {{ 'home.dare-language-datasets.reset' | translate }}
+      </button>
+    }
+  </p>
+
+  @if (filtered().length > 0) {
+    <ul class="dare-lang__grid list-unstyled">
+      @for (dataset of filtered(); track dataset.id) {
+        <li [class]="'dare-lang-card dare-lang-card--' + dataset.publicationState">
+          <div class="dare-lang-card__head">
+            <h3 class="dare-lang-card__title">{{ dataset.title }}</h3>
+            <span [class]="'dare-lang-card__badge dare-lang-card__badge--' + dataset.publicationState">
+              {{ stateLabelKey(dataset.publicationState) | translate }}
+            </span>
+          </div>
+
+          @if (dataset.task) {
+            <p class="dare-lang-card__task">
+              <i class="fas fa-tasks" aria-hidden="true"></i> {{ dataset.task }}
+            </p>
+          }
+
+          <dl class="dare-lang-card__meta">
+            <div class="dare-lang-card__row">
+              <dt>{{ 'home.dare-language-datasets.field.languages' | translate }}</dt>
+              <dd class="dare-lang-card__langs">
+                @for (language of dataset.languages; track language.code) {
+                  <span class="dare-lang-card__lang">{{ language.name }} ({{ language.code }})</span>
+                }
+              </dd>
+            </div>
+
+            <div class="dare-lang-card__row">
+              <dt>{{ 'home.dare-language-datasets.field.licence' | translate }}</dt>
+              <dd>
+                @if (dataset.licence.url) {
+                  <a [href]="dataset.licence.url" target="_blank" rel="noopener noreferrer">
+                    {{ dataset.licence.spdx || dataset.licence.name }}
+                  </a>
+                } @else {
+                  {{ dataset.licence.spdx || dataset.licence.name || ('home.dare-language-datasets.licence.unknown' | translate) }}
+                }
+                @if (dataset.licence.commercialUse === false) {
+                  <span class="dare-tag">{{ 'home.dare-language-datasets.licence.noncommercial' | translate }}</span>
+                }
+                @if (dataset.licence.commercialUse === true) {
+                  <span class="dare-tag">{{ 'home.dare-language-datasets.licence.commercial' | translate }}</span>
+                }
+                @if (dataset.licence.requiresAttribution) {
+                  <span class="dare-tag">{{ 'home.dare-language-datasets.licence.attribution-required' | translate }}</span>
+                }
+              </dd>
+            </div>
+
+            <div class="dare-lang-card__row">
+              <dt>{{ 'home.dare-language-datasets.field.attribution' | translate }}</dt>
+              <dd>
+                @if (dataset.attribution.curator || dataset.attribution.citation) {
+                  @if (dataset.attribution.curator) { <div>{{ dataset.attribution.curator }}</div> }
+                  @if (dataset.attribution.citation) { <cite>{{ dataset.attribution.citation }}</cite> }
+                } @else {
+                  <span class="text-muted">{{ 'home.dare-language-datasets.attribution.none' | translate }}</span>
+                }
+              </dd>
+            </div>
+
+            <div class="dare-lang-card__row">
+              <dt>{{ 'home.dare-language-datasets.field.provenance' | translate }}</dt>
+              <dd>
+                @if (dataset.provenance.sourceUrl) {
+                  <div>
+                    <a [href]="dataset.provenance.sourceUrl" target="_blank" rel="noopener noreferrer">
+                      <i class="fas fa-link" aria-hidden="true"></i>
+                      {{ dataset.provenance.repository || dataset.provenance.sourceUrl }}
+                    </a>
+                  </div>
+                }
+                @if (dataset.provenance.revision) {
+                  <div class="dare-lang-card__revision">
+                    {{ 'home.dare-language-datasets.provenance.revision' | translate }}
+                    <code>{{ dataset.provenance.revision }}</code>
+                  </div>
+                }
+                @if (dataset.provenance.validationStatus) {
+                  <div class="dare-lang-card__validation">
+                    {{ 'home.dare-language-datasets.field.validation' | translate }}:
+                    <strong>{{ dataset.provenance.validationStatus }}</strong>
+                  </div>
+                }
+              </dd>
+            </div>
+
+            @if (dataset.reportLinks.length > 0) {
+              <div class="dare-lang-card__row">
+                <dt>{{ 'home.dare-language-datasets.field.reports' | translate }}</dt>
+                <dd>
+                  <ul class="list-unstyled mb-0 dare-lang-card__reports">
+                    @for (report of dataset.reportLinks; track report) {
+                      <li>
+                        <a [href]="reportUrl(report)" target="_blank" rel="noopener noreferrer">
+                          <i class="fas fa-file-alt" aria-hidden="true"></i> {{ report }}
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </dd>
+              </div>
+            }
+          </dl>
+
+          @if (dataset.downloadPermitted) {
+            <p class="dare-lang-card__gate dare-lang-card__gate--ok">
+              <i class="fas fa-check-circle" aria-hidden="true"></i>
+              {{ 'home.dare-language-datasets.gate.permitted' | translate }}
+            </p>
+          } @else {
+            <p class="dare-lang-card__gate">
+              <i class="fas fa-lock" aria-hidden="true"></i>
+              {{ 'home.dare-language-datasets.gate.metadata-only' | translate }}
+            </p>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="dare-empty-state" role="status">
+      <div class="dare-empty-state__icon fas fa-language" aria-hidden="true"></div>
+      <h3 class="dare-empty-state__title h5">{{ 'home.dare-language-datasets.empty.head' | translate }}</h3>
+      <p class="mb-0 text-muted">{{ 'home.dare-language-datasets.empty.text' | translate }}</p>
+    </div>
+  }
+</section>

@@ -1,0 +1,20 @@
+// DARE collection page — a branded hero band frames the collection name,
+// handle, logo and introductory text above the browse/search section.
+.dare-comcol-hero {
+  padding: 1.75rem 1.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, rgba(18, 59, 93, .06), rgba(199, 154, 59, .08));
+  border: 1px solid rgba(199, 154, 59, .3);
+  border-radius: var(--dare-radius-lg);
+  border-bottom: 4px solid var(--dare-gold);
+
+  &__logo {
+    margin: .75rem 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .dare-comcol-hero {
+    padding: 1.25rem 1rem;
+  }
+}

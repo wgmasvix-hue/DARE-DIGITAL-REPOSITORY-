@@ -1,0 +1,99 @@
+// ============================================================================
+// DARE African Knowledge Repository — Afrocentric theme
+// Sass variable overrides (Bootstrap + DSpace).
+//
+// All variables must be declared BEFORE the import of `_variables.scss` and
+// must carry the `!default` flag so they can be overridden safely.
+// =============================================================================
+
+/*** DARE PALETTE — institutional navy & gold ***/
+
+// DARE palette - institutional navy & gold per spec
+$dare-indigo:         #123B5D !default;
+$dare-indigo-dark:    #0B2940 !default;
+$dare-indigo-soft:    #1A4D75 !default;
+
+// Deep navy
+$dare-navy:           #0B2940 !default;
+
+// Neutral surfaces
+$dare-ivory:          #FFFFFF !default;
+$dare-ivory-dark:     #F6F8FA !default;
+$dare-sand:           #F6F8FA !default;
+
+// Accents
+$dare-terracotta:     #C79A3B !default;
+$dare-terracotta-dark:#A6832F !default;
+
+// Gold
+$dare-gold:           #C79A3B !default;
+$dare-gold-soft:      #D9B76B !default;
+
+// Green
+$dare-savanna:        #4E7A46 !default;
+
+// Neutrals
+$dare-taupe:          #6B7B8C !default;
+$dare-ink:            #17212B !default;
+$dare-muted:          #6B7B8C !default;
+
+/*** TYPOGRAPHY ***/
+
+$font-family-sans-serif: "Inter", "Segoe UI", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Times New Roman", serif !default;
+$font-family-base: $font-family-sans-serif !default;
+$headings-font-family: $font-family-serif !default;
+$headings-font-weight: 600 !default;
+$headings-color: $dare-indigo-dark !default;
+
+$font-size-base: 1rem !default;
+$line-height-base: 1.65 !default;
+$line-height-sm: 1.4 !default;
+$lead-font-size: 1.18rem !default;
+$lead-font-weight: 400 !default;
+
+/*** SHAPE ***/
+$border-radius:        .5rem !default;
+$border-radius-sm:     .35rem !default;
+$border-radius-lg:     .85rem !default;
+$border-radius-xl:     1.1rem !default;
+$border-radius-pill:   50rem !default;
+
+$card-border-radius:   $border-radius-lg !default;
+$btn-border-radius:    $border-radius-pill !default;
+
+/*** BOOTSTRAP SEMANTIC COLOURS ***/
+
+$primary:   $dare-indigo !default;
+$secondary: $dare-taupe !default;
+$success:   $dare-savanna !default;
+$info:      #356B7A !default;   // muted teal
+$warning:   $dare-gold !default;
+$danger:    $dare-terracotta !default;
+$light:     $dare-ivory !default;
+$dark:      $dare-indigo-dark !default;
+
+$body-bg:    $dare-ivory-dark !default;
+$body-color: $dare-ink !default;
+$body-secondary-color: $dare-muted !default;
+
+$link-color: $dare-indigo !default;
+$link-hover-color: $dare-terracotta !default;
+$link-decoration: none !default;
+$link-hover-decoration: underline !default;
+
+$border-color: rgba(107, 123, 140, .22) !default;
+
+// Add new semantic colors here (they generate .text-* / .bg-* utilities and buttons)
+$theme-custom-semantic-colors: (
+  "dare-indigo": $dare-indigo,
+  "dare-navy": $dare-navy,
+  "dare-terracotta": $dare-terracotta,
+  "dare-gold": $dare-gold,
+  "dare-savanna": $dare-savanna,
+  "dare-ivory": $dare-ivory,
+);
+
+@import '../../../styles/_variables.scss';
+
+$theme-colors: map-merge($theme-colors, $theme-custom-semantic-colors);

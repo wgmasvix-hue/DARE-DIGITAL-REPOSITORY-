@@ -1,0 +1,30 @@
+# Runtime configuration for the DARE African Knowledge Repository UI.
+#
+# NOTE: The REST/UI connection details are provided at runtime via environment
+# variables in docker-compose.yml (DSPACE_REST_*, DSPACE_UI_*). The values
+# below are only fallbacks.
+
+rest:
+  ssl: true
+  host: library.dare.co.zw
+  port: 443
+  nameSpace: /server
+
+# Active theme(s). The first match wins; `custom` is the DARE Afrocentric theme.
+themes:
+  - name: custom
+    headTags:
+      - tagName: link
+        attributes:
+          rel: icon
+          href: assets/custom/images/favicon.svg
+          type: image/svg+xml
+      - tagName: link
+        attributes:
+          rel: apple-touch-icon
+          href: assets/custom/images/favicon.svg
+
+# Social-share (AddToAny) title. Social networks are disabled by default, but
+# the title is embedded in the client config; keep it on-brand.
+addToAnyPlugin:
+  title: DARE African Knowledge Repository

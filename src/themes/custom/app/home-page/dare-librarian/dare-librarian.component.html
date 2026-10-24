@@ -1,0 +1,72 @@
+<section id="dare-librarian" class="dare-librarian" aria-labelledby="dare-librarian-heading">
+  <div class="container">
+    <div class="dare-librarian__panel">
+
+      <header class="dare-librarian__header">
+        <h2 id="dare-librarian-heading" class="dare-librarian__heading">AI Librarian</h2>
+        <p class="dare-librarian__subtitle">
+          Ask a question and get an answer grounded in the DARE catalogue, with
+          citations to the records used.
+        </p>
+      </header>
+
+      <div class="dare-librarian__log" role="log" aria-live="polite"
+           aria-label="Conversation with the DARE AI Librarian">
+        @for (msg of messages(); track $index) {
+          <div class="dare-librarian__msg"
+               [class.dare-librarian__msg--user]="msg.role === 'user'"
+               [class.dare-librarian__msg--bot]="msg.role === 'bot'">
+            <div class="dare-librarian__role">
+              {{ msg.role === 'user' ? 'You' : 'DARE AI Librarian' }}
+            </div>
+            <div class="dare-librarian__text">{{ msg.text }}</div>
+            @if (msg.insufficient) {
+              <div class="dare-librarian__note">
+                No clearly supporting record was found.
+              </div>
+            }
+            @if (msg.citations && msg.citations.length > 0) {
+              <ul class="dare-librarian__sources" aria-label="Sources">
+                @for (c of msg.citations; track c.n) {
+                  <li class="dare-librarian__source">
+                    <span class="dare-librarian__n">[{{ c.n }}]</span>
+                    <span class="dare-librarian__title">{{ c.title }}</span>
+                    <span class="dare-librarian__meta">
+                      {{ authorLine(c) }} · {{ c.year || 'n.d.' }}
+                    </span>
+                    <a class="dare-librarian__link" [href]="c.url"
+                       target="_blank" rel="noopener noreferrer">{{ c.url }}</a>
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        }
+        @if (loading()) {
+          <div class="dare-librarian__loading" aria-live="polite">
+            Searching the DARE catalogue…
+          </div>
+        }
+      </div>
+
+      <div class="dare-librarian__suggestions" aria-label="Example questions">
+        @for (s of suggestions; track s) {
+          <button type="button" class="dare-librarian__chip"
+                  (click)="ask(s)" [disabled]="loading()">{{ s }}</button>
+        }
+      </div>
+
+      <form class="dare-librarian__composer" (submit)="onSubmit($event)">
+        <label class="visually-hidden" for="dare-librarian-input">Your question</label>
+        <textarea id="dare-librarian-input" rows="1" maxlength="512"
+          [value]="question()" (input)="onInput($event)" (keydown)="onKeydown($event)"
+          placeholder="Ask about books, articles, research or datasets…" required></textarea>
+        <button type="submit" class="dare-librarian__send" [disabled]="loading()">Ask</button>
+      </form>
+      <p class="dare-librarian__disclaimer">
+        Answers are grounded in DARE catalogue records and may be limited to
+        bibliographic metadata. Always verify details against the linked source.
+      </p>
+    </div>
+  </div>
+</section>

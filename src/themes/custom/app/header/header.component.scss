@@ -1,0 +1,37 @@
+// DARE header — imports the base component styles, then brands the bar
+@import '../../../../app/header/header.component.scss';
+
+:host {
+  header {
+    background-color: var(--dare-indigo);
+    background-image:
+      linear-gradient(90deg, rgba(199,154,59,.0) 0%, rgba(199,154,59,.10) 50%, rgba(199,154,59,.0) 100%);
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+    color: var(--dare-ivory);
+  }
+
+  // The vector DARE lockup is light-on-dark (white wordmark + brass shield), so
+  // it sits directly on the indigo bar — no light plate is needed. Keeping it as
+  // SVG also removes a ~900KB PNG from the critical rendering path.
+  .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    padding: .2rem .5rem .2rem 0;
+    background: none;
+    border-radius: 0;
+  }
+
+  .navbar-brand img {
+    max-height: var(--ds-header-logo-height);
+    width: auto;
+    height: auto;
+    max-width: 100%;
+  }
+
+  // account / language / help icons sit on the indigo bar
+  .navbar,
+  div[role="toolbar"] {
+    color: var(--dare-ivory);
+  }
+}
